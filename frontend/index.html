@@ -33,16 +33,25 @@
     </div>
 
     <div class="content-container">
-        <div class="project-info-container">
-            <div class="project-image">
+        <div class="project-info-container" id="projectInfoContainer">
+            <div class="side1" id="side1">
+                <div class="project-title"></div>
+                <div class="project-image" id="projectImage">
+                    <img src="" >
+                </div>
 
             </div>
+
+            <div class="side2" id="side2">
+               
+            </div>
+          
             
         </div>
-        <div class="projects-container">
+        
+        <div class="projects-container" id="projectsContainer">
             <div class="project-listing">
-                <h5 class="project-info">project title</h5>
-                <h5 class="project-info">project author</h5>
+                
             </div>
         </div>
 
@@ -52,15 +61,17 @@
 
    </div>
 
-    <i class="fa-brands fa-twitter"></i>
-    <i class="fa-brands fa-instagram"></i>
-    <i class="fa-brands fa-linkedin"></i>
-    <i class="fa-brands fa-github"></i>
-    <i class="fa-solid fa-globe"></i>
+   <div class="background-blur hidden" id="backgroundBlur">
+
+   </div>
+
+   
 
 
     <!-- fontawesome js -->
     <script src="https://kit.fontawesome.com/437294f736.js" crossorigin="anonymous"></script>
+    <!-- JQuery -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <!-- custom js -->
     <script src="./js/index.js"></script>
 </body>
