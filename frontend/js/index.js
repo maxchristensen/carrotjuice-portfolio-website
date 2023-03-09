@@ -1,4 +1,220 @@
 /*jshint esversion: 6 */
+$(document).ready(function() {
+    let url;
+
+
+// Get Config.Json and variable from it
+$.ajax({
+    url: 'config.json',
+    type: 'GET',
+    dataType: 'json',
+    success: function(configData){
+        console.log(configData.SERVER_URL, configData.SERVER_PORT);
+        url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
+        console.log('working');
+       getAllProjects();
+       
+    },
+    error: function(error){
+        console.log(error);
+    }
+});
+
+function getAllProjects () {
+
+    $.ajax({
+        url: `http://${url}/allPortfolios`,
+        type: 'GET',
+        dataType: 'json',
+        success: function(productsFromMongo) {
+            let projectsContainer =  document.getElementById('projectsContainer');
+           projectsContainer.innerHTML = '';
+
+            for(let i = 0; i < productsFromMongo.length; i++ ){
+                let project = productsFromMongo[i];
+                let createdBy = productsFromMongo[i].user_id;
+                // console.log(productsFromMongo[i]);
+
+            
+                
+                // console.log(authorId);
+
+                
+
+                
+                    
+                projectsContainer.innerHTML += `
+                <div class="project-listing " data-id=${project._id}>
+                <h6 class="project-info">${project.title}</h6>
+                <h6 class="project-info author">${project.author}</h6>
+            </div>
+                `;
+                openProject();
+                
+            }
+        },
+        error: function() {
+            alert('unable to get products');
+        }
+    });
+    
+}
+
+function openProject() {
+    let allListings =  document.querySelectorAll('.project-listing');
+    let listings = Array.from(allListings);
+
+    
+
+    listings.forEach(function(listing){
+        listing.addEventListener('click', function (){
+            console.log('clicked');
+            let projectID = listing.dataset.id;
+            getSingleProject(projectID)
+
+        });
+        listing.addEventListener('mouseover', function(){
+            let projectID = listing.dataset.id;
+            singleProjectHover(projectID)
+        })
+        listing.addEventListener('mouseout', function(){
+            let image = document.getElementById('projectImage');
+           image.innerHTML = `
+           <img src="" >
+           `
+        })
+    })
+}
+
+function singleProjectHover(id){
+    $.ajax({
+        url: `http://${url}/singlePortfolio/${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (portfolio){
+           let image = document.getElementById('projectImage');
+           image.innerHTML = `
+           <img src="${portfolio.imageURL}" >
+           `
+
+           
+        },
+        error: function() {
+            alert('its not working');
+        }
+
+
+})
+
+}
+
+function getSingleProject(id){
+
+    $.ajax({
+        url: `http://${url}/singlePortfolio/${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (portfolio){
+            let projectInfoContainer = document.getElementById('projectInfoContainer')
+            let side1 = document.getElementById('side1');
+            let side2 = document.getElementById('side2');
+            let linksContainer = document.getElementById('linksContainer');
+
+            getUser(portfolio.user_id);
+            let authorTwitter = sessionStorage.getItem('currentAuthorTwitter');
+            let authorGit = sessionStorage.getItem('currentAuthorGitLink')
+
+            // console.log(author);
+
+
+            side1.innerHTML = `
+            <div class="project-title"><h4>${portfolio.title}</h4></div>
+            <div class="project-image">
+                <img src="${portfolio.imageURL}" >
+            </div>
+            `
+
+           side2.innerHTML = `
+           <div class="project-author student-name"><h3>${portfolio.author}</h3></div>
+           <div class="project-description">
+               <p>${portfolio.description}</p>
+               
+           </div>
+           <div class="links-container" id="linksContainer">
+           <i class="fa-brands fa-instagram"></i>
+           <i class="fa-brands fa-linkedin"></i>
+           <i class="fa-brands fa-github"></i>
+           <i class="fa-solid fa-globe"></i>
+                
+                </div>
+           `
+
+        //    if(!author.twitter == ' '){
+        //     linksContainer.innerHTML += `
+        //     <a href="${author.twitter}"><i class="fa-brands fa-twitter"></i></a>
+        //     `
+
+        //    } if(!author.instagram == ' '){
+        //     linksContainer.innerHTML += `
+        //     <a href="${author.instagram}"><i class="fa-brands fa-instagram"></i></a>
+        //     `
+        //    } if(!author.linkedIn == ' '){
+        //     linksContainer.innerHTML += `
+        //     <a href="${author.linkedIn}"><i class="fa-brands fa-linkedin"></i></a>
+        //     `
+
+        //    } 
+        // if(!authorGit == ' '){
+        //     linksContainer.innerHTML += `
+        //     <a href="${authorGit}"><i class="fa-brands fa-github"></i></a>
+        //     `
+            
+        //    } 
+        //    if(!author.externalSite == ''){
+        //     linksContainer.innerHTML += `
+        //     <a href="${author.externalSite}"><i class="fa-brands fa-globe"></i></a>
+        //     `
+        //    }
+           
+       
+
+        },
+        error: function() {
+            alert('unable to get products');
+        }
+
+
+})
+}
+
+function getUser(id){
+
+    let author;
+
+    $.ajax({
+        url: `http://${url}/singleUser/${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (user){
+           
+            sessionStorage.setItem('currentAuthorTwitter', user.twitter);
+            sessionStorage.setItem('currentAuthorTwitter', user.instagram);
+            sessionStorage.setItem('currentAuthorGitLink', user.gitLink);
+
+
+        },
+        error: function() {
+            alert('unable to get user');
+        }
+
+
+})
+;
+
+;
+}
+
+
 
 
 
@@ -37,6 +253,7 @@ function tabsClickable (){
            
             changeTab(tabName)
         })
+        
     })
 }
 
@@ -46,14 +263,30 @@ function tabsClickable (){
 
 document.getElementById('sidenavTab').addEventListener('click', function (){
     const sideNav = document.getElementById('sidenav');
+    const backgroundBlur = document.getElementById('backgroundBlur')
 
     if (!sideNav.classList.contains('open')){
+        backgroundBlur.classList.remove('hidden')
         sideNav.classList.remove('closed')
         sideNav.classList.add('open')
     } else {
+        backgroundBlur.classList.add('hidden')
         sideNav.classList.remove('open')
         sideNav.classList.add('closed')
+       
     }
     
 }) ;
 tabsClickable();
+
+
+
+// ------------ VISUALS -----------------
+
+
+});
+
+
+
+
+

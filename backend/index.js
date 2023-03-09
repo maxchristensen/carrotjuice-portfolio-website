@@ -48,6 +48,11 @@ app.get('/allPortfolios', (req, res) => {
         res.send(result)
     });
 });
+app.get('/allUsers', (req, res) => {
+    User.find().then(result => {
+        res.send(result)
+    });
+});
 // -----------end of all portfolios--------------
 
 // --------------single portfolio by id-----------------
@@ -58,6 +63,8 @@ app.get('/singlePortfolio/:id', (req,res) => {
     });
 });
 // ---------end of single portfolio---------------
+
+
 
 // -----------add new portfolio from front end form---------------
 app.post('/addPortfolio', (req, res) => {
@@ -132,3 +139,10 @@ app.post('/loginUser', (req, res) => {
     }); 
 });
 // ---------------end of login-----------------
+
+app.get('/singleUser/:id', (req,res) => {
+    const idParam = req.params.id;
+    User.findById(idParam).then(result => {
+        res.send(result)
+    });
+});
