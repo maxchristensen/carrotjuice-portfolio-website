@@ -42,15 +42,15 @@ app.listen(port, () => console.log(`my fullstack app is listening on port ${port
 
 // ----------product endpoints---------
 
-// Get all porfolios endpoint
-
+//-------------all portfolios----------------
 app.get('/allPortfolios', (req, res) => {
     Portfolio.find().then(result => {
         res.send(result)
-    })
-})
+    });
+});
+// -----------end of all portfolios--------------
 
-
+// --------------single portfolio by id-----------------
 app.get('/singlePortfolio/:id', (req,res) => {
     const idParam = req.params.id;
     Portfolio.findById(idParam).then(result => {
@@ -94,7 +94,7 @@ app.patch('/updatePortfolio/:id', (req, res) => {
         }).catch(err => res.send(err))
     })
 })
-// -------------edit portfolio end----------------
+//------------end of edit
 
 // ---------------delete portfolio
 app.delete('/deletePortfolio/:id', (req, res) => {
