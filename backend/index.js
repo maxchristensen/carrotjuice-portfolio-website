@@ -98,7 +98,7 @@ app.patch('/updatePortfolio/:id', (req, res) => {
 // ---------------delete portfolio
 app.delete('/deletePortfolio/:id', (req, res) => {
     const idParam = req.params.id;
-    Product.findOne({
+    Portfolio.findOne({
         _id: idParam
     }, (err, portfolio) => {
         if (portfolio) {
