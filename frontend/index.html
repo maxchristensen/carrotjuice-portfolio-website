@@ -12,7 +12,17 @@
 <body>
 
     <div class="sidenav closed" id="sidenav">
+        <div class="login-form">
+            <h3>Welcome to CarrotJuice</h3>
+            <input class="input" type="text" placeholder="username">
+            <input type="password" placeholder="password">
+
+        </div>
         <div class="tab-button" id="sidenavTab">login</div>
+    </div>
+
+    <div class="title-container">
+        <div class="title"><h2>WUX 2207</h2></div>
     </div>
 
    <div class="main-container">
@@ -20,14 +30,14 @@
     <!-- Contains all tabs for navigation -->
     <div class="tabs-container">
         <!-- Active denotes current selected tab - removes bottom border -->
-        <div class="tab all-border active" id="tabAll"> all</div> 
-        <div class="tab marian-border" id="tabMarian" >M. Arnot</div>
-        <div class="tab max-border" id="tabMax">M. Christensen</div>
-        <div class="tab christine-border" id="tabChristine">C. Hudson</div>
-        <div class="tab david-border" id="tabDavid">D. Lewis</div>
-        <div class="tab sam-border" id="tabSam">S. Mitchell</div>
-        <div class="tab patricia-border" id="tabPatricia">P. Solis</div>
-        <div class="tab india-border" id="tabIndia">I. Storey</div>
+        <div class="tab all-border active" data-name="all" id="tabAll"> all</div> 
+        <div class="tab marian-border" data-name="marian" id="tabMarian" >M. Arnot</div>
+        <div class="tab max-border" data-name="max" id="tabMax">M. Christensen</div>
+        <div class="tab christine-border" data-name="christine" id="tabChristine">C. Hudson</div>
+        <div class="tab david-border" data-name="david" id="tabDavid">D. Lewis</div>
+        <div class="tab sam-border" data-name="sam" id="tabSam">S. Mitchell</div>
+        <div class="tab patricia-border" data-name="patricia" id="tabPatricia">P. Solis</div>
+        <div class="tab india-border" data-name="india" id="tabIndia">I. Storey</div>
         
 
     </div>
@@ -51,7 +61,7 @@
         
         <div class="projects-container" id="projectsContainer">
             <div class="project-listing">
-                
+               
             </div>
         </div>
 
