@@ -1,12 +1,53 @@
 @import 'layout';
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700;1,900&family=Public+Sans:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Gloock&family=Public+Sans:ital,wght@0,100;0,400;0,700;0,900;1,100;1,400;1,700;1,900&display=swap');
+// SITE COLOURS
+// BLACK & WHITE
+$black: #121113;
+$white: #F7F7F2;
+// TABS
+$all: #F4ACB7;
+$marian: #FE5F55;
+$max: #F17F29;
+$christine: #FFF15C;
+$david: #8DE2A9;
+$sam: #5299D3;
+$patricia: #AB5F8F;
+$india: #3B293D;
+
+// SETTING FONTS
+h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Public Sans', sans-serif;
+    font-family: 'Public Sans', sans-serif;
+}
 
 h1 {
-    color: orange;
-    font-family: 'Public Sans', sans-serif;
-    font-family: 'Public Sans', sans-serif;
-
+    font-size: 56px;
+    font-weight: 900;
+}
+h2 {
+    font-size: 48px;
+    font-weight: 900;
+}
+h3 {
+    font-size: 36px;
+    font-weight: 700;
+}
+h4 {
+    font-size: 28px;
+    font-weight: 700;
+}
+h5 {
+    font-size: 24px;
+    font-weight: 400;
+}
+h6 {
+    font-size: 18px;
+    font-weight: 400;
+}
+p {
+    font-size: 16px;
+    font-weight: 300;
 }
 
 * {
@@ -30,7 +71,6 @@ body {
     width: 100vw;
     overflow-y: hidden;
     scroll-behavior: smooth;
-
 }
 
 
@@ -111,6 +151,7 @@ body {
 .project-image{
 
 }
+
 .projects-container{
     @include flex-column;
     position: relative;
@@ -133,4 +174,10 @@ body {
 
 .project-info{
     margin: 2%;
+}
+
+.student-name {
+    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
 }
