@@ -49,3 +49,86 @@ app.get('/allPortfolios', (req, res) => {
         res.send(result)
     })
 })
+
+
+app.get('/singlePortfolio/:id', (req,res) => {
+    const idParam = req.params.id;
+    Portfolio.findById(idParam).then(result => {
+        res.send(result)
+    });
+});
+// ---------end of single portfolio---------------
+
+// -----------add new portfolio from front end form---------------
+app.post('/addPortfolio', (req, res) => {
+    const dbPortfolio = new Portfolio({
+        _id: mongoose.Schema.Types.ObjectId,
+        title: req.body.title,
+        description: req.body.description,
+        imageUrl: req.body.imageUrl,
+        siteUrl: req.body.siteUrl,
+        creationDate: req.body.creationDate,
+        user_id: req.body.user_id
+    });
+    dbPortfolio.save().then(result => {
+        res.send(result);
+    }).catch(err => res.send(err))
+});
+// ----------------add new portfolio from frontend end-------------
+
+// ------------------edit portfolio-----------------
+app.patch('/updatePortfolio/:id', (req, res) => {
+    const idParam = req.params.id;
+    Portfolio.findById(idParam, (err, portfolio) => {
+        const updatedPortfolio = {
+            title: req.body.title,
+            description: req.body.description,
+            imageUrl: req.body.imageUrl,
+            siteUrl: req.body.siteUrl,
+        }
+        Portfolio.updateOne({
+            _id: idParam
+        }, updatedPortfolio).
+        then(result => {
+            res.send(result)
+        }).catch(err => res.send(err))
+    })
+})
+// -------------edit portfolio end----------------
+
+// ---------------delete portfolio
+app.delete('/deletePortfolio/:id', (req, res) => {
+    const idParam = req.params.id;
+    Portfolio.findOne({
+        _id: idParam
+    }, (err, portfolio) => {
+        if (portfolio) {
+            Portfolio.deleteOne({
+                _id: idParam
+            }, err => {
+                console.log('deleted on backend request');
+            });
+        } else {
+            alert('Not found');
+        }
+    }).catch(err => res.send(err));
+}) //-------------end of delete portfolio--------------
+
+// -----------------------------LOGIN USER-------------------
+app.post('/loginUser', (req, res) => {
+    User.findOne({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
+    }, (err, userResult) => {
+        if (userResult) {
+            if (bcrypt.compareSync(req.body.password, userResult.password)) {
+                res.send(userResult);
+            } else {
+                res.send('not authorised');
+            }
+        } else {
+            res.send('user not found. Please contact site administrator');
+        } 
+    }); 
+});
+// ---------------end of login-----------------
