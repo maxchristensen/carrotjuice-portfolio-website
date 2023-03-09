@@ -21,7 +21,7 @@ $.ajax({
 });
 
 function getAllProjects () {
-
+   
     $.ajax({
         url: `http://${url}/allPortfolios`,
         type: 'GET',
@@ -33,20 +33,27 @@ function getAllProjects () {
             for(let i = 0; i < productsFromMongo.length; i++ ){
                 let project = productsFromMongo[i];
                 let createdBy = productsFromMongo[i].user_id;
-                // console.log(productsFromMongo[i]);
+                let projectNumber;
+                if (i < 9){
+                    projectNumber = "0" + (i+1)
 
-            
-                
-                // console.log(authorId);
-
-                
-
-                
+                } else {
+                    projectNumber = i+1;
+                }
+               
+               
                     
                 projectsContainer.innerHTML += `
                 <div class="project-listing " data-id=${project._id}>
-                <h6 class="project-info">${project.title}</h6>
-                <h6 class="project-info author">${project.author}</h6>
+
+                <div class="name-container">
+                    <h6 class="project-info number">${projectNumber}.</h6>
+                <h6 class="project-info title">${project.title}</h6>
+                </div>
+                
+                
+                <h6 class="project-info author"> ${project.author}</h6>
+               
             </div>
                 `;
                 openProject();
@@ -100,7 +107,7 @@ function singleProjectHover(id){
            
         },
         error: function() {
-            alert('its not working');
+            // alert('its not working');
         }
 
 
