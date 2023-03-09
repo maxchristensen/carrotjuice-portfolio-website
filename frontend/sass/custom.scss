@@ -146,7 +146,7 @@ body {
     border-style: solid;
     height: 90%;
     top: 10%;
-
+    font-size: 0.8rem;
     text-transform: uppercase;
     font-family: 'Public Sans', sans-serif;
 }
@@ -156,7 +156,9 @@ body {
     transition: all 0.5s ease;
     
 }
-
+.tab:hover{
+    cursor: pointer;
+}
 .content-container{
     @include flex-column;
     border-left: 2px solid black;
@@ -204,3 +206,13 @@ body {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
 }
+
+// STUDENT TAB COLOURS
+.all-border {border-color: $all;}
+.marian-border {border-color: $marian;}
+.max-border {border-color: $max;}
+.christine-border {border-color: $christine;}
+.david-border {border-color: $david;}
+.sam-border {border-color: $sam;}
+.india-border {border-color: $india;}
+.patricia-border {border-color: $patricia;}
