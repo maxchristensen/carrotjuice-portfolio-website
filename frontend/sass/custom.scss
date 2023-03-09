@@ -64,23 +64,41 @@ body {
     position: relative;
     height: 94vh;
     width: 95vw;
-    border: 5px solid black;
+    // border: 5px solid black;
     top: 3vh;
     left: 4vw;
 
 }
 
 .tabs-container{
+    @include flex-row;
     position: relative;
     height: 7%;
     width: 100%;
-    border-bottom: 5px solid black;
+    // border-bottom: 5px solid black;
     top: 0;
+}
+.tab{
+    @include center-items;
+    text-transform: uppercase;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    width: 11.11%;
+    border: 2px 2px 2px 2px;
+    border-color: black;
+    border-style: solid;
+    height: 90%;
+    top: 10%;
+}
+.tab.active{
+    border-bottom: none;
 }
 
 .content-container{
     @include flex-column;
-    
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
     position: relative;
     height: 93%;
 }
@@ -91,12 +109,12 @@ body {
 }
 
 .project-image{
-    
+
 }
 .projects-container{
     @include flex-column;
     position: relative;
-    border-top: 5px solid black;
+   
     height: 50%;
     overflow: scroll;
 }
@@ -104,7 +122,9 @@ body {
 .project-listing{
     @include flex-row;
     position: relative;
-    border: 2px solid black;
+    text-transform: uppercase;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
     width: 100%;
     height: 15%;
    align-items: center;

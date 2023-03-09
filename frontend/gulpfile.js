@@ -5,7 +5,7 @@ var gulp = require('gulp');
  	connect = require('gulp-connect');
  	jshint = require('gulp-jshint');
   rename = require('gulp-rename');
-  minifyCss = require('gulp-minify-css');
+  // minifyCss = require('gulp-minify-css');
 
 // Server Task
 function serve (done) {
@@ -22,7 +22,7 @@ function styles (done) {
     gulp.src('sass/custom.scss')
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(rename({suffix: '.min'}))
-        .pipe(minifyCss({processImport: false}))
+        // .pipe(minifyCss({processImport: false}))
         .pipe(gulp.dest('css/'))
         .pipe(connect.reload());
 				done();
