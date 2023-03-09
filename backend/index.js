@@ -93,12 +93,13 @@ app.patch('/updatePortfolio/:id', (req, res) => {
             res.send(result)
         }).catch(err => res.send(err))
     })
-}) // -------------edit portfolio end----------------
+})
+//------------end of edit
 
 // ---------------delete portfolio
 app.delete('/deletePortfolio/:id', (req, res) => {
     const idParam = req.params.id;
-    Product.findOne({
+    Portfolio.findOne({
         _id: idParam
     }, (err, portfolio) => {
         if (portfolio) {
