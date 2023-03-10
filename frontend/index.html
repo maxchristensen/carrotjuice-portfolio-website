@@ -14,8 +14,18 @@
     <div class="sidenav closed" id="sidenav">
         <div class="login-form">
             <h3>Welcome to CarrotJuice</h3>
-            <input class="input" type="text" placeholder="username">
-            <input type="password" placeholder="password">
+
+            <div id="inputUserDetails" class="input-user-details">
+                <br>
+                <input class="input" type="text" id="loginUser" placeholder="username">
+                <input class="input" type="password" placeholder="password">
+                <br><br>
+                <button class="login-button" id="submitLogin">Submit</button>
+            </div>
+
+            <div id="loginMessage" class="login-message">
+                <!-- Login message rendered in JS -->
+            </div> 
 
         </div>
         <div class="tab-button" id="sidenavTab">login</div>
