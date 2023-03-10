@@ -140,6 +140,8 @@ function populatingContent(portfolio){
     let side1 = document.getElementById('side1');
     let side2 = document.getElementById('side2');
     let linksContainer = document.getElementById('linksContainer');
+
+
     console.log('in populating');
     console.log(currentSelectedUser);
 
@@ -194,36 +196,35 @@ function populatingContent(portfolio){
 
 }
 
-// function setCurrentSelectedUser(id){
-
+async function setCurrentSelectedUser(id){
     
-//     $.ajax({
-//         url: `http://${url}/allUsers`,
-//         type: 'GET',
-//         dataType: 'json',
-//         success: function (students){
-//             for(let i = 0; i < students.length; i++ ){
-//                 console.log('in success');
-//                 let student = students[i];
-//                 // console.log(student);
-//                 // console.log(id);
+    $.ajax({
+        url: `http://${url}/allUsers`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (students){
+            for(let i = 0; i < students.length; i++ ){
+                console.log('in success');
+                let student = students[i];
+                // console.log(student);
+                // console.log(id);
 
-//                 if(id == student._id){
-//                     // console.log(student);
+                if(id == student._id){
+                    // console.log(student);
                     
-//            currentSelectedUser = new user(student.id, student.firstName, student.lastName, student.email, student.password, student.userImage, student.git, student.twitter, student.instagram, student.linkedin, student.external)
-//         //    console.log(currentSelectedUser);
-//                 }
+           currentSelectedUser = new user(student.id, student.firstName, student.lastName, student.email, student.password, student.userImage, student.git, student.twitter, student.instagram, student.linkedin, student.external)
+        //    console.log(currentSelectedUser);
+                }
 
 
-//             }
+            }
 
-//         },
-//         error: function() {
-//             alert('unable to get user');
-//         }
-// });
-// }
+        },
+        error: function() {
+            alert('unable to get user');
+        }
+});
+}
 
 function openProject() {
     let allListings =  document.querySelectorAll('.project-listing');
