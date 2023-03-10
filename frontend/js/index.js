@@ -305,8 +305,7 @@ function getSingleStudentProjects(userID) {
     });
 }
 
-
-function tabsClickable (){
+    // ------------ VISUALS -----------------
 
 
     function tabsClickable() {
@@ -347,7 +346,7 @@ function tabsClickable (){
 
 
 
-    // ------------ VISUALS -----------------
+
 
 
 });
