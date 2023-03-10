@@ -40,7 +40,7 @@ mongoose.connect(`mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@cl
 
 app.listen(port, () => console.log(`my fullstack app is listening on port ${port}`)) //sent to nodemon - checking serverclear
 
-// ----------product endpoints---------
+// ----------portfolio endpoints---------
 
 //-------------all portfolios----------------
 app.get('/allPortfolios', (req, res) => {
