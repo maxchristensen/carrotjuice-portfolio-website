@@ -238,16 +238,76 @@ $(document).ready(function () {
     function changeTab(tabName) {
 
 
-        let prevTab = document.getElementById(activeTab);
-        prevTab.classList.remove('active');
-        activeTab = tabName;
-        let tab = document.getElementById(activeTab);
-        tab.classList.add('active');
-        console.log(`tab ${activeTab} is selected`);
 
+    let prevTab = document.getElementById(activeTab);
+    prevTab.classList.remove('active');
+    activeTab = tabName;
+    let tab = document.getElementById(activeTab);
+    tab.classList.add('active');
+    console.log(`tab ${activeTab} is selected`);
+    let userID = tab.dataset.userid;
 
-
+    if (activeTab === 'tabAll') {
+        getAllProjects();
+    } else {
+        getSingleStudentProjects(userID);
     }
+    
+}
+
+function getSingleStudentProjects(userID) {
+    $.ajax({
+        url: `http://${url}/allPortfolios`,
+        type: 'GET',
+        dataType: 'json',
+        success: function(productsFromMongo) {
+            let projectsContainer =  document.getElementById('projectsContainer');
+           projectsContainer.innerHTML = '';
+
+            for(let i = 0; i < productsFromMongo.length; i++ ){
+                let project = productsFromMongo[i];
+                let createdBy = productsFromMongo[i].user_id;
+                let projectNumber;
+
+
+                if (userID === createdBy) {
+                    if (i < 9){
+                        projectNumber = "0" + (i+1)
+    
+                    } else {
+                        projectNumber = i+1;
+                    }
+                   
+                   
+                        
+                    projectsContainer.innerHTML += `
+                    <div class="project-listing " data-id=${project._id}>
+    
+                    <div class="name-container">
+                        <h6 class="project-info number">${projectNumber}.</h6>
+                    <h6 class="project-info title">${project.title}</h6>
+                    </div>
+                    
+                    
+                    <h6 class="project-info author"> ${project.author}</h6>
+                   
+                </div>
+                    `;
+                    openProject(); 
+                }
+                
+                
+            }
+        },
+        error: function() {
+            alert('unable to get products');
+        }
+    });
+}
+
+
+function tabsClickable (){
+
 
     function tabsClickable() {
 
