@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 $(document).ready(function() {
     let url;
+    let currentSelectedUser;
 
 
 // Get Config.Json and variable from it
@@ -14,11 +15,28 @@ $.ajax({
         console.log('working');
        getAllProjects();
        
+
+       
     },
     error: function(error){
         console.log(error);
     }
 });
+
+
+function user (id, firstName, lastName, email, password, userImage, git, twitter, instagram, linkedin, external ){
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.password = password;
+    this.userImage = userImage;
+    this.git = git;
+    this.twitter = twitter;
+    this.instagram = instagram;
+    this.linkedin = linkedin;
+    this.external = external;
+}
 
 function getAllProjects () {
    
@@ -40,9 +58,7 @@ function getAllProjects () {
                 } else {
                     projectNumber = i+1;
                 }
-               
-               
-                    
+                 
                 projectsContainer.innerHTML += `
                 <div class="project-listing " data-id=${project._id}>
 
@@ -67,6 +83,148 @@ function getAllProjects () {
     
 }
 
+
+
+
+function getSingleProject(id){
+
+    $.ajax({
+        url: `http://${url}/singlePortfolio/${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (portfolio){
+            
+            let userID = portfolio.user_id;
+// retrieving and setting current user details
+            $.ajax({
+                url: `http://${url}/allUsers`,
+                type: 'GET',
+                dataType: 'json',
+                success: function (students){
+                    for(let i = 0; i < students.length; i++ ){
+                        
+                        let student = students[i];
+                        
+                        if(userID == student._id){
+                            currentSelectedUser = new user(student.id, student.firstName, student.lastName, student.email, student.password, student.userImage, student.git, student.twitter, student.instagram, student.linkedin, student.external)
+                            console.log(currentSelectedUser);
+                        }
+        
+        
+                    }
+        
+                },
+                error: function() {
+                    alert('unable to get user');
+                }
+        });
+        populatingContent(portfolio);
+        
+
+        },
+        error: function() {
+            alert('unable to get products');
+        }
+
+        
+
+})
+
+
+}
+
+
+
+function populatingContent(portfolio){
+    let projectInfoContainer = document.getElementById('projectInfoContainer')
+    let side1 = document.getElementById('side1');
+    let side2 = document.getElementById('side2');
+    let linksContainer = document.getElementById('linksContainer');
+    console.log('in populating');
+    console.log(currentSelectedUser);
+
+    side1.innerHTML = `
+    <div class="project-title"><h4>${portfolio.title}</h4></div>
+    <div class="project-image">
+        <img src="${portfolio.imageURL}" >
+    </div>
+    `
+
+   side2.innerHTML = `
+   <div class="project-author student-name">${portfolio.author}</div>
+   <div class="project-description">
+       <p>${portfolio.description}</p>
+       
+   </div>
+   <div class="links-container" id="linksContainer">
+
+        
+        </div>
+   `
+   
+    //   if(typeof currentSelectedUser.twitter !== 'undefined'){
+    //         linksContainer.innerHTML += `
+    //         <a href="${currentSelectedUser.twitter}"><i class="fa-brands fa-twitter"></i></a>
+    //         `
+
+    //        } 
+           if(!currentSelectedUser.instagram == ''){
+            linksContainer.innerHTML += `
+            <a href="${currentSelectedUser.instagram}"><i class="fa-brands fa-instagram"></i></a>
+            `
+           } if(!currentSelectedUser.linkedin == ' '){
+            linksContainer.innerHTML += `
+            <a href="${currentSelectedUser.linkedin}"><i class="fa-brands fa-linkedin"></i></a>
+            `
+
+           } 
+        if(!currentSelectedUser.git == ' '){
+            linksContainer.innerHTML += `
+            <a href="${currentSelectedUser.git}"><i class="fa-brands fa-github"></i></a>
+            `
+            
+           } 
+           if(!currentSelectedUser.external == ''){
+            linksContainer.innerHTML += `
+            <a href="${currentSelectedUser.external}"><i class="fa-brands fa-globe"></i></a>
+            `
+           }
+           
+
+
+}
+
+// function setCurrentSelectedUser(id){
+
+    
+//     $.ajax({
+//         url: `http://${url}/allUsers`,
+//         type: 'GET',
+//         dataType: 'json',
+//         success: function (students){
+//             for(let i = 0; i < students.length; i++ ){
+//                 console.log('in success');
+//                 let student = students[i];
+//                 // console.log(student);
+//                 // console.log(id);
+
+//                 if(id == student._id){
+//                     // console.log(student);
+                    
+//            currentSelectedUser = new user(student.id, student.firstName, student.lastName, student.email, student.password, student.userImage, student.git, student.twitter, student.instagram, student.linkedin, student.external)
+//         //    console.log(currentSelectedUser);
+//                 }
+
+
+//             }
+
+//         },
+//         error: function() {
+//             alert('unable to get user');
+//         }
+// });
+// }
+
 function openProject() {
     let allListings =  document.querySelectorAll('.project-listing');
     let listings = Array.from(allListings);
@@ -80,16 +238,16 @@ function openProject() {
             getSingleProject(projectID)
 
         });
-        listing.addEventListener('mouseover', function(){
-            let projectID = listing.dataset.id;
-            singleProjectHover(projectID)
-        })
-        listing.addEventListener('mouseout', function(){
-            let image = document.getElementById('projectImage');
-           image.innerHTML = `
-           <img src="" >
-           `
-        })
+        // listing.addEventListener('mouseover', function(){
+        //     let projectID = listing.dataset.id;
+        //     singleProjectHover(projectID)
+        // })
+        // listing.addEventListener('mouseout', function(){
+        //     let image = document.getElementById('projectImage');
+        //    image.innerHTML = `
+        //    <img src="" >
+        //    `
+        // })
     })
 }
 
@@ -114,113 +272,6 @@ function singleProjectHover(id){
 })
 
 }
-
-function getSingleProject(id){
-
-    $.ajax({
-        url: `http://${url}/singlePortfolio/${id}`,
-        type: 'GET',
-        dataType: 'json',
-        success: function (portfolio){
-            let projectInfoContainer = document.getElementById('projectInfoContainer')
-            let side1 = document.getElementById('side1');
-            let side2 = document.getElementById('side2');
-            let linksContainer = document.getElementById('linksContainer');
-
-            getUser(portfolio.user_id);
-            let authorTwitter = sessionStorage.getItem('currentAuthorTwitter');
-            let authorGit = sessionStorage.getItem('currentAuthorGitLink')
-
-            // console.log(author);
-
-
-            side1.innerHTML = `
-            <div class="project-title"><h4>${portfolio.title}</h4></div>
-            <div class="project-image">
-                <img src="${portfolio.imageURL}" >
-            </div>
-            `
-
-           side2.innerHTML = `
-           <div class="project-author student-name"><h3>${portfolio.author}</h3></div>
-           <div class="project-description">
-               <p>${portfolio.description}</p>
-               
-           </div>
-           <div class="links-container" id="linksContainer">
-           <i class="fa-brands fa-instagram"></i>
-           <i class="fa-brands fa-linkedin"></i>
-           <i class="fa-brands fa-github"></i>
-           <i class="fa-solid fa-globe"></i>
-                
-                </div>
-           `
-
-        //    if(!author.twitter == ' '){
-        //     linksContainer.innerHTML += `
-        //     <a href="${author.twitter}"><i class="fa-brands fa-twitter"></i></a>
-        //     `
-
-        //    } if(!author.instagram == ' '){
-        //     linksContainer.innerHTML += `
-        //     <a href="${author.instagram}"><i class="fa-brands fa-instagram"></i></a>
-        //     `
-        //    } if(!author.linkedIn == ' '){
-        //     linksContainer.innerHTML += `
-        //     <a href="${author.linkedIn}"><i class="fa-brands fa-linkedin"></i></a>
-        //     `
-
-        //    } 
-        // if(!authorGit == ' '){
-        //     linksContainer.innerHTML += `
-        //     <a href="${authorGit}"><i class="fa-brands fa-github"></i></a>
-        //     `
-            
-        //    } 
-        //    if(!author.externalSite == ''){
-        //     linksContainer.innerHTML += `
-        //     <a href="${author.externalSite}"><i class="fa-brands fa-globe"></i></a>
-        //     `
-        //    }
-           
-       
-
-        },
-        error: function() {
-            alert('unable to get products');
-        }
-
-
-})
-}
-
-function getUser(id){
-
-    let author;
-
-    $.ajax({
-        url: `http://${url}/singleUser/${id}`,
-        type: 'GET',
-        dataType: 'json',
-        success: function (user){
-           
-            sessionStorage.setItem('currentAuthorTwitter', user.twitter);
-            sessionStorage.setItem('currentAuthorTwitter', user.instagram);
-            sessionStorage.setItem('currentAuthorGitLink', user.gitLink);
-
-
-        },
-        error: function() {
-            alert('unable to get user');
-        }
-
-
-})
-;
-
-;
-}
-
 
 
 
@@ -248,6 +299,7 @@ function changeTab (tabName){
     
 
 
+    
 }
 
 function tabsClickable (){
@@ -284,11 +336,13 @@ document.getElementById('sidenavTab').addEventListener('click', function (){
     }
     
 }) ;
+
 tabsClickable();
 
 
 
 // ------------ VISUALS -----------------
+
 
 
 });
