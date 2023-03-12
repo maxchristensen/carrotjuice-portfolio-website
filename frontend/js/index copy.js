@@ -405,81 +405,15 @@ $(document).ready(function () {
 
     // ------------------------------- Login Form --------------------------------------
 
-
-    // Add Project function - called after user successfully logs in
-
-    function addNewProject(currentUser, greetingName) {
-        // * on click of the add project button, display add project form
-        const addProject = document.getElementById('addProject');
-        addProject.addEventListener('click', function () {
-            loginMessage.innerHTML = `
-                                <div id="inputProjectDetails" class="input-Project-details">
-                                    <br>
-                                    <input class="input" type="text" id="projectName" placeholder="project name">
-                                    <input class="input" type="text" id="projectDesc" placeholder="project description">
-                                    <input class="input" type="text" id="projectURL" placeholder="link to project image">
-                                    <input class="input" type="text" id="projectSite" placeholder="link to prject site">
-                                    <br><br>
-                                    <button id="submitAddProject" class="login-button">ADD PROJECT NOW</button>
-                                </div>
-                                `
-            // ** on click of the submit new project button, do an ajax call to add the project to the mongo DB
-            const submitAddProject = document.getElementById('submitAddProject');
-            submitAddProject.addEventListener('click', function () {
-                const newProjName = projectName.value;
-                const newProjDesc = projectDesc.value;
-                const newProjURL = projectURL.value;
-                const newProjSite = projectSite.value;
-                const newProjCreateDate = "string";
-                const newProjCreator = currentUser;
-                const newProjAuthor = "string";
-                console.log(newProjName);
-                console.log(newProjDesc);
-                console.log(newProjCreator);
-                console.log('you have added a new project with the name "' + newProjName + '", description "' + newProjDesc + '"');
-                // *** Start of ajax POST
-                $.ajax({
-                    url: `http://${url}/addPortfolio`,
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        title: newProjName,
-                        description: newProjDesc,
-                        imageUrl: newProjURL,
-                        siteUrl: newProjSite,
-                        creationDate: newProjCreateDate,
-                        user_id: newProjCreator,
-                        author: newProjAuthor
-                    },
-                    success: function (result) {
-                        console.log(result);
-                        alert('Project added by ' + greetingName);
-                        return;
-                    },
-                    error: function () {
-                        console.log('Error - cannot call API to add a new project add product');
-                    }
-                })
-                // End of ajax POST ***
-            })
-            // End of ** 
-        })
-        // End of *
-    };
-    // End of addNewProject(...)
-
-
-
-    // Add event listener to the login submit button
+    // Add event listener to the submit button
     const loginButton = document.getElementById('submitLogin');
     loginButton.addEventListener('click', function () {
 
         // On click do an ajax call to the user collection and get their name to display on the welcome message
         const loginUser = document.getElementById('loginUser');
-        const currentUser =  loginUser.value;
 
         $.ajax({
-            url: `http://${url}/singleUser/${currentUser}`,
+            url: `http://${url}/singleUser/${loginUser.value}`,
             type: 'GET',
             dataType: 'json',
             success: function (user) {
@@ -494,7 +428,63 @@ $(document).ready(function () {
                                 <br><br>
                                 <button id="addProject" class="login-message login-button">Add Project</button>
                                 `
-                addNewProject(currentUser, greetingName);
+                // * on click of the add project button, display add project form
+                const addProject = document.getElementById('addProject');
+                addProject.addEventListener('click', function () {
+                    alert('you have clicked the add project button');
+                    loginMessage.innerHTML = `
+                                <div id="inputProjectDetails" class="input-Project-details">
+                                    <br>
+                                    <input class="input" type="text" id="projectName" placeholder="project name">
+                                    <input class="input" type="text" id="projectDesc" placeholder="project description">
+                                    <input class="input" type="text" id="projectURL" placeholder="link to project image">
+                                    <input class="input" type="text" id="projectSite" placeholder="link to prject site">
+                                    <br><br>
+                                    <button id="submitAddProject" class="login-button">ADD PROJECT NOW</button>
+                                </div>
+                                `
+                    // ** on click of the submit new project button, do an ajax call to add the project to the mongo DB
+                    const submitAddProject = document.getElementById('submitAddProject');
+                    submitAddProject.addEventListener('click', function () {
+                        const newProjName = projectName.value;
+                        const newProjDesc = projectDesc.value;
+                        const newProjURL = projectURL.value;
+                        const newProjSite = projectSite.value;
+                        const newProjCreateDate = "string";
+                        const newProjCreator = loginUser.value;
+                        const newProjAuthor = "string";
+                        console.log(newProjName);
+                        console.log(newProjDesc);
+                        console.log(newProjCreator);
+                        console.log('you have added a new project with the name "' + newProjName + '", description "' + newProjDesc + '"');
+                        // *** Start of ajax POST
+                        $.ajax({
+                            url: `http://${url}/addPortfolio`,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                title: newProjName,
+                                description: newProjDesc,
+                                imageUrl: newProjURL,
+                                siteUrl: newProjSite,
+                                creationDate: newProjCreateDate,
+                                user_id: newProjCreator,
+                                author: newProjAuthor
+                            },
+                            success: function (result) {
+                                console.log(result);
+                                alert('Project added by ' + greetingName);
+                                return;
+                            },
+                            error: function () {
+                                console.log('Error - cannot call API to add a new project add product');
+                            }
+                        })
+                        // End of ajax POST ***
+                    })
+                    // End of ** 
+                })
+                // End of *
             },
             error: function () {
                 alert('Error - unable to get user details');

@@ -75,12 +75,13 @@ app.post('/addPortfolio', (req, res) => {
         imageUrl: req.body.imageUrl,
         siteUrl: req.body.siteUrl,
         creationDate: req.body.creationDate,
-        user_id: req.body.user_id
+        user_id: req.body.user_id,
+        author: req.body.author
     });
     dbPortfolio.save().then(result => {
         res.send(result);
     }).catch(err => res.send(err))
-});
+})
 // ----------------add new portfolio from frontend end-------------
 
 // ------------------edit portfolio-----------------
