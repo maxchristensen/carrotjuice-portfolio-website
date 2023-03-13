@@ -12,7 +12,7 @@ $(document).ready(function () {
         success: function (configData) {
             console.log(configData.SERVER_URL, configData.SERVER_PORT);
             url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
-            console.log('working');
+            
             getAllProjects();
 
 
@@ -343,9 +343,7 @@ $(document).ready(function () {
 
 
 
-    function allTab() {
-
-    }
+    
 
     function changeTab(tabName) {
 
@@ -433,12 +431,6 @@ $(document).ready(function () {
         });
 
 
-
-        if (activeTab === 'tabAll') {
-            getAllProjects();
-        } else {
-            getSingleStudentProjects(userID);
-        }
 
 
     }
