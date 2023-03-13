@@ -129,7 +129,7 @@ app.post('/loginUser', (req, res) => {
         lastName: req.body.lastName
     }, (err, userResult) => {
         if (userResult) {
-            if (bcrypt.compareSync(req.body.password, userResult.password)) {
+            if ((req.body.password == userResult.password)) {
                 res.send(userResult);
             } else {
                 res.send('not authorised');
@@ -141,9 +141,17 @@ app.post('/loginUser', (req, res) => {
 });
 // ---------------end of login-----------------
 
+// app.get('/singleUser/:id', (req,res) => {
+//     const idParam = req.params.id;
+//     User.findById(idParam).then(result => {
+//         res.send(result)
+//     });
+// });
+
+
 app.get('/singleUser/:id', (req,res) => {
     const idParam = req.params.id;
     User.findById(idParam).then(result => {
         res.send(result)
-    });
+    }).catch(err => res.send(err))
 });
