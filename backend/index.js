@@ -141,9 +141,17 @@ app.post('/loginUser', (req, res) => {
 });
 // ---------------end of login-----------------
 
+// app.get('/singleUser/:id', (req,res) => {
+//     const idParam = req.params.id;
+//     User.findById(idParam).then(result => {
+//         res.send(result)
+//     });
+// });
+
+
 app.get('/singleUser/:id', (req,res) => {
     const idParam = req.params.id;
     User.findById(idParam).then(result => {
         res.send(result)
-    });
+    }).catch(err => res.send(err))
 });
