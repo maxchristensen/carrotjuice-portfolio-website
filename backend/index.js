@@ -69,7 +69,7 @@ app.get('/singlePortfolio/:id', (req,res) => {
 // -----------add new portfolio from front end form---------------
 app.post('/addPortfolio', (req, res) => {
     const dbPortfolio = new Portfolio({
-        _id: mongoose.Schema.Types.ObjectId,
+        _id: new mongoose.Types.ObjectId,
         title: req.body.title,
         description: req.body.description,
         imageUrl: req.body.imageUrl,
