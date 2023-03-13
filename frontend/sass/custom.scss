@@ -127,6 +127,20 @@ body {
     padding: 1rem;
 }
 
+.social-media {
+    display: flex;
+ }
+ 
+.social-media-sites {
+    display: flex;
+    margin: auto;
+}
+
+.social-media-button {
+    display: inline;
+    padding: 0 .75rem 0 .75rem;
+}
+
 // ----------- End of LOGIN form styling
 
 

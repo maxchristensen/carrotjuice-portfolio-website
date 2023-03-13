@@ -496,6 +496,26 @@ $(document).ready(function () {
                 const inputUserDetails = document.getElementById('inputUserDetails');
                 inputUserDetails.innerHTML = '';
 
+                // ${socialMediaString}
+
+                // only want to display social media icons if user has an account. Concatenate the HTML into a string to be rendered in the innerHTML as a template literal
+                // let socialMediaString = '';
+                // socialMediaString += '<div class="social-media"> <div class="social-media-sites">';
+
+                // if (gitLink != '') {
+                //     socialMediaString += '<div class="social-media-button"> <a href="${gitLink}" target="_blank"><i class="fa-brands fa-github"></i></a> </div>';
+                // }
+                // if (linkedIn != '') {
+                //     socialMediaString += '<div class="social-media-button"> <a href="${linkedIn}" target="_blank"><i class="fa-brands fa-linkedin"></i></a> </div>';
+                // }
+                // if (instagram != '') {
+                //     socialMediaString += '<div class="social-media-button"> <a href="${instagram}" target="_blank"><i class="fa-brands fa-instagram"></i></a> </div>';
+                // }
+                // if (twitter != '') {
+                //     socialMediaString += '<div class="social-media-button"> <a href="${twitter}" target="_blank"><i class="fa-brands fa-twitter"></i></a> </div>';
+                // }
+                // socialMediaString += '</div> </div>';
+
                 // Display greeting and an 'add project' button
                 const loginMessage = document.getElementById('loginMessage');
                 loginMessage.innerHTML = `
@@ -508,43 +528,18 @@ $(document).ready(function () {
                                 <br>
                                 <h6>Email: ${email}</h6>
                                 <br>
-                                <div class="social-media"> 
-                                `
-                if (gitLink != '') {
-                    loginMessage.innerHTML += `
-                                        <div class="social-media-button"> <a href="${gitLink}" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a> </div>
-                                `
-                }
-                if (linkedIn != '') {
-                    loginMessage.innerHTML += `
-                                        <div class="social-media-button"> <a href="${linkedIn}" target="_blank" title="Linked In"><i class="fa-brands fa-linkedin"></i></a> </div>
-                                `
-                }
-                if (instagram != '') {
-                    loginMessage.innerHTML += `
-                                        <div class="social-media-button"> <a href="${instagram}" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a> </div>
-                                `
-                }
-                if (twitter != '') {
-                    loginMessage.innerHTML += `
-                                        <div class="social-media-button"> <a href="${twitter}" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a> </div>
-                                `
-                }
-                loginMessage.innerHTML += `
-                                </div>
+                                <div class="social-media"> <div class="social-media-sites">
+                                    <div class="social-media-button"> <a href="${gitLink}" target="_blank"><i class="fa-brands fa-github"></i></a> </div>
+                                    <div class="social-media-button"> <a href="${linkedIn}" target="_blank"><i class="fa-brands fa-linkedin"></i></a> </div>
+                                    <div class="social-media-button"> <a href="${instagram}" target="_blank"><i class="fa-brands fa-instagram"></i></a> </div>
+                                    <div class="social-media-button"> <a href="${twitter}" target="_blank"><i class="fa-brands fa-twitter"></i></a> </div>
+                                </div> </div>
                                 <br><br>
-                                `
-                
-                if (externalSite != '') {
-                    loginMessage.innerHTML += `
-                                        <div class="social-media-button"> <a href="${externalSite}" target="_blank" title="Follow this link to view more of ${firstName}'s work"><i class="fa-solid fa-arrow-up-right-from-square"></i></a> </div>
-                                `
-                }
-                loginMessage.innerHTML += `
+                                <h6>${externalSite}</h6>
                                 <br><br>
                                 <button id="addProject" class="login-message login-button">Add Project</button>
                                 `
-
+                
                 addNewProject(currentUser, firstName);
             },
             error: function () {
