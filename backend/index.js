@@ -129,7 +129,7 @@ app.post('/loginUser', (req, res) => {
         lastName: req.body.lastName
     }, (err, userResult) => {
         if (userResult) {
-            if (bcrypt.compareSync(req.body.password, userResult.password)) {
+            if ((req.body.password == userResult.password)) {
                 res.send(userResult);
             } else {
                 res.send('not authorised');
