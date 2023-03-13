@@ -340,6 +340,14 @@ $(document).ready(function () {
 
     let activeTab = 'tabAll';
 
+    let marianTab = document.getElementById('tabMarian');
+    let maxTab = document.getElementById('tabMax');
+    let christineTab = document.getElementById('tabChristine');
+    let davidTab = document.getElementById('tabDavid');
+    let samTab = document.getElementById('tabSam');
+    let patriciaTab = document.getElementById('tabPatricia');
+    let indiaTab = document.getElementById('tabIndia');
+
 
 
 
@@ -347,6 +355,14 @@ $(document).ready(function () {
 
     function changeTab(tabName) {
 
+
+        marianTab.classList.remove('marian-background');
+        maxTab.classList.remove('max-background');
+        christineTab.classList.remove('christine-background');
+        davidTab.classList.remove('david-background');
+        samTab.classList.remove('sam-background');
+        patriciaTab.classList.remove('patricia-background');
+        indiaTab.classList.remove('india-background');
 
 
         let prevTab = document.getElementById(activeTab);
@@ -356,6 +372,38 @@ $(document).ready(function () {
         tab.classList.add('active');
         console.log(`tab ${activeTab} is selected`);
         let userID = tab.dataset.userid;
+
+        switch(activeTab) {
+
+            case 'tabMarian':
+                marianTab.classList.add('marian-background');
+                break;
+
+            case 'tabMax':
+                maxTab.classList.add('max-background');
+                break;
+        
+            case 'tabChristine':
+                christineTab.classList.add('christine-background');
+                break;
+        
+            case 'tabDavid':
+                davidTab.classList.add('david-background');
+                break;
+        
+            case 'tabSam':
+                samTab.classList.add('sam-background');
+                break;
+        
+            case 'tabPatricia':
+                patriciaTab.classList.add('patricia-background');
+                break;
+        
+            case 'tabIndia':
+                indiaTab.classList.add('india-background');
+                break;
+            }
+
 
         if (activeTab === 'tabAll') {
             getAllProjects();
@@ -664,7 +712,5 @@ $(document).ready(function () {
     tabsClickable();
 
 
-
-
-
+    
 });
