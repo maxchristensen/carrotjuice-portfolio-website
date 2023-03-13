@@ -208,13 +208,11 @@ body {
 }
 .tab.active{
     
+    font-weight: 700;
     border-bottom: 2px solid white;
     transition: all 0.5s ease;
     
 }
-
-
-
 
 
 .tab:hover{
@@ -398,3 +396,13 @@ body {
 .sam-border {border-color: $sam;}
 .india-border {border-color: $india;}
 .patricia-border {border-color: $patricia;}
+
+// STUDENT BACKGROUND COLOURS
+.all-background {background-color: $all;}
+.marian-background {background-color: $marian; color: $white;}
+.max-background {background-color: $max; color: $white;}
+.christine-background {background-color: $christine; }
+.david-background {background-color: $david; color: $white;}
+.sam-background {background-color: $sam; color: $white;}
+.india-background {background-color: $india; color: $white;}
+.patricia-background {background-color: $patricia; color: $white;}
