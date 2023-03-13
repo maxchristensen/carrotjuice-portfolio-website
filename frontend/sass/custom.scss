@@ -79,7 +79,7 @@ body {
 .title-container{
     position: fixed;
     transform: rotate(-90deg);
-    left: -5%;
+    left: -100px;
     bottom: 15%;
 }
 .sidenav{
@@ -107,21 +107,6 @@ body {
     height: 80%;
 }
 
-.input-user-details,
-.login-message {
-    border-radius: 4px;
-    text-align: center;
-    .input {
-        position: relative;
-        width: 80%;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
-        border-bottom: 1px solid $black;
-        padding: 1rem 4rem 1rem 4rem;
-        font-size: 12pt;
-        text-align: center;
-    }
-}
 
 .login-button {
     padding: 1rem;
@@ -150,7 +135,7 @@ body {
 }
 .sidenav.closed{
     left: -35vw;
-    transition: all 2s ease;
+    // transition: all 2s ease;
 }
 
 .tab-button{
@@ -181,7 +166,7 @@ body {
 .main-container{
     @include flex-column;
     position: relative;
-    height: 94vh;
+    height: 98vh;
     width: 95vw;
     // border: 5px solid black;
     top: 3vh;
@@ -296,7 +281,9 @@ body {
 }
 
 .project-author{
-    text-transform: uppercase;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    // text-transform: uppercase:
     position: relative;
     top: 10%;
     right: 5%;
@@ -317,13 +304,18 @@ body {
     justify-content: space-between;
 
     bottom: 5%;
-    width: 60%;
+    width: fit-content;
     right: 5%;
     height: 15%;
     font-size: 45px;
 
 }
 
+.link{
+    padding-right: 5%;
+    padding-left: 5%;
+    color: #121113;
+}
 
 
 
@@ -364,9 +356,7 @@ body {
 .project-info{
     margin: 2%;
 }
-.project-info:hover{
-    
-}
+
 .project-info.title:hover{
     text-decoration: underline;
     
@@ -374,7 +364,7 @@ body {
 
 .student-name {
     font-family: 'Playfair Display', serif;
-    font-family: 'Playfair Display', serif;
+    
     font-weight: 900;
 }
 
@@ -393,14 +383,14 @@ body {
     
     backdrop-filter: blur(6.6px);
     -webkit-backdrop-filter: blur(6.6px);
-    transition: all 5s ease;
+    transition: all 1s ease;
 
     
 }
 
 .hidden{
     visibility: hidden;
-    transition: all 2s ease;
+    transition: all 1s ease;
 }
 
 // STUDENT TAB COLOURS
@@ -412,3 +402,4 @@ body {
 .sam-border {border-color: $sam;}
 .india-border {border-color: $india;}
 .patricia-border {border-color: $patricia;}
+
