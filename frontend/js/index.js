@@ -104,7 +104,7 @@ $(document).ready(function () {
             }
 
 
-           
+
 
 
         });
@@ -295,7 +295,7 @@ $(document).ready(function () {
 
 
 
-   
+
 
 
 
@@ -575,7 +575,7 @@ $(document).ready(function () {
         let password = document.getElementById('password').value;
 
 
-       
+
         console.log(password);
         console.log(firstName);
         console.log(lastName);
@@ -599,28 +599,28 @@ $(document).ready(function () {
                         alert('User not found. Please Register');
                     } else if (user == 'not authorized') {
                         alert('Please try with correct details');
-                        // firstName.value('');
-                        // lastName.value('');
-                        // password.value('');
+                        firstName.value('');
+                        lastName.value('');
+                        password.value('');
                     } else {
                         sessionStorage.setItem('userID', user['_id']);
                         sessionStorage.setItem('firstName', user['firstName']);
                         sessionStorage.setItem('lastName', user['lastName']);
-                        
-                 const firstName = user.firstName;
-                const lastName = user.lastName;
-                const email = user.email;
-                const password = user.password;
-                const userImage = user.userImage;
-                const gitLink = user.gitLink;
-                const linkedIn = user.linkedIn;
-                const instagram = user.instagram;
-                const twitter = user.twitter;
-                const externalSite = user.externalSite;
+
+                        let firstName = user.firstName;
+                        let lastName = user.lastName;
+                        let email = user.email;
+                        let password = user.password;
+                        let userImage = user.userImage;
+                        let gitLink = user.gitLink;
+                        let linkedIn = user.linkedIn;
+                        let instagram = user.instagram;
+                        let twitter = user.twitter;
+                        let externalSite = user.externalSite;
 
                         let inputUserDetails = document.getElementById('inputUserDetails');
                         inputUserDetails.innerHTML = '';
-                        
+
                         let loginMessage = document.getElementById('loginMessage');
                         // Display greeting and an 'add project' button
                         loginMessage.innerHTML = `
@@ -636,49 +636,55 @@ $(document).ready(function () {
                                 <br>
                                 <div class="social-media"> 
                                 `
-                if (gitLink != '') {
-                    loginMessage.innerHTML += `
+                        if (gitLink != '') {
+                            loginMessage.innerHTML += `
                                         <div class="social-media-button"> <a href="${gitLink}" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a> </div>
                                 `
-                }
-                if (linkedIn != '') {
-                    loginMessage.innerHTML += `
+                        }
+                        if (linkedIn != '') {
+                            loginMessage.innerHTML += `
                                         <div class="social-media-button"> <a href="${linkedIn}" target="_blank" title="Linked In"><i class="fa-brands fa-linkedin"></i></a> </div>
                                 `
-                }
-                if (instagram != '') {
-                    loginMessage.innerHTML += `
+                        }
+                        if (instagram != '') {
+                            loginMessage.innerHTML += `
                                         <div class="social-media-button"> <a href="${instagram}" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a> </div>
                                 `
-                }
-                if (twitter != '') {
-                    loginMessage.innerHTML += `
+                        }
+                        if (twitter != '') {
+                            loginMessage.innerHTML += `
                                         <div class="social-media-button"> <a href="${twitter}" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a> </div>
                                 `
-                }
-                loginMessage.innerHTML += `
+                        }
+                        loginMessage.innerHTML += `
                                 </div>
                                 <br><br>
                                 `
-                
-                if (externalSite != '') {
-                    loginMessage.innerHTML += `
+
+                        if (externalSite != '') {
+                            loginMessage.innerHTML += `
                                         <div class="social-media-button"> <a href="${externalSite}" target="_blank" title="Follow this link to view more of ${firstName}'s work"><i class="fa-solid fa-arrow-up-right-from-square"></i></a> </div>
                                 `
-                }
-                loginMessage.innerHTML += `
+                        }
+                        loginMessage.innerHTML += `
                                 <br><br>
                                 <button id="addProject" class="login-message login-button">Add Project</button>
                                 `
 
 
-                addNewProject(user, firstName);
-            },
-            error: function () {
-                alert('Error - unable to get user details');
-            }
-        });
-    })
+                        addNewProject(user, firstName);
+                    }
+                },
+                error: function () {
+                    alert('Error - unable to get user details');
+                }
+            });
+
+        }
+
+    });
+
+
 
 
 
