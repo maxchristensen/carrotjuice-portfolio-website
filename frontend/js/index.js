@@ -70,7 +70,7 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                alert('unable to get products');
+                alert('unable to get all portfolios');
             }
         });
 
@@ -100,7 +100,7 @@ $(document).ready(function () {
 
             },
             error: function () {
-                alert('unable to get products');
+                alert('unable to get single portfolio');
             }
 
 
@@ -271,28 +271,7 @@ $(document).ready(function () {
         })
     }
 
-    function singleProjectHover(id) {
-        $.ajax({
-            url: `http://${url}/singlePortfolio/${id}`,
-            type: 'GET',
-            dataType: 'json',
-            success: function (portfolio) {
-                let image = document.getElementById('projectImage');
-                image.innerHTML = `
-           <img src="${portfolio.imageURL}" >
-           `
-
-
-            },
-            error: function () {
-                // alert('its not working');
-            }
-
-
-        })
-
-    }
-
+   
 
 
 
@@ -347,7 +326,7 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                alert('unable to get products');
+                alert('unable to get single students portfolio');
             }
         });
     }
