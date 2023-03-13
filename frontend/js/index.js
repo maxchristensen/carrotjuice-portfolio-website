@@ -86,39 +86,23 @@ function getAllProjects () {
 
 
 
-function getSingleProject(id){
+ function getSingleProject(id){
 
     $.ajax({
+        
         url: `http://${url}/singlePortfolio/${id}`,
         type: 'GET',
         dataType: 'json',
-        success: function (portfolio){
+        success: async function (portfolio){
+            
             
             let userID = portfolio.user_id;
+            const selectedUser =  await getSingleUser(userID);
 // retrieving and setting current user details
-            $.ajax({
-                url: `http://${url}/allUsers`,
-                type: 'GET',
-                dataType: 'json',
-                success: function (students){
-                    for(let i = 0; i < students.length; i++ ){
-                        
-                        let student = students[i];
-                        
-                        if(userID == student._id){
-                            currentSelectedUser = new user(student.id, student.firstName, student.lastName, student.email, student.password, student.userImage, student.git, student.twitter, student.instagram, student.linkedin, student.external)
-                            console.log(currentSelectedUser);
-                        }
-        
-        
-                    }
-        
-                },
-                error: function() {
-                    alert('unable to get user');
-                }
-        });
-        populatingContent(portfolio);
+
+            
+           
+        populatingContent(portfolio, selectedUser);
         
 
         },
@@ -133,17 +117,38 @@ function getSingleProject(id){
 
 }
 
+async function getSingleUser(id){
+
+    let user;
+
+    try {
+        user = await $.ajax({
+            url: `http://${url}/singleUser/${id}`,
+            type: 'GET',
+            dataType: 'json',
+            
+    }) 
+    console.log(user);
+    return user;
+
+    	} catch (error) {
+            console.error(error)
+        }
+    
+}
 
 
-function populatingContent(portfolio){
+
+function populatingContent(portfolio, selectedUser){
     let projectInfoContainer = document.getElementById('projectInfoContainer')
     let side1 = document.getElementById('side1');
     let side2 = document.getElementById('side2');
-    let linksContainer = document.getElementById('linksContainer');
+    
 
 
+    console.log(selectedUser.gitLink);
     console.log('in populating');
-    console.log(currentSelectedUser);
+    // console.log(currentSelectedUser);
 
     side1.innerHTML = `
     <div class="project-title"><h4>${portfolio.title}</h4></div>
@@ -163,32 +168,33 @@ function populatingContent(portfolio){
         
         </div>
    `
+   let linksContainer = document.getElementById('linksContainer');
    
-    //   if(typeof currentSelectedUser.twitter !== 'undefined'){
-    //         linksContainer.innerHTML += `
-    //         <a href="${currentSelectedUser.twitter}"><i class="fa-brands fa-twitter"></i></a>
-    //         `
-
-    //        } 
-           if(!currentSelectedUser.instagram == ''){
+      if(!selectedUser.twitter == ''){
             linksContainer.innerHTML += `
-            <a href="${currentSelectedUser.instagram}"><i class="fa-brands fa-instagram"></i></a>
-            `
-           } if(!currentSelectedUser.linkedin == ' '){
-            linksContainer.innerHTML += `
-            <a href="${currentSelectedUser.linkedin}"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="${selectedUser.twitter}"><i class="fa-brands fa-twitter link"></i></a>
             `
 
            } 
-        if(!currentSelectedUser.git == ' '){
+           if(!selectedUser.instagram == ''){
             linksContainer.innerHTML += `
-            <a href="${currentSelectedUser.git}"><i class="fa-brands fa-github"></i></a>
+            <a href="${currentSelectedUser.instagram}"><i class="fa-brands fa-instagram link"></i></a>
+            `
+           } if(!selectedUser.linkedIn == ''){
+            linksContainer.innerHTML += `
+            <a href="${selectedUser.linkedIn}"><i class="fa-brands fa-linkedin link"></i></a>
+            `
+
+           } 
+        if(!selectedUser.gitLink == ''){
+            linksContainer.innerHTML += `
+            <a href="${selectedUser.gitLink}"><i class="fa-brands fa-github link"></i></a>
             `
             
            } 
-           if(!currentSelectedUser.external == ''){
+           if(!selectedUser.externalSite == ''){
             linksContainer.innerHTML += `
-            <a href="${currentSelectedUser.external}"><i class="fa-brands fa-globe"></i></a>
+            <a href="${selectedUser.externalSite}"><i class="fa-brands fa-globe link"></i></a>
             `
            }
            
