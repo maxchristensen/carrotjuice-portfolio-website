@@ -14,8 +14,19 @@
     <div class="sidenav closed" id="sidenav">
         <div class="login-form">
             <h3>Welcome to CarrotJuice</h3>
-            <input class="input" type="text" placeholder="username">
-            <input type="password" placeholder="password">
+
+            <div id="inputUserDetails" class="input-user-details">
+                <br>
+                <input class="input" type="text" id="firstName" placeholder="First name...">
+                <input class="input" type="text" id="lastName" placeholder="Last name...">
+                <input class="input" type="password" id="password" placeholder="password">
+                <br><br>
+                <button class="login-button" id="submitLogin">Submit</button>
+            </div>
+
+            <div id="loginMessage" class="login-message">
+                <!-- Login message rendered in JS -->
+            </div> 
 
         </div>
         <div class="tab-button" id="sidenavTab">login</div>
@@ -31,13 +42,13 @@
     <div class="tabs-container">
         <!-- Active denotes current selected tab - removes bottom border -->
         <div class="tab all-border active" data-name="all" id="tabAll"> all</div> 
-        <div class="tab marian-border" data-name="marian" id="tabMarian" >M. Arnot</div>
-        <div class="tab max-border" data-name="max" id="tabMax">M. Christensen</div>
-        <div class="tab christine-border" data-name="christine" id="tabChristine">C. Hudson</div>
-        <div class="tab david-border" data-name="david" id="tabDavid">D. Lewis</div>
-        <div class="tab sam-border" data-name="sam" id="tabSam">S. Mitchell</div>
-        <div class="tab patricia-border" data-name="patricia" id="tabPatricia">P. Solis</div>
-        <div class="tab india-border" data-name="india" id="tabIndia">I. Storey</div>
+        <div class="tab marian-border" data-name="marian" data-userid="640934e566ed6602c98e782e" id="tabMarian" >M. Arnot</div>
+        <div class="tab max-border" data-name="max" data-userid="6409367166ed6602c98e7831" id="tabMax">M. Christensen</div>
+        <div class="tab christine-border" data-name="christine" data-userid="640939a966ed6602c98e783d" id="tabChristine">C. Hudson</div>
+        <div class="tab david-border" data-name="david" data-userid="64068a3c9141adcaade07029" id="tabDavid">D. Lewis</div>
+        <div class="tab sam-border" data-name="sam" data-userid="640938c766ed6602c98e7839" id="tabSam">S. Mitchell</div>
+        <div class="tab patricia-border" data-name="patricia" data-userid="6409378166ed6602c98e7835" id="tabPatricia">P. Solis</div>
+        <div class="tab india-border" data-name="india" data-userid="640933b366ed6602c98e7829" id="tabIndia">I. Storey</div>
         
 
     </div>

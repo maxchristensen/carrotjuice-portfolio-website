@@ -5,7 +5,7 @@ var gulp = require('gulp');
  	connect = require('gulp-connect');
  	jshint = require('gulp-jshint');
   rename = require('gulp-rename');
-  // minifyCss = require('gulp-minify-css');
+  minifyCss = require('gulp-minify-css');
 
 // Server Task
 function serve (done) {
