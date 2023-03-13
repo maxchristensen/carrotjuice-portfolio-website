@@ -69,18 +69,19 @@ app.get('/singlePortfolio/:id', (req,res) => {
 // -----------add new portfolio from front end form---------------
 app.post('/addPortfolio', (req, res) => {
     const dbPortfolio = new Portfolio({
-        _id: mongoose.Schema.Types.ObjectId,
+        _id: new mongoose.Types.ObjectId,
         title: req.body.title,
         description: req.body.description,
         imageUrl: req.body.imageUrl,
         siteUrl: req.body.siteUrl,
         creationDate: req.body.creationDate,
-        user_id: req.body.user_id
+        user_id: req.body.user_id,
+        author: req.body.author
     });
     dbPortfolio.save().then(result => {
         res.send(result);
     }).catch(err => res.send(err))
-});
+})
 // ----------------add new portfolio from frontend end-------------
 
 // ------------------edit portfolio-----------------

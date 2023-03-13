@@ -200,129 +200,43 @@ $(document).ready(function () {
 
 
         $.ajax({
-                url: `http://${url}/singleUser/${id}`,
-                type: 'GET',
-                dataType: 'json',
-                success: function (user) {
+            url: `http://${url}/singleUser/${id}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (user) {
 
-                }
-
-                });
-        }
-    
-
-        function getSingleStudentProjects(userID) {
-            $.ajax({
-                url: `http://${url}/allPortfolios`,
-                type: 'GET',
-                dataType: 'json',
-                success: function (productsFromMongo) {
-                    let projectsContainer = document.getElementById('projectsContainer');
-                    projectsContainer.innerHTML = '';
-
-                    for (let i = 0; i < productsFromMongo.length; i++) {
-                        let project = productsFromMongo[i];
-                        let createdBy = productsFromMongo[i].user_id;
-                        let projectNumber;
-
-
-                        if (userID === createdBy) {
-                            if (i < 9) {
-                                projectNumber = "0" + (i + 1)
-
-                            } else {
-                                projectNumber = i + 1;
-                            }
-
-
-
-                            projectsContainer.innerHTML += `
-                    <div class="project-listing " data-id=${project._id}>
-    
-                    <div class="name-container">
-                        <h6 class="project-info number">${projectNumber}.</h6>
-                    <h6 class="project-info title">${project.title}</h6>
-                    </div>
-                    
-                    
-                    <h6 class="project-info author"> ${project.author}</h6>
-                   
-                </div>
-                    `;
-                            openProject();
-                        }
-
-
-                    }
-                },
-                error: function () {
-                    alert('unable to get products');
-                }
-            });
-        }
-
-
-
-
-
-
-        // ------------ TAB SELECTION LOGIC -------------
-
-        let activeTab = 'tabAll';
-
-
-
-
-        function allTab() {
-
-        }
-
-        function changeTab(tabName) {
-
-
-
-            let prevTab = document.getElementById(activeTab);
-            prevTab.classList.remove('active');
-            activeTab = tabName;
-            let tab = document.getElementById(activeTab);
-            tab.classList.add('active');
-            console.log(`tab ${activeTab} is selected`);
-            let userID = tab.dataset.userid;
-
-            if (activeTab === 'tabAll') {
-                getAllProjects();
-            } else {
-                getSingleStudentProjects(userID);
             }
 
-        }
-
-        function getSingleStudentProjects(userID) {
-            $.ajax({
-                url: `http://${url}/allPortfolios`,
-                type: 'GET',
-                dataType: 'json',
-                success: function (productsFromMongo) {
-                    let projectsContainer = document.getElementById('projectsContainer');
-                    projectsContainer.innerHTML = '';
-
-                    for (let i = 0; i < productsFromMongo.length; i++) {
-                        let project = productsFromMongo[i];
-                        let createdBy = productsFromMongo[i].user_id;
-                        let projectNumber;
+        });
+    }
 
 
-                        if (userID === createdBy) {
-                            if (i < 9) {
-                                projectNumber = "0" + (i + 1)
+    function getSingleStudentProjects(userID) {
+        $.ajax({
+            url: `http://${url}/allPortfolios`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (productsFromMongo) {
+                let projectsContainer = document.getElementById('projectsContainer');
+                projectsContainer.innerHTML = '';
 
-                            } else {
-                                projectNumber = i + 1;
-                            }
+                for (let i = 0; i < productsFromMongo.length; i++) {
+                    let project = productsFromMongo[i];
+                    let createdBy = productsFromMongo[i].user_id;
+                    let projectNumber;
+
+
+                    if (userID === createdBy) {
+                        if (i < 9) {
+                            projectNumber = "0" + (i + 1)
+
+                        } else {
+                            projectNumber = i + 1;
+                        }
 
 
 
-                            projectsContainer.innerHTML += `
+                        projectsContainer.innerHTML += `
                     <div class="project-listing " data-id=${project._id}>
     
                     <div class="name-container">
@@ -335,33 +249,119 @@ $(document).ready(function () {
                    
                 </div>
                     `;
-                            openProject();
+                        openProject();
+                    }
+
+
+                }
+            },
+            error: function () {
+                alert('unable to get products');
+            }
+        });
+    }
+
+
+
+
+
+
+    // ------------ TAB SELECTION LOGIC -------------
+
+    let activeTab = 'tabAll';
+
+
+
+
+    function allTab() {
+
+    }
+
+    function changeTab(tabName) {
+
+
+
+        let prevTab = document.getElementById(activeTab);
+        prevTab.classList.remove('active');
+        activeTab = tabName;
+        let tab = document.getElementById(activeTab);
+        tab.classList.add('active');
+        console.log(`tab ${activeTab} is selected`);
+        let userID = tab.dataset.userid;
+
+        if (activeTab === 'tabAll') {
+            getAllProjects();
+        } else {
+            getSingleStudentProjects(userID);
+        }
+
+    }
+
+    function getSingleStudentProjects(userID) {
+        $.ajax({
+            url: `http://${url}/allPortfolios`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (productsFromMongo) {
+                let projectsContainer = document.getElementById('projectsContainer');
+                projectsContainer.innerHTML = '';
+
+                for (let i = 0; i < productsFromMongo.length; i++) {
+                    let project = productsFromMongo[i];
+                    let createdBy = productsFromMongo[i].user_id;
+                    let projectNumber;
+
+
+                    if (userID === createdBy) {
+                        if (i < 9) {
+                            projectNumber = "0" + (i + 1)
+
+                        } else {
+                            projectNumber = i + 1;
                         }
 
 
+
+                        projectsContainer.innerHTML += `
+                    <div class="project-listing " data-id=${project._id}>
+    
+                    <div class="name-container">
+                        <h6 class="project-info number">${projectNumber}.</h6>
+                    <h6 class="project-info title">${project.title}</h6>
+                    </div>
+                    
+                    
+                    <h6 class="project-info author"> ${project.author}</h6>
+                   
+                </div>
+                    `;
+                        openProject();
                     }
-                },
-                error: function () {
-                    alert('unable to get products');
+
+
                 }
-            });
-        }
+            },
+            error: function () {
+                alert('unable to get products');
+            }
+        });
+    }
 
 
 
     function tabsClickable() {
 
-            let allTabs = document.querySelectorAll('.tab');
-            let tabs = Array.from(allTabs);
-            tabs.forEach(function (tab) {
-                tab.addEventListener('click', event => {
-                    let tabName = event.target.id;
+        let allTabs = document.querySelectorAll('.tab');
+        let tabs = Array.from(allTabs);
+        tabs.forEach(function (tab) {
+            tab.addEventListener('click', event => {
+                let tabName = event.target.id;
 
-                    changeTab(tabName);
-                });
-
+                changeTab(tabName);
             });
-        
+
+        });
+
 
 
         if (activeTab === 'tabAll') {
@@ -403,19 +403,83 @@ $(document).ready(function () {
 
 
 
+    // ------------------------------- Login Form --------------------------------------
+
+
+    // Add Project function - called after user successfully logs in
+
+    function addNewProject(currentUser, greetingName) {
+        // * on click of the add project button, display add project form
+        const addProject = document.getElementById('addProject');
+        addProject.addEventListener('click', function () {
+            loginMessage.innerHTML = `
+                                <div id="inputProjectDetails" class="input-Project-details">
+                                    <br>
+                                    <input class="input" type="text" id="projectName" placeholder="project name">
+                                    <input class="input" type="text" id="projectDesc" placeholder="project description">
+                                    <input class="input" type="text" id="projectURL" placeholder="link to project image">
+                                    <input class="input" type="text" id="projectSite" placeholder="link to prject site">
+                                    <br><br>
+                                    <button id="submitAddProject" class="login-button">ADD PROJECT NOW</button>
+                                </div>
+                                `
+            // ** on click of the submit new project button, do an ajax call to add the project to the mongo DB
+            const submitAddProject = document.getElementById('submitAddProject');
+            submitAddProject.addEventListener('click', function () {
+                const newProjName = projectName.value;
+                const newProjDesc = projectDesc.value;
+                const newProjURL = projectURL.value;
+                const newProjSite = projectSite.value;
+                const newProjCreateDate = "string";
+                const newProjCreator = currentUser;
+                const newProjAuthor = "string";
+                console.log(newProjName);
+                console.log(newProjDesc);
+                console.log(newProjCreator);
+                console.log('you have added a new project with the name "' + newProjName + '", description "' + newProjDesc + '"');
+                // *** Start of ajax POST
+                $.ajax({
+                    url: `http://${url}/addPortfolio`,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        title: newProjName,
+                        description: newProjDesc,
+                        imageUrl: newProjURL,
+                        siteUrl: newProjSite,
+                        creationDate: newProjCreateDate,
+                        user_id: newProjCreator,
+                        author: newProjAuthor
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        alert('Project added by ' + greetingName);
+                        return;
+                    },
+                    error: function () {
+                        console.log('Error - cannot call API to add a new project add product');
+                    }
+                })
+                // End of ajax POST ***
+            })
+            // End of ** 
+        })
+        // End of *
+    };
+    // End of addNewProject(...)
 
 
 
-    // Login Form
-    // Add event listener to the submit button
+    // Add event listener to the login submit button
     const loginButton = document.getElementById('submitLogin');
     loginButton.addEventListener('click', function () {
 
-        // On click do an ajax call to the user collection and get their name
+        // On click do an ajax call to the user collection and get their name to display on the welcome message
         const loginUser = document.getElementById('loginUser');
+        const currentUser =  loginUser.value;
 
         $.ajax({
-            url: `http://${url}/singleUser/${loginUser.value}`,
+            url: `http://${url}/singleUser/${currentUser}`,
             type: 'GET',
             dataType: 'json',
             success: function (user) {
@@ -423,23 +487,22 @@ $(document).ready(function () {
                 inputUserDetails.innerHTML = '';
                 const greetingName = user.firstName;
                 const loginMessage = document.getElementById('loginMessage');
+                // Display greeting and an 'add project' button
                 loginMessage.innerHTML = `
                                 <br><br>
                                 <h4>Good to see you back ${greetingName}</h4>
                                 <br><br>
-                                <button class="login-message login-button">Add Project</button>
+                                <button id="addProject" class="login-message login-button">Add Project</button>
                                 `
+                addNewProject(currentUser, greetingName);
             },
             error: function () {
-                alert('unable to get user');
+                alert('Error - unable to get user details');
             }
-
         });
-
-
     })
 
-    // End of login form
+    // ------------------------------- End of Login Form --------------------------------------
 
     tabsClickable();
 
