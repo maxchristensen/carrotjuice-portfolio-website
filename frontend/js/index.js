@@ -430,9 +430,9 @@ $(document).ready(function () {
                 const newProjDesc = projectDesc.value;
                 const newProjURL = projectURL.value;
                 const newProjSite = projectSite.value;
-                const newProjCreateDate = "string";
-                const newProjCreator = currentUser;
-                const newProjAuthor = "string";
+                const newProjCreateDate = new Date;
+                const newProjCreator = sessionStorage.getItem('userID');
+                const newProjAuthor = `${sessionStorage.getItem('firstName')} ${sessionStorage.getItem('lastName')}`;;
                 console.log(newProjName);
                 console.log(newProjDesc);
                 console.log(newProjCreator);
@@ -475,18 +475,46 @@ $(document).ready(function () {
     loginButton.addEventListener('click', function () {
 
         // On click do an ajax call to the user collection and get their name to display on the welcome message
-        const loginUser = document.getElementById('loginUser');
-        const currentUser =  loginUser.value;
+        let firstName = document.getElementById('firstName').value;
+        let lastName = document.getElementById('lastName').value;
+        let password = document.getElementById('password').value;
 
+        
+        console.log(password);
+        console.log(firstName);
+        console.log(lastName);
+
+
+        if (firstName == '' || lastName == '' || password == ''){
+            alert('Please enter all details');
+        } else {
+            
         $.ajax({
-            url: `http://${url}/singleUser/${currentUser}`,
-            type: 'GET',
-            dataType: 'json',
+            url: `http://${url}/loginUser`,
+            type: 'POST',
+            data: {
+                firstName: firstName,
+                lastName: lastName,
+                password: password
+            },
             success: function (user) {
-                const inputUserDetails = document.getElementById('inputUserDetails');
+
+                if (user == 'user not found. Please register'){
+                    alert('User not found. Please Register');
+                } else if (user == 'not authorized') {
+                    alert('Please try with correct details');
+                    // firstName.value('');
+                    // lastName.value('');
+                    // password.value('');
+                } else {
+                    sessionStorage.setItem('userID', user['_id']);
+                    sessionStorage.setItem('firstName', user['firstName']);
+                    sessionStorage.setItem('lastName', user['lastName']);
+
+                let inputUserDetails = document.getElementById('inputUserDetails');
                 inputUserDetails.innerHTML = '';
-                const greetingName = user.firstName;
-                const loginMessage = document.getElementById('loginMessage');
+                let greetingName = user.firstName;
+                let loginMessage = document.getElementById('loginMessage');
                 // Display greeting and an 'add project' button
                 loginMessage.innerHTML = `
                                 <br><br>
@@ -494,12 +522,17 @@ $(document).ready(function () {
                                 <br><br>
                                 <button id="addProject" class="login-message login-button">Add Project</button>
                                 `
-                addNewProject(currentUser, greetingName);
+                addNewProject(user, greetingName);
+                }
+
+                
             },
             error: function () {
                 alert('Error - unable to get user details');
             }
         });
+        }
+
     })
 
     // ------------------------------- End of Login Form --------------------------------------
