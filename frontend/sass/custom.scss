@@ -76,6 +76,25 @@ body {
 }
 
 
+// -------- LOADING PAGE ----------
+
+#loading {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background-color: $white;
+    background-image: url("https://i.stack.imgur.com/MnyxU.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+// -------- End of LOADING PAGE ----------
+
+
 // -------- LAYOUT ---------
 .title-container{
     position: fixed;
@@ -204,8 +223,11 @@ input::placeholder {
 
 }
 
-.ta-center {
+.tab-center {
     text-align: center;
+}
+.tab.active{
+    border-bottom: 2px solid $white;
 }
 
 .main-container{
@@ -263,7 +285,7 @@ input::placeholder {
     
     border-radius: 10px 10px 0 0;
     position: relative;
-    border: 1px solid black;
+    border: 1px solid $black;
 
     font-weight: 700;
 
@@ -282,7 +304,7 @@ input::placeholder {
     font-family: 'Public Sans', sans-serif;
 }
 .responsive-tab.left{
-   border-bottom: 2px solid white;
+   border-bottom: 2px solid $white;
     width: 60%;
 }
 
@@ -514,6 +536,16 @@ input::placeholder {
 .sam-border {border-color: $sam;}
 .india-border {border-color: $india;}
 .patricia-border {border-color: $patricia;}
+
+// STUDENT BACKGROUND COLOURS
+.all-background {background-color: $all;}
+.marian-background {background-color: $marian; color: $white;}
+.max-background {background-color: $max; color: $white;}
+.christine-background {background-color: $christine; }
+.david-background {background-color: $david; color: $white;}
+.sam-background {background-color: $sam; color: $white;}
+.india-background {background-color: $india; color: $white;}
+.patricia-background {background-color: $patricia; color: $white;}
 
 /* ------ RESPONSIVENESS ------  */
 /* PHONE */

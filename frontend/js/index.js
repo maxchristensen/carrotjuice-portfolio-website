@@ -425,6 +425,10 @@ $(document).ready(function () {
 
 
 
+ 
+
+  
+
     // ------------ TAB SELECTION LOGIC -------------
 
     let activeTab = 'tabAll';
@@ -466,6 +470,7 @@ $(document).ready(function () {
 
             case 'tabMarian':
                 marianTab.classList.add('marian-background');
+                console.log('working');
                 break;
 
             case 'tabMax':
@@ -508,9 +513,7 @@ $(document).ready(function () {
 
 
 
-    // ------------ TAB SELECTION LOGIC -------------
 
-  
     function changeDropdownTab(tabName) {
         let tab = document.getElementById(tabName);
         let nameTab = document.getElementById('tabResponsiveName');
@@ -556,6 +559,7 @@ $(document).ready(function () {
         });
 
     }
+
     function dropdownClickable() {
 
         let allDropdownTabs = document.querySelectorAll('.dropdown-tab');
