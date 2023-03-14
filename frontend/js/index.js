@@ -11,7 +11,7 @@ function onReady(callback) {
 }
 // function accepts 2 parameters - the selector and whether to that selector to visible or not. It uses a ternary operator, which says "if visible is true, then set the display attribute for that selector to block, otherwise set its display attribute to none" 
 function setVisible(selector, visible) {
-    document.querySelector(selector).style.display = visible ? 'block' : 'none';
+    document.querySelector(selector).style.visibility = visible ? 'visible' : 'hidden';
 }
 
 // call onReady, passing:
