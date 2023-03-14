@@ -87,9 +87,9 @@ body {
     @include flex-row;
     @include center-items;
     z-index: 10;
-    
+    left: -35vw;
     position: absolute;
-    width: 35vw;
+    
     height: 100vh;
     border-right: 1px solid $borderBlack;
     background-color: $white;
@@ -187,9 +187,12 @@ input::placeholder {
     font-family: 'Public Sans', sans-serif;
     background-color: $white;
     position: absolute;
-    left: 29vw;
+
     width: 39%;
     height: 4%;
+
+
+
     border-right: 1px solid $borderBlack;
     border-left: 1px solid $borderBlack;
     border-top: 2px solid $white;
@@ -224,6 +227,13 @@ input::placeholder {
     // border-bottom: 5px solid black;
     top: 0;
 }
+
+.responsive-tabs-container{
+    @include flex-row;
+    width: 100%;
+    height: 7%;
+   
+}
 .tab{
     
     @include center-items;
@@ -247,18 +257,76 @@ input::placeholder {
     text-transform: uppercase;
     font-family: 'Public Sans', sans-serif;
 }
-.tab.active{
+.responsive-tab{
+    position: relative;
+    @include center-items;
     
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    border: 1px solid black;
+
     font-weight: 700;
+
     border-bottom: 2px solid $white;
+  
+
+
     transition: all 0.5s ease;
     
+    height: 90%;
+    top: 10%;
+
+    cursor: pointer;
+
+    text-transform: uppercase;
+    font-family: 'Public Sans', sans-serif;
+}
+.responsive-tab.left{
+   border-bottom: 2px solid white;
+    width: 60%;
+}
+
+.responsive-tab.right{
+   font-size: 26px;
+    width: 40%;
+}
+.dropdown-container{
+    
+    position: absolute;
+    @include flex-column;
+    height: fit-content;
+    top: 7%;
+    right: 0;
+    width:  40%;
+    border-radius: 10px 10px 0 0;
+}
+.dropdown-tab{
+    z-index: 10;
+    @include center-items;
+    position: relative;
+    width: 100%;
+    height: 8vh;
+    
+    border: 1px solid black;
+    cursor: pointer;
+
+    font-size: 13px;
+    text-transform: uppercase;
+    font-family: 'Public Sans', sans-serif;
+    background-color: #F7F7F2;
+}
+.dropdown-tab:hover{
+    background-color: #121113;
+    color: #F7F7F2;
 }
 
 
 .tab:hover{
     cursor: pointer;
 }
+
+
+
 
 .content-container{
     @include flex-column;
@@ -433,6 +501,10 @@ input::placeholder {
     transition: all 1s ease;
 }
 
+.hiddenMenu{
+    visibility: hidden;
+   
+}
 // STUDENT TAB COLOURS
 .all-border {border-color: $all;}
 .marian-border {border-color: $marian;}
@@ -443,6 +515,67 @@ input::placeholder {
 .india-border {border-color: $india;}
 .patricia-border {border-color: $patricia;}
 
+/* ------ RESPONSIVENESS ------  */
+/* PHONE */
+@media screen and (min-width: 320px) {
+    .responsive-tabs-container{
+        display: flex;
+    }
+    .tabs-container{
+        display: none;
+    }
+    .project-listing{
+        height: fit-content;
+    }
+    .tab-button{
+        width: 45%;
+        height: 5%;
+        left: 73vw;
+    }
+    .sidenav{
+        width: 90vw;
+      
+    }
+    .sidenav.closed{
+        left: -90vw;
+        // transition: all 2s ease;
+    }
+    
+
+}
+
+/* TABLET */
+@media screen and (min-width: 768px) {
+    .responsive-tabs-container{
+        display: none;
+    }
+    .tabs-container{
+        display: flex;
+    }
+    .tab-button{
+        width: 39%;
+        height: 4%;
+        left: 29vw;
+    }
+    .sidenav{
+        width: 35vw;
+    }
+    .project-listing{
+        height: 12%;
+    }
+    .sidenav.closed{
+        left: -35vw;
+        // transition: all 2s ease;
+    }
+   
+
+}
+
+/* LAPTOP */
+@media screen and (min-width: 1024px) {
+
+}
+=======
 // STUDENT BACKGROUND COLOURS
 .all-background {background-color: $all;}
 .marian-background {background-color: $marian; color: $white;}
@@ -452,3 +585,4 @@ input::placeholder {
 .sam-background {background-color: $sam; color: $white;}
 .india-background {background-color: $india; color: $white;}
 .patricia-background {background-color: $patricia; color: $white;}
+
