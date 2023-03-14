@@ -360,6 +360,67 @@ $(document).ready(function () {
         });
     }
 
+    function addNewProject(currentUser, firstName) {
+        // * on click of the add project button, display add project form
+        const addProject = document.getElementById('addProject');
+        addProject.addEventListener('click', function () {
+            loginMessage.innerHTML = `
+                                <div id="inputProjectDetails" class="input-Project-details">
+                                    <br>
+                                    <input class="input" type="text" id="projectName" placeholder="project name">
+                                    <input class="input" type="text" id="projectDesc" placeholder="project description">
+                                    <input class="input" type="text" id="projectURL" placeholder="link to project image">
+                                    <input class="input" type="text" id="projectSite" placeholder="link to prject site">
+                                    <br><br>
+                                    <button id="submitAddProject" class="login-button">ADD PROJECT NOW</button>
+                                </div>
+                                `
+            // ** on click of the submit new project button, do an ajax call to add the project to the mongo DB
+            const submitAddProject = document.getElementById('submitAddProject');
+            submitAddProject.addEventListener('click', function () {
+                const newProjName = projectName.value;
+                const newProjDesc = projectDesc.value;
+                const newProjURL = projectURL.value;
+                const newProjSite = projectSite.value;
+                const newProjCreateDate = new Date;
+                const newProjCreator = sessionStorage.getItem('userID');
+                const newProjAuthor = `${sessionStorage.getItem('firstName')} ${sessionStorage.getItem('lastName')}`;;
+                console.log(newProjName);
+                console.log(newProjDesc);
+                console.log(newProjCreator);
+                console.log('you have added a new project with the name "' + newProjName + '", description "' + newProjDesc + '"');
+                // *** Start of ajax POST
+                $.ajax({
+                    url: `http://${url}/addPortfolio`,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        title: newProjName,
+                        description: newProjDesc,
+                        imageUrl: newProjURL,
+                        siteUrl: newProjSite,
+                        creationDate: newProjCreateDate,
+                        user_id: newProjCreator,
+                        author: newProjAuthor
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        alert('Project added by ' + firstName);
+                        return;
+                    },
+                    error: function () {
+                        console.log('Error - cannot call API to add a new project add product');
+                    }
+                })
+                // End of ajax POST ***
+            })
+            // End of ** 
+        })
+        // End of *
+    };
+    // End of addNewProject(...)
+
+
 
 
 
@@ -441,56 +502,7 @@ $(document).ready(function () {
 
     }
 
-    function getSingleStudentProjects(userID) {
-        $.ajax({
-            url: `http://${url}/allPortfolios`,
-            type: 'GET',
-            dataType: 'json',
-            success: function (productsFromMongo) {
-                let projectsContainer = document.getElementById('projectsContainer');
-                projectsContainer.innerHTML = '';
-
-                for (let i = 0; i < productsFromMongo.length; i++) {
-                    let project = productsFromMongo[i];
-                    let createdBy = productsFromMongo[i].user_id;
-                    let projectNumber;
-
-
-                    if (userID === createdBy) {
-                        if (i < 9) {
-                            projectNumber = "0" + (i + 1)
-
-                        } else {
-                            projectNumber = i + 1;
-                        }
-
-
-
-                        projectsContainer.innerHTML += `
-                    <div class="project-listing " data-id=${project._id}>
-    
-                    <div class="name-container">
-                        <h6 class="project-info number">${projectNumber}.</h6>
-                    <h6 class="project-info title">${project.title}</h6>
-                    </div>
-                    
-                    
-                    <h6 class="project-info author"> ${project.author}</h6>
-                   
-                </div>
-                    `;
-                        openProject();
-                    }
-
-
-                }
-            },
-            error: function () {
-                alert('unable to get products');
-            }
-        });
-    }
-
+  
 
 
 
@@ -498,33 +510,7 @@ $(document).ready(function () {
 
     // ------------ TAB SELECTION LOGIC -------------
 
-    let activeTab = 'tabAll';
-   
-
-
-
-    
-
-    function changeTab(tabName) {
-
-
-
-        let prevTab = document.getElementById(activeTab);
-        prevTab.classList.remove('active');
-        activeTab = tabName;
-        let tab = document.getElementById(activeTab);
-        tab.classList.add('active');
-        console.log(`tab ${activeTab} is selected`);
-        let userID = tab.dataset.userid;
-
-        if (activeTab === 'tabAll') {
-            getAllProjects();
-        } else {
-            getSingleStudentProjects(userID);
-        }
-
-    }
-
+  
     function changeDropdownTab(tabName) {
         let tab = document.getElementById(tabName);
         let nameTab = document.getElementById('tabResponsiveName');
@@ -545,8 +531,8 @@ $(document).ready(function () {
         
         nameTab.innerHTML = `${name}`
         responsiveNav.classList.add('hiddenMenu')
-        dropdownTab.style.backgroundColor = 'white'
-        dropdownTab.style.color = 'black'
+        dropdownTab.style.backgroundColor = '$white'
+        dropdownTab.style.color = '$black'
         
 
     }
@@ -615,66 +601,7 @@ $(document).ready(function () {
 
     // Add Project function - called after user successfully logs in
 
-    function addNewProject(currentUser, firstName) {
-        // * on click of the add project button, display add project form
-        const addProject = document.getElementById('addProject');
-        addProject.addEventListener('click', function () {
-            loginMessage.innerHTML = `
-                                <div id="inputProjectDetails" class="input-Project-details">
-                                    <br>
-                                    <input class="input" type="text" id="projectName" placeholder="project name">
-                                    <input class="input" type="text" id="projectDesc" placeholder="project description">
-                                    <input class="input" type="text" id="projectURL" placeholder="link to project image">
-                                    <input class="input" type="text" id="projectSite" placeholder="link to prject site">
-                                    <br><br>
-                                    <button id="submitAddProject" class="login-button">ADD PROJECT NOW</button>
-                                </div>
-                                `
-            // ** on click of the submit new project button, do an ajax call to add the project to the mongo DB
-            const submitAddProject = document.getElementById('submitAddProject');
-            submitAddProject.addEventListener('click', function () {
-                const newProjName = projectName.value;
-                const newProjDesc = projectDesc.value;
-                const newProjURL = projectURL.value;
-                const newProjSite = projectSite.value;
-                const newProjCreateDate = new Date;
-                const newProjCreator = sessionStorage.getItem('userID');
-                const newProjAuthor = `${sessionStorage.getItem('firstName')} ${sessionStorage.getItem('lastName')}`;;
-                console.log(newProjName);
-                console.log(newProjDesc);
-                console.log(newProjCreator);
-                console.log('you have added a new project with the name "' + newProjName + '", description "' + newProjDesc + '"');
-                // *** Start of ajax POST
-                $.ajax({
-                    url: `http://${url}/addPortfolio`,
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        title: newProjName,
-                        description: newProjDesc,
-                        imageUrl: newProjURL,
-                        siteUrl: newProjSite,
-                        creationDate: newProjCreateDate,
-                        user_id: newProjCreator,
-                        author: newProjAuthor
-                    },
-                    success: function (result) {
-                        console.log(result);
-                        alert('Project added by ' + firstName);
-                        return;
-                    },
-                    error: function () {
-                        console.log('Error - cannot call API to add a new project add product');
-                    }
-                })
-                // End of ajax POST ***
-            })
-            // End of ** 
-        })
-        // End of *
-    };
-    // End of addNewProject(...)
-
+    
 
 
     // Add event listener to the login submit button
@@ -803,12 +730,12 @@ $(document).ready(function () {
 
         if (responsiveNav.classList.contains('hiddenMenu')){
             responsiveNav.classList.remove('hiddenMenu')
-            dropdownTab.style.backgroundColor = 'black'
-            dropdownTab.style.color = 'white'
+            dropdownTab.style.backgroundColor = '$black'
+            dropdownTab.style.color = '$white'
         } else {
             responsiveNav.classList.add('hiddenMenu')
-            dropdownTab.style.backgroundColor = 'white'
-            dropdownTab.style.color = 'black'
+            dropdownTab.style.backgroundColor = '$white'
+            dropdownTab.style.color = '$black'
         }
     })
 
