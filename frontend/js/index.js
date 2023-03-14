@@ -360,65 +360,7 @@ $(document).ready(function () {
         });
     }
 
-    function addNewProject(currentUser, firstName) {
-        // * on click of the add project button, display add project form
-        const addProject = document.getElementById('addProject');
-        addProject.addEventListener('click', function () {
-            loginMessage.innerHTML = `
-                                <div id="inputProjectDetails" class="input-Project-details">
-                                    <br>
-                                    <input class="input" type="text" id="projectName" placeholder="project name">
-                                    <input class="input" type="text" id="projectDesc" placeholder="project description">
-                                    <input class="input" type="text" id="projectURL" placeholder="link to project image">
-                                    <input class="input" type="text" id="projectSite" placeholder="link to prject site">
-                                    <br><br>
-                                    <button id="submitAddProject" class="login-button">ADD PROJECT NOW</button>
-                                </div>
-                                `
-            // ** on click of the submit new project button, do an ajax call to add the project to the mongo DB
-            const submitAddProject = document.getElementById('submitAddProject');
-            submitAddProject.addEventListener('click', function () {
-                const newProjName = projectName.value;
-                const newProjDesc = projectDesc.value;
-                const newProjURL = projectURL.value;
-                const newProjSite = projectSite.value;
-                const newProjCreateDate = new Date;
-                const newProjCreator = sessionStorage.getItem('userID');
-                const newProjAuthor = `${sessionStorage.getItem('firstName')} ${sessionStorage.getItem('lastName')}`;;
-                console.log(newProjName);
-                console.log(newProjDesc);
-                console.log(newProjCreator);
-                console.log('you have added a new project with the name "' + newProjName + '", description "' + newProjDesc + '"');
-                // *** Start of ajax POST
-                $.ajax({
-                    url: `http://${url}/addPortfolio`,
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        title: newProjName,
-                        description: newProjDesc,
-                        imageUrl: newProjURL,
-                        siteUrl: newProjSite,
-                        creationDate: newProjCreateDate,
-                        user_id: newProjCreator,
-                        author: newProjAuthor
-                    },
-                    success: function (result) {
-                        console.log(result);
-                        alert('Project added by ' + firstName);
-                        return;
-                    },
-                    error: function () {
-                        console.log('Error - cannot call API to add a new project add product');
-                    }
-                })
-                // End of ajax POST ***
-            })
-            // End of ** 
-        })
-        // End of *
-    };
-    // End of addNewProject(...)
+   
 
 
 
@@ -432,72 +374,30 @@ $(document).ready(function () {
     // ------------ TAB SELECTION LOGIC -------------
 
     let activeTab = 'tabAll';
-
-    let marianTab = document.getElementById('tabMarian');
-    let maxTab = document.getElementById('tabMax');
-    let christineTab = document.getElementById('tabChristine');
-    let davidTab = document.getElementById('tabDavid');
-    let samTab = document.getElementById('tabSam');
-    let patriciaTab = document.getElementById('tabPatricia');
-    let indiaTab = document.getElementById('tabIndia');
-
-
-
-
+    let activeResponsiveTab = 'tabAll'
 
 
     function changeTab(tabName) {
 
 
-        marianTab.classList.remove('marian-background');
-        maxTab.classList.remove('max-background');
-        christineTab.classList.remove('christine-background');
-        davidTab.classList.remove('david-background');
-        samTab.classList.remove('sam-background');
-        patriciaTab.classList.remove('patricia-background');
-        indiaTab.classList.remove('india-background');
 
-
+// Setting the previous tab
         let prevTab = document.getElementById(activeTab);
+        let prevTabName =  prevTab.dataset.name + "-background"
         prevTab.classList.remove('active');
+        prevTab.classList.remove(prevTabName);
+
+// Setting the active tab
         activeTab = tabName;
         let tab = document.getElementById(activeTab);
+
+        let activeTabName =  tab.dataset.name + "-background"
         tab.classList.add('active');
-        console.log(`tab ${activeTab} is selected`);
+        tab.classList.add(activeTabName);
+        
         let userID = tab.dataset.userid;
 
-        switch (activeTab) {
-
-            case 'tabMarian':
-                marianTab.classList.add('marian-background');
-                console.log('working');
-                break;
-
-            case 'tabMax':
-                maxTab.classList.add('max-background');
-                break;
-
-            case 'tabChristine':
-                christineTab.classList.add('christine-background');
-                break;
-
-            case 'tabDavid':
-                davidTab.classList.add('david-background');
-                break;
-
-            case 'tabSam':
-                samTab.classList.add('sam-background');
-                break;
-
-            case 'tabPatricia':
-                patriciaTab.classList.add('patricia-background');
-                break;
-
-            case 'tabIndia':
-                indiaTab.classList.add('india-background');
-                break;
-        }
-
+       
 
         if (activeTab === 'tabAll') {
             getAllProjects();
@@ -515,13 +415,23 @@ $(document).ready(function () {
 
 
     function changeDropdownTab(tabName) {
-        let tab = document.getElementById(tabName);
+        let prevTab = document.getElementById(activeResponsiveTab);
+        let prevTabName =  prevTab.dataset.background + "-background"
+        
         let nameTab = document.getElementById('tabResponsiveName');
+        nameTab.classList.remove(prevTabName);
+
+        activeResponsiveTab = tabName;
+        let tab = document.getElementById(activeResponsiveTab);
+
         let responsiveNav = document.getElementById('dropdownContainer');
         let dropdownTab = document.getElementById('tabDropdown')
         
         let userID = tab.dataset.userid;
-        let name = tab.dataset.name;
+        let name = tab.dataset.background;
+        let tabBackground = name + '-background'
+        nameTab.classList.add(tabBackground);
+
 
         if (tabName === 'dropdownTabAll') {
             getAllProjects();
@@ -551,6 +461,7 @@ $(document).ready(function () {
         let tabs = Array.from(allTabs);
         tabs.forEach(function (tab) {
             tab.addEventListener('click', event => {
+                console.log(tab);
                 let tabName = event.target.id;
 
                 changeTab(tabName);
@@ -597,6 +508,150 @@ $(document).ready(function () {
 
     // ------------ VISUALS -----------------
 
+    function populateUserInfo(user){
+        console.log(user);
+        
+        let firstName = user.firstName;
+        let lastName = user.lastName;
+        let email = user.email;
+        let password = user.password;
+        let userImage = user.userImage;
+        let gitLink = user.gitLink;
+        let linkedIn = user.linkedIn;
+        let instagram = user.instagram;
+        let twitter = user.twitter;
+        let externalSite = user.externalSite;
+
+       
+        if(userImage == ''){
+            userImage = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+        }
+
+        console.log(userImage);
+        let sideNav =  document.getElementById('sidenavContent');
+
+       
+
+        sideNav.innerHTML = `
+        
+    <div class="user-details-container">
+
+    <h4>Good to see you back ${firstName}</h4>
+        <div class="top-container">
+
+            <div class="user-image" id='userImage'></div>
+            <div class="user-name"><h3>${firstName} ${lastName}</h3></div>
+            
+        </div>
+        <div class="info-container" id="infoContainer">
+           
+        </div>
+        <button id="addProject" class="login-message login-button">Add Project</button>
+
+    </div>
+        
+        `
+        let userImg =  document.getElementById('userImage');
+        userImg.style.backgroundImage = `url(${userImage})`
+
+        let infoContainer = document.getElementById("infoContainer");
+
+        if (gitLink != '') {
+            infoContainer.innerHTML += `
+                        <div class="social-media-button"> <a href="${gitLink}" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a> </div>
+                `
+        }
+        if (linkedIn != '') {
+            infoContainer.innerHTML += `
+                        <div class="social-media-button"> <a href="${linkedIn}" target="_blank" title="Linked In"><i class="fa-brands fa-linkedin"></i></a> </div>
+                `
+        }
+        if (instagram != '') {
+            infoContainer.innerHTML += `
+                        <div class="social-media-button"> <a href="${instagram}" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a> </div>
+                `
+        }
+        if (twitter != '') {
+            infoContainer.innerHTML += `
+                        <div class="social-media-button"> <a href="${twitter}" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a> </div>
+                `
+        }
+        if (externalSite != '') {
+           infoContainer.innerHTML += `
+                        <div class="social-media-button"> <a href="${externalSite}" target="_blank" title="Follow this link to view more of ${firstName}'s work"><i class="fa-solid fa-arrow-up-right-from-square"></i></a> </div>
+                `
+        }
+
+        document.getElementById('sidenavTab').innerHTML = 'add'
+
+        addNewProject(user, firstName);
+
+    }
+
+   
+
+    function addNewProject(currentUser, firstName) {
+        // * on click of the add project button, display add project form
+        let sideNav =  document.getElementById('sidenavContent');
+        const addProject = document.getElementById('addProject');
+        addProject.addEventListener('click', function () {
+            sideNav.innerHTML = `
+                                <div id="inputProjectDetails" class="input-Project-details">
+                                    <br>
+                                    <input class="input" type="text" id="projectName" placeholder="project name">
+                                    <input class="input" type="text" id="projectDesc" placeholder="project description">
+                                    <input class="input" type="text" id="projectURL" placeholder="link to project image">
+                                    <input class="input" type="text" id="projectSite" placeholder="link to prject site">
+                                    <br><br>
+                                    <button id="submitAddProject" class="login-button">ADD PROJECT NOW</button>
+                                </div>
+                                `
+            // ** on click of the submit new project button, do an ajax call to add the project to the mongo DB
+            const submitAddProject = document.getElementById('submitAddProject');
+            submitAddProject.addEventListener('click', function () {
+                const newProjName = projectName.value;
+                const newProjDesc = projectDesc.value;
+                const newProjURL = projectURL.value;
+                const newProjSite = projectSite.value;
+                const newProjCreateDate = new Date;
+                const newProjCreator = sessionStorage.getItem('userID');
+                const newProjAuthor = `${sessionStorage.getItem('firstName')} ${sessionStorage.getItem('lastName')}`;;
+                console.log(newProjName);
+                console.log(newProjDesc);
+                console.log(newProjCreator);
+                console.log('you have added a new project with the name "' + newProjName + '", description "' + newProjDesc + '"');
+                // *** Start of ajax POST
+                $.ajax({
+                    url: `http://${url}/addPortfolio`,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        title: newProjName,
+                        description: newProjDesc,
+                        imageUrl: newProjURL,
+                        siteUrl: newProjSite,
+                        creationDate: newProjCreateDate,
+                        user_id: newProjCreator,
+                        author: newProjAuthor
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        alert('Project added by ' + firstName);
+                        populateUserInfo(currentUser);
+                        return;
+                    },
+                    error: function () {
+                        console.log('Error - cannot call API to add a new project add product');
+                    }
+                })
+                // End of ajax POST ***
+            })
+            // End of ** 
+        })
+        // End of *
+    };
+    // End of addNewProject(...)
+
 
 
 
@@ -616,12 +671,6 @@ $(document).ready(function () {
         let firstName = document.getElementById('firstName').value;
         let lastName = document.getElementById('lastName').value;
         let password = document.getElementById('password').value;
-
-
-
-        console.log(password);
-        console.log(firstName);
-        console.log(lastName);
 
 
         if (firstName == '' || lastName == '' || password == '') {
@@ -649,73 +698,8 @@ $(document).ready(function () {
                         sessionStorage.setItem('userID', user['_id']);
                         sessionStorage.setItem('firstName', user['firstName']);
                         sessionStorage.setItem('lastName', user['lastName']);
+                        populateUserInfo(user)
 
-                        let firstName = user.firstName;
-                        let lastName = user.lastName;
-                        let email = user.email;
-                        let password = user.password;
-                        let userImage = user.userImage;
-                        let gitLink = user.gitLink;
-                        let linkedIn = user.linkedIn;
-                        let instagram = user.instagram;
-                        let twitter = user.twitter;
-                        let externalSite = user.externalSite;
-
-                        let inputUserDetails = document.getElementById('inputUserDetails');
-                        inputUserDetails.innerHTML = '';
-
-                        let loginMessage = document.getElementById('loginMessage');
-                        // Display greeting and an 'add project' button
-                        loginMessage.innerHTML = `
-
-                                <br><br>
-                                <h4>Good to see you back ${firstName}</h4>
-                                <br><br>
-                                <h5>Your details:</h5>
-                                <br>
-                                <h6>Name: ${firstName} ${lastName}</h6>
-                                <br>
-                                <h6>Email: ${email}</h6>
-                                <br>
-                                <div class="social-media"> 
-                                `
-                        if (gitLink != '') {
-                            loginMessage.innerHTML += `
-                                        <div class="social-media-button"> <a href="${gitLink}" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a> </div>
-                                `
-                        }
-                        if (linkedIn != '') {
-                            loginMessage.innerHTML += `
-                                        <div class="social-media-button"> <a href="${linkedIn}" target="_blank" title="Linked In"><i class="fa-brands fa-linkedin"></i></a> </div>
-                                `
-                        }
-                        if (instagram != '') {
-                            loginMessage.innerHTML += `
-                                        <div class="social-media-button"> <a href="${instagram}" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a> </div>
-                                `
-                        }
-                        if (twitter != '') {
-                            loginMessage.innerHTML += `
-                                        <div class="social-media-button"> <a href="${twitter}" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a> </div>
-                                `
-                        }
-                        loginMessage.innerHTML += `
-                                </div>
-                                <br><br>
-                                `
-
-                        if (externalSite != '') {
-                            loginMessage.innerHTML += `
-                                        <div class="social-media-button"> <a href="${externalSite}" target="_blank" title="Follow this link to view more of ${firstName}'s work"><i class="fa-solid fa-arrow-up-right-from-square"></i></a> </div>
-                                `
-                        }
-                        loginMessage.innerHTML += `
-                                <br><br>
-                                <button id="addProject" class="login-message login-button">Add Project</button>
-                                `
-
-
-                        addNewProject(user, firstName);
                     }
                 },
                 error: function () {
