@@ -1,3 +1,32 @@
+// ------------- LOADING PAGE ANIMATION -----------------
+
+// function which checks every 2.5 secs to see if body loaded is "not undefined" - if body "not undefined", this means page load is complete, so clear the interval and break out of the function 
+function onReady(callback) {
+    let intervalId = window.setInterval(function () {
+        if (document.getElementsByTagName('body')[0] !== undefined) {
+            window.clearInterval(intervalId);
+            callback.call(this);
+        }
+    }, 2500);
+}
+// function accepts 2 parameters - the selector and whether to that selector to visible or not. It uses a ternary operator, which says "if visible is true, then set the display attribute for that selector to block, otherwise set its display attribute to none" 
+function setVisible(selector, visible) {
+    document.querySelector(selector).style.display = visible ? 'block' : 'none';
+}
+
+// call onReady, passing:
+//      1. name of the selector and 
+//      2. whether to display its content
+// Once page loaded, set the loading page display to none and the document to display block
+onReady(function () {
+    setVisible('.after-loading-page', true);
+    setVisible('#loading', false);
+});
+
+// ------------- End of LOADING PAGE ANIMATION -----------------
+
+
+
 /*jshint esversion: 6 */
 $(document).ready(function () {
     let url;
@@ -12,7 +41,7 @@ $(document).ready(function () {
         success: function (configData) {
             console.log(configData.SERVER_URL, configData.SERVER_PORT);
             url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
-            
+
             getAllProjects();
 
 
@@ -271,7 +300,7 @@ $(document).ready(function () {
         })
     }
 
-   
+
 
 
 
@@ -351,7 +380,7 @@ $(document).ready(function () {
 
 
 
-    
+
 
     function changeTab(tabName) {
 
@@ -373,7 +402,7 @@ $(document).ready(function () {
         console.log(`tab ${activeTab} is selected`);
         let userID = tab.dataset.userid;
 
-        switch(activeTab) {
+        switch (activeTab) {
 
             case 'tabMarian':
                 marianTab.classList.add('marian-background');
@@ -382,27 +411,27 @@ $(document).ready(function () {
             case 'tabMax':
                 maxTab.classList.add('max-background');
                 break;
-        
+
             case 'tabChristine':
                 christineTab.classList.add('christine-background');
                 break;
-        
+
             case 'tabDavid':
                 davidTab.classList.add('david-background');
                 break;
-        
+
             case 'tabSam':
                 samTab.classList.add('sam-background');
                 break;
-        
+
             case 'tabPatricia':
                 patriciaTab.classList.add('patricia-background');
                 break;
-        
+
             case 'tabIndia':
                 indiaTab.classList.add('india-background');
                 break;
-            }
+        }
 
 
         if (activeTab === 'tabAll') {
@@ -712,5 +741,5 @@ $(document).ready(function () {
     tabsClickable();
 
 
-    
+
 });

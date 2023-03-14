@@ -74,6 +74,24 @@ body {
     scroll-behavior: smooth;
 }
 
+// -------- LOADING PAGE ----------
+
+#loading {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(36, 33, 33, 0.199);
+    background-image: url("https://i.stack.imgur.com/MnyxU.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+// -------- End of LOADING PAGE ----------
+
 
 // -------- LAYOUT ---------
 .title-container{
