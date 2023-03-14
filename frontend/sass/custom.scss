@@ -5,7 +5,7 @@
 // BLACK & WHITE
 $black: #121113;
 $white: #F7F7F2;
-$borderBlack:rgba(0, 0, 0, 0.75);
+$borderBlack:rgba(12, 11, 13, 0.75);
 // TABS
 $all: #F4ACB7;
 $marian: #FE5F55;
@@ -17,7 +17,7 @@ $patricia: #AB5F8F;
 $india: #3B293D;
 
 // SETTING FONTS
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6, p, input {
     font-family: 'Public Sans', sans-serif;
     font-family: 'Public Sans', sans-serif;
 }
@@ -67,30 +67,13 @@ p {
 }
 
 body {
-  display: flex;
+    display: flex;
     height: 100vw;
     width: 100vw;
     overflow-y: hidden;
     scroll-behavior: smooth;
+    background-color: $white;
 }
-
-// -------- LOADING PAGE ----------
-
-#loading {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(36, 33, 33, 0.199);
-    background-image: url("https://i.stack.imgur.com/MnyxU.gif");
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
-// -------- End of LOADING PAGE ----------
 
 
 // -------- LAYOUT ---------
@@ -109,7 +92,7 @@ body {
     width: 35vw;
     height: 100vh;
     border-right: 1px solid $borderBlack;
-    background-color: white;
+    background-color: $white;
     transition: all 0.5s ease;
     
 }
@@ -120,9 +103,51 @@ body {
 .login-form{
     @include flex-column;
     @include center-items;
-    border: 2px solid black;
+    border: 2px solid $black;
     width: 80%;
     height: 80%;
+}
+
+input {
+    background-color: $white;
+    border: none;
+    border-bottom: 2px solid $black;
+    margin-bottom: 20px;
+}
+
+input::placeholder {
+    color: $black;
+}
+
+#inputUserDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#submitLogin {
+    margin-top: -10px;
+    background-color: $black;
+    color: $white;
+    border: none;
+    width: 155.5px;
+    font-family: 'Public Sans', sans-serif;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+#submitLogin:hover {
+    margin-top: -10px;
+    background-color: $white;
+    color: $black;
+    border: 2px solid $black;
+    width: 155.5px;
+    font-family: 'Public Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 
@@ -160,25 +185,24 @@ body {
     @include center-items;
     text-transform: uppercase;
     font-family: 'Public Sans', sans-serif;
-    background-color: white;
+    background-color: $white;
     position: absolute;
-   left: 29vw;
-   width: 39%;
-   height: 4%;
+    left: 29vw;
+    width: 39%;
+    height: 4%;
     border-right: 1px solid $borderBlack;
     border-left: 1px solid $borderBlack;
-    border-top: 2px solid white;
+    border-top: 2px solid $white;
     border-bottom: 1px solid $borderBlack;
     transform: rotate(-90deg);
     cursor: pointer;
-
-    
-
-
-
     top: 17%;
     border-radius: 0px 0px 10px 10px;
 
+}
+
+.ta-center {
+    text-align: center;
 }
 
 .main-container{
@@ -208,7 +232,7 @@ body {
     position: relative;
     width: 12.5%;
     border: 1px 1px 1px 1px;
-    border-color: black;
+    border-color: $black;
     transition: all 0.5s ease;
     border-style: solid;
     height: 90%;
@@ -226,7 +250,7 @@ body {
 .tab.active{
     
     font-weight: 700;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid $white;
     transition: all 0.5s ease;
     
 }
@@ -330,7 +354,7 @@ body {
 .link{
     padding-right: 5%;
     padding-left: 5%;
-    color: #121113;
+    color: $black;
 }
 
 
