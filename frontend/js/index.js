@@ -331,40 +331,6 @@ $(document).ready(function () {
         });
     }
 
-
-
-
-
-
-    // ------------ TAB SELECTION LOGIC -------------
-
-    let activeTab = 'tabAll';
-
-
-
-
-    
-
-    function changeTab(tabName) {
-
-
-
-        let prevTab = document.getElementById(activeTab);
-        prevTab.classList.remove('active');
-        activeTab = tabName;
-        let tab = document.getElementById(activeTab);
-        tab.classList.add('active');
-        console.log(`tab ${activeTab} is selected`);
-        let userID = tab.dataset.userid;
-
-        if (activeTab === 'tabAll') {
-            getAllProjects();
-        } else {
-            getSingleStudentProjects(userID);
-        }
-
-    }
-
     function getSingleStudentProjects(userID) {
         $.ajax({
             url: `http://${url}/allPortfolios`,
@@ -417,6 +383,69 @@ $(document).ready(function () {
 
 
 
+
+
+
+    // ------------ TAB SELECTION LOGIC -------------
+
+    let activeTab = 'tabAll';
+   
+
+
+
+    
+
+    function changeTab(tabName) {
+
+
+
+        let prevTab = document.getElementById(activeTab);
+        prevTab.classList.remove('active');
+        activeTab = tabName;
+        let tab = document.getElementById(activeTab);
+        tab.classList.add('active');
+        console.log(`tab ${activeTab} is selected`);
+        let userID = tab.dataset.userid;
+
+        if (activeTab === 'tabAll') {
+            getAllProjects();
+        } else {
+            getSingleStudentProjects(userID);
+        }
+
+    }
+
+    function changeDropdownTab(tabName) {
+        let tab = document.getElementById(tabName);
+        let nameTab = document.getElementById('tabResponsiveName');
+        let responsiveNav = document.getElementById('dropdownContainer');
+        let dropdownTab = document.getElementById('tabDropdown')
+        
+        let userID = tab.dataset.userid;
+        let name = tab.dataset.name;
+
+        if (tabName === 'dropdownTabAll') {
+            getAllProjects();
+        } else {
+            getSingleStudentProjects(userID);
+        }
+
+
+      
+        
+        nameTab.innerHTML = `${name}`
+        responsiveNav.classList.add('hiddenMenu')
+        dropdownTab.style.backgroundColor = 'white'
+        dropdownTab.style.color = 'black'
+        
+
+    }
+
+
+    
+
+
+
     function tabsClickable() {
 
         let allTabs = document.querySelectorAll('.tab');
@@ -430,18 +459,20 @@ $(document).ready(function () {
 
         });
 
+    }
+    function dropdownClickable() {
 
+        let allDropdownTabs = document.querySelectorAll('.dropdown-tab');
+        let dropdownTabs = Array.from(allDropdownTabs);
+        dropdownTabs.forEach(function (tab) {
+            tab.addEventListener('click', event => {
+                let tabName = event.target.id;
+                changeDropdownTab(tabName);
+            });
 
+        });
 
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -656,13 +687,29 @@ $(document).ready(function () {
     });
 
 
+    document.getElementById('tabDropdown').addEventListener('click', function(){
+        let responsiveNav = document.getElementById('dropdownContainer');
+        let dropdownTab = document.getElementById('tabDropdown')
+
+        if (responsiveNav.classList.contains('hiddenMenu')){
+            responsiveNav.classList.remove('hiddenMenu')
+            dropdownTab.style.backgroundColor = 'black'
+            dropdownTab.style.color = 'white'
+        } else {
+            responsiveNav.classList.add('hiddenMenu')
+            dropdownTab.style.backgroundColor = 'white'
+            dropdownTab.style.color = 'black'
+        }
+    })
+
+  
 
 
 
     // ------------------------------- End of Login Form --------------------------------------
 
     tabsClickable();
-
+    dropdownClickable();
 
 
 
