@@ -11,48 +11,54 @@
 </head>
 <body>
 
-    <div class="sidenav closed" id="sidenav">
-        <div class="login-form">
-            <h3>Welcome to CarrotJuice</h3>
+    <!-- Loading page empty div - the rest of the HTML has been wrapped in a div called 'after-loading-page' -->
+    <div id="loading"></div>
 
-            <div id="inputUserDetails" class="input-user-details">
-                <br>
-                <input class="input" type="text" id="firstName" placeholder="First name...">
-                <input class="input" type="text" id="lastName" placeholder="Last name...">
-                <input class="input" type="password" id="password" placeholder="password">
-                <br><br>
-                <button class="login-button" id="submitLogin">Submit</button>
+    <div class="after-loading-page">
+        <div class="sidenav closed" id="sidenav">
+            <div class="login-form">
+                <h3>Welcome to CarrotJuice</h3>
+    
+                <div id="inputUserDetails" class="input-user-details">
+                    <br>
+                    <input class="input" type="text" id="firstName" placeholder="First name...">
+                    <input class="input" type="text" id="lastName" placeholder="Last name...">
+                    <input class="input" type="password" id="password" placeholder="password">
+                    <br><br>
+                    <button class="login-button" id="submitLogin">Submit</button>
+                </div>
+    
+                <div id="loginMessage" class="login-message">
+                    <!-- Login message rendered in JS -->
+                </div> 
+    
             </div>
-
-            <div id="loginMessage" class="login-message">
-                <!-- Login message rendered in JS -->
-            </div> 
-
+            <div class="tab-button" id="sidenavTab">login</div>
         </div>
-        <div class="tab-button" id="sidenavTab">login</div>
-    </div>
 
-    <div class="title-container">
-        <div class="title"><h2>WUX 2207</h2></div>
-    </div>
-
-   <div class="main-container">
-
-    <!-- Contains all tabs for navigation -->
-    <div class="tabs-container">
-        <!-- Active denotes current selected tab - removes bottom border -->
-        <div class="tab all-border active" data-name="all" id="tabAll"> all</div> 
-        <div class="tab marian-border" data-name="marian" data-userid="640934e566ed6602c98e782e" id="tabMarian" >M. Arnot</div>
-        <div class="tab max-border" data-name="max" data-userid="6409367166ed6602c98e7831" id="tabMax">M. Christensen</div>
-        <div class="tab christine-border" data-name="christine" data-userid="640939a966ed6602c98e783d" id="tabChristine">C. Hudson</div>
-        <div class="tab david-border" data-name="david" data-userid="64068a3c9141adcaade07029" id="tabDavid">D. Lewis</div>
-        <div class="tab sam-border" data-name="sam" data-userid="640938c766ed6602c98e7839" id="tabSam">S. Mitchell</div>
-        <div class="tab patricia-border" data-name="patricia" data-userid="6409378166ed6602c98e7835" id="tabPatricia">P. Solis</div>
-        <div class="tab india-border" data-name="india" data-userid="640933b366ed6602c98e7829" id="tabIndia">I. Storey</div>
-
-    </div>
-
-    <div class="responsive-tabs-container">
+    
+        <div class="title-container">
+            <div class="title"><h2>WUX 2207</h2></div>
+        </div>
+    
+       <div class="main-container">
+    
+        <!-- Contains all tabs for navigation -->
+        <div class="tabs-container">
+            <!-- Active denotes current selected tab - removes bottom border -->
+            <div class="tab all-border active" data-name="all" id="tabAll"> all</div> 
+            <div class="tab marian-border" data-name="marian" data-userid="640934e566ed6602c98e782e" id="tabMarian" >M. Arnot</div>
+            <div class="tab max-border" data-name="max" data-userid="6409367166ed6602c98e7831" id="tabMax">M. Christensen</div>
+            <div class="tab christine-border" data-name="christine" data-userid="640939a966ed6602c98e783d" id="tabChristine">C. Hudson</div>
+            <div class="tab david-border" data-name="david" data-userid="64068a3c9141adcaade07029" id="tabDavid">D. Lewis</div>
+            <div class="tab sam-border" data-name="sam" data-userid="640938c766ed6602c98e7839" id="tabSam">S. Mitchell</div>
+            <div class="tab patricia-border" data-name="patricia" data-userid="6409378166ed6602c98e7835" id="tabPatricia">P. Solis</div>
+            <div class="tab india-border" data-name="india" data-userid="640933b366ed6602c98e7829" id="tabIndia">I. Storey</div>
+            
+    
+        </div>
+        
+        <div class="responsive-tabs-container">
         <div class="responsive-tab  left" id="tabResponsiveName">all</div>
         <div class="responsive-tab right" id="tabDropdown">+</div>
         <div class="dropdown-container hiddenMenu" id="dropdownContainer">
@@ -68,40 +74,41 @@
         </div>
 
     </div>
+    
+        <div class="content-container">
+            <div class="project-info-container" id="projectInfoContainer">
+                <div class="side1" id="side1">
+                    <div class="project-title"></div>
+                    <div class="project-image" id="projectImage">
+                        <img src="" >
+                    </div>
 
-    <div class="content-container">
-        <div class="project-info-container" id="projectInfoContainer">
-            <div class="side1" id="side1">
-                <div class="project-title"></div>
-                <div class="project-image" id="projectImage">
-                    <img src="" >
                 </div>
-
+    
+                <div class="side2" id="side2">
+                   
+                </div>
+              
+                
             </div>
-
-            <div class="side2" id="side2">
-               
-            </div>
-          
             
-        </div>
-        
-        <div class="projects-container" id="projectsContainer">
-            <div class="project-listing">
-               
+            <div class="projects-container" id="projectsContainer">
+                <div class="project-listing">
+                   
+                </div>
             </div>
+    
         </div>
-
+    
+    
+    
+       </div>
+    
+       <div class="background-blur hidden" id="backgroundBlur">
+    
+       </div>
+    
     </div>
-
-
-
-   </div>
-
-   <div class="background-blur hidden" id="backgroundBlur">
-
-   </div>
-
    
 
 
