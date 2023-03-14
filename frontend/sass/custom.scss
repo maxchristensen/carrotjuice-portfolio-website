@@ -454,21 +454,19 @@ input:focus {
 }
 
 .project-image{
+    background-repeat: no-repeat;
+    background-size: contain;
     position: absolute;
     bottom: 5%;
     left:5%;
     width: 70%;
-    height: 70%;
+    height: 75%;
     align-items: end;
     // border: 2px solid black;
     
 
 }
-.project-image img{
-    position: relative;
-    height: 100%;
-    object-fit: cover;
-}
+
 
 // RIGHT SIDE STYLING
 .side2{
@@ -480,8 +478,9 @@ input:focus {
 }
 
 .project-author{
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
     // text-transform: uppercase:
     position: relative;
     top: 10%;
@@ -498,12 +497,15 @@ input:focus {
 }
 .links-container{
     position: absolute;
-    @include flex-row;
-    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
     justify-content: space-between;
+    text-align: right;
+
 
     bottom: 5%;
-    width: fit-content;
+    width: 80%;
     right: 5%;
     height: 15%;
     font-size: 45px;
@@ -561,11 +563,11 @@ input:focus {
     
 }
 
-.student-name {
-    font-family: 'Playfair Display', serif;
+// .student-name {
+//     font-family: 'Playfair Display', serif;
     
-    font-weight: 900;
-}
+//     font-weight: 900;
+// }
 
 .background-blur{
     position: absolute;
@@ -635,14 +637,14 @@ a {
 .patricia-border {border-bottom: 2px solid $patricia;}
 
 // STUDENT BACKGROUND COLOURS
-.all-background {background-color: $all;}
-.marian-background {background-color: $marian; color: $white;}
-.max-background {background-color: $max; color: $white;}
-.christine-background {background-color: $christine; }
-.david-background {background-color: $david; color: $white;}
-.sam-background {background-color: $sam; color: $white;}
-.india-background {background-color: $india; color: $white;}
-.patricia-background {background-color: $patricia; color: $white;}
+.all-background {background-color: $all; border-bottom: 2px solid $all;}
+.marian-background {background-color: $marian; color: $white; border-bottom: 2px solid $marian;}
+.max-background {background-color: $max; color: $white; border-bottom: 2px solid $max;}
+.christine-background {background-color: $christine; border-bottom: 2px solid $christine;}
+.david-background {background-color: $david; color: $white; border-bottom: 2px solid $david;}
+.sam-background {background-color: $sam; color: $white; border-bottom: 2px solid $sam;}
+.india-background {background-color: $india; color: $white; border-bottom: 2px solid $india;}
+.patricia-background {background-color: $patricia; color: $white; border-bottom: 2px solid $patricia;}
 
 /* ------ RESPONSIVENESS ------  */
 /* PHONE */

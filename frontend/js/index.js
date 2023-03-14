@@ -140,32 +140,7 @@ $(document).ready(function () {
 
     }
 
-    function openProject() {
-        let allListings = document.querySelectorAll('.project-listing');
-        let listings = Array.from(allListings);
-
-
-
-        listings.forEach(function (listing) {
-            listing.addEventListener('click', function () {
-                console.log('clicked');
-                let projectID = listing.dataset.id;
-                getSingleProject(projectID);
-
-            });
-            //             listing.addEventListener('mouseover', function () {
-            //                 let projectID = listing.dataset.id;
-            //                 singleProjectHover(projectID);
-            //             });
-            //             listing.addEventListener('mouseout', function () {
-            //                 let image = document.getElementById('projectImage');
-            //                 image.innerHTML = `
-            //    <img src="" >
-            //    `;
-            //             });
-        });
-    }
-
+    
     function singleProjectHover(id) {
         $.ajax({
             url: `http://${url}/singlePortfolio/${id}`,
@@ -215,15 +190,12 @@ $(document).ready(function () {
         let side2 = document.getElementById('side2');
 
 
-
-        console.log(selectedUser.gitLink);
-        console.log('in populating');
         // console.log(currentSelectedUser);
 
         side1.innerHTML = `
     <div class="project-title"><h4>${portfolio.title}</h4></div>
-    <div class="project-image">
-        <img src="${portfolio.imageURL}" >
+    <div class="project-image" id="projectImage">
+       
     </div>
     `
 
@@ -238,9 +210,11 @@ $(document).ready(function () {
         
         </div>
    `
+        let projectImage = document.getElementById('projectImage');
         let linksContainer = document.getElementById('linksContainer');
+        projectImage.style.backgroundImage = `url(${portfolio.imageURL})`
 
-        if (!selectedUser.twitter == '') {
+        if (selectedUser.twitter !== '') {
             linksContainer.innerHTML += `
             <a href="${selectedUser.twitter}"><i class="fa-brands fa-twitter link"></i></a>
             `
@@ -248,7 +222,7 @@ $(document).ready(function () {
         }
         if (!selectedUser.instagram == '') {
             linksContainer.innerHTML += `
-            <a href="${currentSelectedUser.instagram}"><i class="fa-brands fa-instagram link"></i></a>
+            <a href="${selectedUser.instagram}"><i class="fa-brands fa-instagram link"></i></a>
             `
         }
         if (!selectedUser.linkedIn == '') {
@@ -300,6 +274,56 @@ $(document).ready(function () {
         })
     }
 
+    async function populateUserBio(userID){
+        let side2 = document.getElementById('side2');
+                const user = await getSingleUser(userID)
+                side2.innerHTML = `
+                    <div class="project-author student-name">${user.firstName} ${user.lastName}</div>
+                        <div class="project-description">
+                           <p> ${user.bio}</p>
+       
+                            </div>
+                        <div class="links-container" id="linksContainer">
+
+        
+                    </div>
+                `
+
+                let linksContainer = document.getElementById('linksContainer');
+
+                if (user.twitter !== '') {
+                    linksContainer.innerHTML += `
+                    <a href="${user.twitter}"><i class="fa-brands fa-twitter link"></i></a>
+                    `
+        
+                }
+                if (!user.instagram == '') {
+                    linksContainer.innerHTML += `
+                    <a href="${user.instagram}"><i class="fa-brands fa-instagram link"></i></a>
+                    `
+                }
+                if (!user.linkedIn == '') {
+                    linksContainer.innerHTML += `
+                    <a href="${user.linkedIn}"><i class="fa-brands fa-linkedin link"></i></a>
+                    `
+        
+                }
+                if (!user.gitLink == '') {
+                    linksContainer.innerHTML += `
+                    <a href="${user.gitLink}"><i class="fa-brands fa-github link"></i></a>
+                    `
+        
+                }
+                if (!user.externalSite == '') {
+                    linksContainer.innerHTML += `
+                    <a href="${user.externalSite}"><i class="fa-brands fa-globe link"></i></a>
+                    `
+                }
+
+
+
+    }
+
 
 
 
@@ -312,7 +336,10 @@ $(document).ready(function () {
             url: `http://${url}/allPortfolios`,
             type: 'GET',
             dataType: 'json',
-            success: function (productsFromMongo) {
+            success: async function (productsFromMongo) {
+                await populateUserBio(userID)
+
+
                 let projectsContainer = document.getElementById('projectsContainer');
                 projectsContainer.innerHTML = '';
 
@@ -360,16 +387,16 @@ $(document).ready(function () {
         });
     }
 
-   
 
 
 
 
 
 
- 
 
-  
+
+
+
 
     // ------------ TAB SELECTION LOGIC -------------
 
@@ -381,33 +408,38 @@ $(document).ready(function () {
 
 
 
-// Setting the previous tab
+        // Setting the previous tab
         let prevTab = document.getElementById(activeTab);
-        let prevTabName =  prevTab.dataset.name + "-background"
-        prevTab.classList.remove('active');
+        let prevTabName = prevTab.dataset.name + "-background"
+        // prevTab.classList.remove('active');
         prevTab.classList.remove(prevTabName);
 
-// Setting the active tab
+        // Setting the active tab
         activeTab = tabName;
         let tab = document.getElementById(activeTab);
 
-        let activeTabName =  tab.dataset.name + "-background"
-        tab.classList.add('active');
+        let activeTabName = tab.dataset.name + "-background"
+        // tab.classList.add('active');
         tab.classList.add(activeTabName);
-        
+
         let userID = tab.dataset.userid;
 
-       
+
 
         if (activeTab === 'tabAll') {
+            let side1 = document.getElementById('side1');
+            let side2 = document.getElementById('side2');
+            side1.innerHTML = '';
+            side2.innerHTML = '';
             getAllProjects();
         } else {
             getSingleStudentProjects(userID);
+            side1.innerHTML = '';
         }
 
     }
 
-  
+
 
 
 
@@ -416,8 +448,8 @@ $(document).ready(function () {
 
     function changeDropdownTab(tabName) {
         let prevTab = document.getElementById(activeResponsiveTab);
-        let prevTabName =  prevTab.dataset.background + "-background"
-        
+        let prevTabName = prevTab.dataset.background + "-background";
+
         let nameTab = document.getElementById('tabResponsiveName');
         nameTab.classList.remove(prevTabName);
 
@@ -426,7 +458,7 @@ $(document).ready(function () {
 
         let responsiveNav = document.getElementById('dropdownContainer');
         let dropdownTab = document.getElementById('tabDropdown')
-        
+
         let userID = tab.dataset.userid;
         let name = tab.dataset.background;
         let tabBackground = name + '-background'
@@ -434,24 +466,29 @@ $(document).ready(function () {
 
 
         if (tabName === 'dropdownTabAll') {
+            let side1 = document.getElementById('side1');
+            let side2 = document.getElementById('side2');
+            side1.innerHTML = '';
+            side2.innerHTML = '';
             getAllProjects();
         } else {
+            side1.innerHTML = '';
             getSingleStudentProjects(userID);
         }
 
 
-      
-        
-        nameTab.innerHTML = `${name}`
-        responsiveNav.classList.add('hiddenMenu')
-        dropdownTab.style.backgroundColor = '$white'
-        dropdownTab.style.color = '$black'
-        
+
+
+        nameTab.innerHTML = `${name}`;
+        responsiveNav.classList.add('hiddenMenu');
+        dropdownTab.style.backgroundColor = '$white';
+        dropdownTab.style.color = '$black';
+
 
     }
 
 
-    
+
 
 
 
@@ -508,9 +545,9 @@ $(document).ready(function () {
 
     // ------------ VISUALS -----------------
 
-    function populateUserInfo(user){
+    function populateUserInfo(user) {
         console.log(user);
-        
+
         let firstName = user.firstName;
         let lastName = user.lastName;
         let email = user.email;
@@ -522,15 +559,15 @@ $(document).ready(function () {
         let twitter = user.twitter;
         let externalSite = user.externalSite;
 
-       
-        if(userImage == ''){
+
+        if (userImage == '') {
             userImage = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
         }
 
         console.log(userImage);
-        let sideNav =  document.getElementById('sidenavContent');
+        let sideNav = document.getElementById('sidenavContent');
 
-       
+
 
         sideNav.innerHTML = `
         
@@ -551,8 +588,8 @@ $(document).ready(function () {
     </div>
         
         `
-        let userImg =  document.getElementById('userImage');
-        userImg.style.backgroundImage = `url(${userImage})`
+        let userImg = document.getElementById('userImage');
+        userImg.style.backgroundImage = `url(${userImage})`;
 
         let infoContainer = document.getElementById("infoContainer");
 
@@ -577,22 +614,22 @@ $(document).ready(function () {
                 `
         }
         if (externalSite != '') {
-           infoContainer.innerHTML += `
+            infoContainer.innerHTML += `
                         <div class="social-media-button"> <a href="${externalSite}" target="_blank" title="Follow this link to view more of ${firstName}'s work"><i class="fa-solid fa-arrow-up-right-from-square"></i></a> </div>
                 `
         }
 
-        document.getElementById('sidenavTab').innerHTML = 'add'
+        document.getElementById('sidenavTab').innerHTML = 'add';
 
         addNewProject(user, firstName);
 
     }
 
-   
+
 
     function addNewProject(currentUser, firstName) {
         // * on click of the add project button, display add project form
-        let sideNav =  document.getElementById('sidenavContent');
+        let sideNav = document.getElementById('sidenavContent');
         const addProject = document.getElementById('addProject');
         addProject.addEventListener('click', function () {
             sideNav.innerHTML = `
@@ -660,7 +697,7 @@ $(document).ready(function () {
 
     // Add Project function - called after user successfully logs in
 
-    
+
 
 
     // Add event listener to the login submit button
@@ -712,11 +749,11 @@ $(document).ready(function () {
     });
 
 
-    document.getElementById('tabDropdown').addEventListener('click', function(){
+    document.getElementById('tabDropdown').addEventListener('click', function () {
         let responsiveNav = document.getElementById('dropdownContainer');
         let dropdownTab = document.getElementById('tabDropdown')
 
-        if (responsiveNav.classList.contains('hiddenMenu')){
+        if (responsiveNav.classList.contains('hiddenMenu')) {
             responsiveNav.classList.remove('hiddenMenu')
             dropdownTab.style.backgroundColor = '$black'
             dropdownTab.style.color = '$white'
@@ -727,7 +764,7 @@ $(document).ready(function () {
         }
     })
 
-  
+
 
 
 
