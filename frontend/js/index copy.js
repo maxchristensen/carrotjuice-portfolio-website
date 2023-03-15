@@ -639,7 +639,7 @@ $(document).ready(function () {
                                     <input class="input" type="text" id="projectDesc" placeholder="project description">
                                     <input class="input" type="text" id="projectURL" placeholder="link to project image">
                                     <input class="input" type="text" id="projectSite" placeholder="link to project site">
-                                    <br><br><br><br>
+                                    <br><br>
                                     <button id="submitAddProject" class="login-button">ADD PROJECT NOW</button>
                                 </div>
                                 `
