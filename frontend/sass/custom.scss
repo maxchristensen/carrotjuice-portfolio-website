@@ -131,7 +131,7 @@ p {
     @include flex-column;
     @include center-items;
     // border: 2px solid $black;
-    width: 80%;
+    // width: 80%;
     height: 80%;
 }
 
@@ -258,6 +258,12 @@ input:focus {
 }
 
 // ----------- End of LOGIN form styling
+
+
+// 
+.input-Project-details {
+    text-align: center;
+}
 
 
 .sidenav.open{
