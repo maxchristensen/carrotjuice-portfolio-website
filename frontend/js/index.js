@@ -787,11 +787,12 @@ $(document).ready(function () {
                                     <input class="input" type="text" id="projectName" placeholder="project name">
                                     <input class="input" type="text" id="projectDesc" placeholder="project description">
                                     <input class="input" type="text" id="projectURL" placeholder="link to project image">
-                                    <input class="input" type="text" id="projectSite" placeholder="link to prject site">
-                                    <br><br>
+                                    <input class="input" type="text" id="projectSite" placeholder="link to project site">
+                                    <br><br><br><br>
                                     <button id="submitAddProject" class="login-button">ADD PROJECT NOW</button>
                                 </div>
                                 `
+
                             // ** on click of the submit new project button, do an ajax call to add the project to the mongo DB
                             const submitAddProject = document.getElementById('submitAddProject');
                             submitAddProject.addEventListener('click', function () {
@@ -838,118 +839,70 @@ $(document).ready(function () {
                     };
                     // End of addNewProject(...)
 
-                    // Edit project
-
-                    function editProject(currentUser, firstName) {
-                        // * on click of the add project button, display add project form
-                        let sideNav = document.getElementById('sidenavContent');
-                        const editProject = document.getElementById('editProject');
-                        editProject.addEventListener('click', function () {
-                            sideNav.innerHTML = `
-                            <div id="inputProjectDetails" class="input-Project-details">
-                                <br>
-                                <input class="input" type="text" id="projectName" placeholder="project name">
-                                <input class="input" type="text" id="projectDesc" placeholder="project description">
-                                <input class="input" type="text" id="projectURL" placeholder="link to project image">
-                                <input class="input" type="text" id="projectSite" placeholder="link to project site">
-                                <br><br>
-                                <button id="submitEditProject" class="login-button">Edit Project</button>
-                            </div>
-                            `
-                            // ** on click of the submit edit project button, do an ajax call to edit the project to the mongo DB
-                            const submitEditProject = document.getElementById('submitEditProject');
-                            submitEditProject.addEventListener('click', function () {
-                                const editProjName = projectName.value;
-                                const editProjDesc = projectDesc.value;
-                                const editProjURL = projectURL.value;
-                                const editProjSite = projectSite.value;
-                                console.log(editProjName);
-                                console.log(editProjDesc);
-                                console.log('you have editted project with the name "' + editProjName + '", description "' + editProjDesc + '"');
-                                // *** Start of ajax POST
-                                $.ajax({
-                                    url: `http://${url}/addPortfolio`,
-                                    type: 'PUT',
-                                    dataType: 'json',
-                                    data: {
-                                        title: editProjName,
-                                        description: editProjDesc,
-                                        imageUrl: editProjURL,
-                                        siteUrl: editProjSite,
-                                    },
-                                    success: function (result) {
-                                        console.log(result);
-                                        alert('Project editted by ' + firstName);
-                                        populateUserInfo(currentUser);
-                                        return;
-                                    },
-                                    error: function () {
-                                        console.log('Error - cannot call API to edit project');
-                                    }
-                                })
-                                // End of ajax POST ***
-                            })
-                            // End of ** 
-                        })
-                        // End of *
-                    };
+                
 
 
 
-                    // ------------------------------- Login Form --------------------------------------
+                 
 
 
-                    // Add Project function - called after user successfully logs in
+    // ------------------------------- Login Form --------------------------------------
+
+
+    // Add Project function - called after user successfully logs in
 
 
 
 
-                    // Add event listener to the login submit button
-                    const loginButton = document.getElementById('submitLogin'); loginButton.addEventListener('click', function () {
+    // Add event listener to the login submit button
+    const loginButton = document.getElementById('submitLogin');
+    loginButton.addEventListener('click', function () {
 
-                        // On click do an ajax call to the user collection and get their name to display on the welcome message
-                        let firstName = document.getElementById('firstName').value;
-                        let lastName = document.getElementById('lastName').value;
-                        let password = document.getElementById('password').value;
+        // On click do an ajax call to the user collection and get their name to display on the welcome message
+        let firstName = document.getElementById('firstName').value;
+        let lastName = document.getElementById('lastName').value;
+        let password = document.getElementById('password').value;
 
 
-                        if (firstName == '' || lastName == '' || password == '') {
-                            alert('Please enter all details');
-                        } else {
+        if (firstName == '' || lastName == '' || password == '') {
+            alert('Please enter all details');
+        } else {
 
-                            $.ajax({
-                                url: `http://${url}/loginUser`,
-                                type: 'POST',
-                                data: {
-                                    firstName: firstName,
-                                    lastName: lastName,
-                                    password: password
-                                },
-                                success: function (user) {
+            $.ajax({
+                url: `http://${url}/loginUser`,
+                type: 'POST',
+                data: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    password: password
+                },
+                success: function (user) {
 
-                                    if (user == 'user not found. Please register') {
-                                        alert('User not found. Please Register');
-                                    } else if (user == 'not authorized') {
-                                        alert('Please try with correct details');
-                                        firstName.value('');
-                                        lastName.value('');
-                                        password.value('');
-                                    } else {
-                                        sessionStorage.setItem('userID', user['_id']);
-                                        sessionStorage.setItem('firstName', user['firstName']);
-                                        sessionStorage.setItem('lastName', user['lastName']);
-                                        populateUserInfo(user)
+                    if (user == 'user not found. Please register') {
+                        alert('User not found. Please Register');
+                    } else if (user == 'not authorized') {
+                        alert('Please try with correct details');
+                        firstName.value('');
+                        lastName.value('');
+                        password.value('');
+                    } else {
+                        sessionStorage.setItem('userID', user['_id']);
+                        sessionStorage.setItem('firstName', user['firstName']);
+                        sessionStorage.setItem('lastName', user['lastName']);
+                        populateUserInfo(user)
 
-                                    }
-                                },
-                                error: function () {
-                                    alert('Error - unable to get user details');
-                                }
+                    }
+                },
+                error: function () {
+                    alert('Error - unable to get user details');
+                }
+            });
 
-                            });
-                        }
+        }
 
-                    });
+    });
+
+
 
 
                     document.getElementById('tabDropdown').addEventListener('click', function () {
