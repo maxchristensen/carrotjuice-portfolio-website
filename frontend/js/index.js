@@ -43,6 +43,7 @@ $(document).ready(function () {
             url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
 
             getAllProjects();
+            logIn();
 
 
 
@@ -199,7 +200,7 @@ $(document).ready(function () {
             <button id="deleteProject" data-id=${portfolio._id} class="login-message round-button delete-button"><i class="fa-solid fa-trash"></i></button>
                 </div>
             <div class="r-project-name">${portfolio.title}</div>
-            <div class="r-project-image"><img src="${portfolio.imageURL}"></div>
+            <div class="r-project-image" id="rProjectImage"><img src="${portfolio.imageURL}"></div>
             <div class="r-project-description"><p>${portfolio.description}</p></div>
             <div class="links-container" id='rlinksContainer'> </div>
                 
@@ -207,6 +208,8 @@ $(document).ready(function () {
             `
 
             let rlinksContainer = document.getElementById('rlinksContainer');
+            // let projectImage = document.getElementById('rProjectImage');
+            // projectImage.style.backgroundImage = `url(${portfolio.imageURL})`
             // projectImage.style.backgroundImage = `url(${portfolio.imageURL})`
 
             if (selectedUser.twitter !== '') {
@@ -234,7 +237,7 @@ $(document).ready(function () {
             }
             if (!selectedUser.externalSite == '') {
                 rlinksContainer.innerHTML += `
-            <a href="${selectedUser.externalSite}"><i class="fa-brands fa-globe link"></i></a>
+            <a href="${selectedUser.externalSite}"><i class="fa-solid fa-globe"></i></a>
             `
             }
 
@@ -247,7 +250,7 @@ $(document).ready(function () {
             <div class="responsive-project-container">
             <div class="r-author-name">${portfolio.author}</div>
             <div class="r-project-name">${portfolio.title}</div>
-            <div class="r-project-image"><img src="${portfolio.imageURL}"></div>
+            <div class="r-project-image " id="rProjectImage"><img src="${portfolio.imageURL}"></div>
             <div class="r-project-description"><p>${portfolio.description}.</p></div>
             <div class="links-container" id='rlinksContainer'> 
                 
@@ -256,6 +259,8 @@ $(document).ready(function () {
             `
 
             let rlinksContainer = document.getElementById('rlinksContainer');
+            // let projectImage = document.getElementById('rProjectImage');
+            // projectImage.style.backgroundImage = `url(${portfolio.imageURL})`
             // projectImage.style.backgroundImage = `url(${portfolio.imageURL})`
 
             if (selectedUser.twitter !== '') {
@@ -283,7 +288,7 @@ $(document).ready(function () {
             }
             if (!selectedUser.externalSite == '') {
                 rlinksContainer.innerHTML += `
-            <a href="${selectedUser.externalSite}"><i class="fa-brands fa-globe link"></i></a>
+            <a href="${selectedUser.externalSite}"><i class="fa-solid fa-globe"></i></a>
             `
             }
 
@@ -331,7 +336,7 @@ $(document).ready(function () {
             <button id="deleteProject" data-id=${portfolio._id} class="login-message round-button delete-button"><i class="fa-solid fa-trash"></i></button>
                 </div>
         <div class="project-title"><h4>${portfolio.title}</h4></div>
-        <div class="project-image" id="projectImage"><img src="${portfolio.imageURL}"> </div>
+        <div class="project-image" id="projectImage"> </div>
        
         
            
@@ -351,8 +356,10 @@ $(document).ready(function () {
 
 
        `
-                let projectImage = document.getElementById('projectImage');
+                
                 let linksContainer = document.getElementById('linksContainer');
+                let projectImage = document.getElementById('projectImage');
+                projectImage.style.backgroundImage = `url(${portfolio.imageURL})`
 
                 // checks if the selected user(user who the portfolio belongs to) has link and populates icon with link if they do
 
@@ -381,7 +388,7 @@ $(document).ready(function () {
                 }
                 if (!selectedUser.externalSite == '') {
                     linksContainer.innerHTML += `
-                <a href="${selectedUser.externalSite}"><i class="fa-brands fa-globe link"></i></a>
+                <a href="${selectedUser.externalSite}"><i class="fa-solid fa-globe"></i></a>
                 `
                 }
                 editButtons(); //creates click events on edit buttons to open edit function
@@ -406,7 +413,7 @@ $(document).ready(function () {
 
                 side1.innerHTML = `
         <div class="project-title"><h4>${portfolio.title}</h4></div>
-        <div class="project-image" id="projectImage"><img src="${portfolio.imageURL}"> </div>
+        <div class="project-image" id="projectImage"></div>
            
         </div>
         `
@@ -423,7 +430,7 @@ $(document).ready(function () {
        `
                 let projectImage = document.getElementById('projectImage');
                 let linksContainer = document.getElementById('linksContainer');
-                // projectImage.backgroundImage = `url(${portfolio.imageURL})`
+                projectImage.style.backgroundImage = `url(${portfolio.imageURL})`
 
 
                 if (selectedUser.twitter !== '') {
@@ -451,7 +458,7 @@ $(document).ready(function () {
                 }
                 if (!selectedUser.externalSite == '') {
                     linksContainer.innerHTML += `
-                <a href="${selectedUser.externalSite}"><i class="fa-brands fa-globe link"></i></a>
+                <a href="${selectedUser.externalSite}"><i class="fa-solid fa-globe"></i></a>
                 `
                 }
             }
@@ -656,7 +663,7 @@ $(document).ready(function () {
         }
         if (!user.externalSite == '') {
             linksContainer.innerHTML += `
-                    <a href="${user.externalSite}"><i class="fa-brands fa-globe link"></i></a>
+                    <a href="${user.externalSite}"><i class="fa-solid fa-globe"></i></a>
                     `
         }
 
@@ -980,8 +987,10 @@ $(document).ready(function () {
            
         </div>
         <button id="addProject" class="login-message login-button">Add Project</button>
+        <button id="logOut" class="login-message login-button">Log out</button>
 
     </div>
+    
         
         `
         let userImg = document.getElementById('userImage');
@@ -1018,8 +1027,86 @@ $(document).ready(function () {
         document.getElementById('sidenavTab').innerHTML = 'add';
 
         addNewProject(user, firstName);
+        logOut();
 
     };
+
+    function logIn(){
+        document.getElementById('submitLogin').addEventListener('click', function () {
+
+            // On click do an ajax call to the user collection and get their name to display on the welcome message
+            let firstName = document.getElementById('firstName').value;
+            let lastName = document.getElementById('lastName').value;
+            let password = document.getElementById('password').value;
+    
+    
+            if (firstName == '' || lastName == '' || password == '') {
+               popup('Please enter all details', 'error')
+    
+                // alert('Please enter all details');
+            } else {
+    
+                $.ajax({
+                    url: `http://${url}/loginUser`,
+                    type: 'POST',
+                    data: {
+                        firstName: firstName,
+                        lastName: lastName,
+                        password: password
+                    },
+                    success: function (user) {
+    
+                        if (user == 'user not found. Please register') {
+                            popup('User not found. Please register', 'error');
+                        } else if (user == 'not authorized') {
+                            popup('Please try with correct details', 'error');
+                            firstName.value('');
+                            lastName.value('');
+                            password.value('');
+                        } else {
+                            sessionStorage.setItem('userID', user['_id']);
+                            sessionStorage.setItem('firstName', user['firstName']);
+                            sessionStorage.setItem('lastName', user['lastName']);
+                            populateUserInfo(user)
+    
+                        }
+                    },
+                    error: function () {
+                        popup('Error - unable to get user details', 'error');
+                    }
+                });
+    
+            }
+        });
+            
+    }
+
+    function logOut(){
+        document.getElementById('logOut').addEventListener('click', function(){
+            sessionStorage.clear();
+            let sideNav = document.getElementById('sidenavContent');
+            sideNav.innerHTML = `
+            <div class="login-form">
+                    
+    
+                        <div id="inputUserDetails" class="input-user-details">
+                            <br>
+                            <input class="input" type="text" id="firstName" placeholder="First name...">
+                            <input class="input" type="text" id="lastName" placeholder="Last name...">
+                            <input class="input" type="password" id="password" placeholder="Password...">
+                            <br><br>
+                            <button class="login-button" id="submitLogin">Submit</button>
+                        </div>
+        
+                        
+        
+                    </div>
+           
+            `
+
+            logIn();
+        })
+    }
 
 
 
@@ -1116,54 +1203,34 @@ $(document).ready(function () {
 
 
     // Add event listener to the login submit button
-    const loginButton = document.getElementById('submitLogin');
-    loginButton.addEventListener('click', function () {
-
-        // On click do an ajax call to the user collection and get their name to display on the welcome message
-        let firstName = document.getElementById('firstName').value;
-        let lastName = document.getElementById('lastName').value;
-        let password = document.getElementById('password').value;
+    // const loginButton = document.getElementById('submitLogin');
+   
+    // });
 
 
-        if (firstName == '' || lastName == '' || password == '') {
-           popup('Please enter all details', 'error')
 
-            // alert('Please enter all details');
-        } else {
+    // document.getElementById('logOut').addEventListener('click', function(){
+    //     sessionStorage.clear();
+    //     let sideNav = document.getElementById('sidenavContent');
+    //     sideNav.innerHTML = `
+    //     <div class="login-form">
+                
 
-            $.ajax({
-                url: `http://${url}/loginUser`,
-                type: 'POST',
-                data: {
-                    firstName: firstName,
-                    lastName: lastName,
-                    password: password
-                },
-                success: function (user) {
-
-                    if (user == 'user not found. Please register') {
-                        popup('User not found. Please register', 'error');
-                    } else if (user == 'not authorized') {
-                        popup('Please try with correct details', 'error');
-                        firstName.value('');
-                        lastName.value('');
-                        password.value('');
-                    } else {
-                        sessionStorage.setItem('userID', user['_id']);
-                        sessionStorage.setItem('firstName', user['firstName']);
-                        sessionStorage.setItem('lastName', user['lastName']);
-                        populateUserInfo(user)
-
-                    }
-                },
-                error: function () {
-                    popup('Error - unable to get user details', 'error');
-                }
-            });
-
-        }
-
-    });
+    //                 <div id="inputUserDetails" class="input-user-details">
+    //                     <br>
+    //                     <input class="input" type="text" id="firstName" placeholder="First name...">
+    //                     <input class="input" type="text" id="lastName" placeholder="Last name...">
+    //                     <input class="input" type="password" id="password" placeholder="Password...">
+    //                     <br><br>
+    //                     <button class="login-button" id="submitLogin">Submit</button>
+    //                 </div>
+    
+                    
+    
+    //             </div>
+       
+    //     `
+    // })
 
 
 
