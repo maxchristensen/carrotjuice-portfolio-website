@@ -102,7 +102,7 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                alert('unable to get all portfolios');
+                popup('Unable to get all portfolios', 'error');
             }
         });
 
@@ -132,7 +132,7 @@ $(document).ready(function () {
 
             },
             error: function () {
-                alert('unable to get single portfolio');
+                popup('unable to get single portfolio', 'error');
             }
 
 
@@ -423,6 +423,7 @@ $(document).ready(function () {
        `
                 let projectImage = document.getElementById('projectImage');
                 let linksContainer = document.getElementById('linksContainer');
+                // projectImage.backgroundImage = `url(${portfolio.imageURL})`
 
 
                 if (selectedUser.twitter !== '') {
@@ -487,7 +488,7 @@ $(document).ready(function () {
                     type: 'DELETE',
                     success: async function () {
                         
-                        alert('Product Deleted');
+                        popup('Portfolio deleted', 'reg');
                         const user = await getSingleUser(sessionStorage.getItem('userID'))
 
                         populateUserInfo(user);
@@ -718,7 +719,7 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                alert('unable to get single students portfolio');
+                popup('Unable to get this students portfolio', 'error');
             }
         });
     };
@@ -832,8 +833,7 @@ $(document).ready(function () {
 
             projectInfoContainer.innerHTML = `
                 
-                <div class="side1" id="side1">
-                            
+                <div class="side1" id="side1">   
     
                         </div>
     
@@ -921,17 +921,23 @@ $(document).ready(function () {
         const backgroundBlur = document.getElementById('backgroundBlur');
 
         if (!sideNav.classList.contains('open')) {
+            backgroundBlur.style.animation = 'blurIn .5s linear'
+          
 
             backgroundBlur.classList.remove('hidden');
             sideNav.classList.remove('closed');
             sideNav.classList.add('open');
         } else {
+            backgroundBlur.style.animation = 'blurOut .5s linear'
+           
             backgroundBlur.classList.add('hidden');
             sideNav.classList.remove('open');
             sideNav.classList.add('closed');
         }
 
     });
+
+    
 
     // ------------ VISUALS -----------------
 
@@ -1061,7 +1067,8 @@ $(document).ready(function () {
                     },
                     success: function (result) {
                       
-                        alert('Project added by ' + firstName);
+                        
+                        popup(`Your project has been added to the portfolio database`, 'reg')
                         populateUserInfo(currentUser);
                         return;
                     },
@@ -1089,6 +1096,22 @@ $(document).ready(function () {
 
     // Add Project function - called after user successfully logs in
 
+    function popup(message, type){
+        let popupContainer = document.getElementById('popupContainer');
+        let popupMessage = document.getElementById('popupMessage');
+        let popup = document.getElementById('popup')
+
+        if(type === 'error'){
+            popup.style.backgroundColor = '#ff8181'
+            popupContainer.classList.remove('hiddenMenu');
+        popupMessage.innerHTML = `${message}`
+        } else{
+            popup.style.backgroundColor = '#F7F7F2'
+            popupContainer.classList.remove('hiddenMenu');
+        popupMessage.innerHTML = `${message}`
+        }
+        
+    }
 
 
 
@@ -1103,7 +1126,9 @@ $(document).ready(function () {
 
 
         if (firstName == '' || lastName == '' || password == '') {
-            alert('Please enter all details');
+           popup('Please enter all details', 'error')
+
+            // alert('Please enter all details');
         } else {
 
             $.ajax({
@@ -1117,9 +1142,9 @@ $(document).ready(function () {
                 success: function (user) {
 
                     if (user == 'user not found. Please register') {
-                        alert('User not found. Please Register');
+                        popup('User not found. Please register', 'error');
                     } else if (user == 'not authorized') {
-                        alert('Please try with correct details');
+                        popup('Please try with correct details', 'error');
                         firstName.value('');
                         lastName.value('');
                         password.value('');
@@ -1132,7 +1157,7 @@ $(document).ready(function () {
                     }
                 },
                 error: function () {
-                    alert('Error - unable to get user details');
+                    popup('Error - unable to get user details', 'error');
                 }
             });
 
@@ -1156,6 +1181,10 @@ $(document).ready(function () {
             dropdownTab.style.backgroundColor = '$white'
             dropdownTab.style.color = '$black'
         }
+    })
+
+    document.getElementById('popupClose').addEventListener('click', function() {
+        document.getElementById('popupContainer').classList.add('hiddenMenu');
     })
 
 
