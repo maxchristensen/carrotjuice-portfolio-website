@@ -145,7 +145,7 @@ p {
     @include flex-column;
     @include center-items;
     // border: 2px solid $black;
-    width: 80%;
+    // width: 80%;
     height: 80%;
 }
 
@@ -218,7 +218,7 @@ input:focus {
 
 #addProject {
     position: absolute;
-    top: 70vh;
+    top: 50vh;
     // left: 60%;
 
 }
@@ -279,7 +279,14 @@ input:focus {
 // ----------- End of LOGIN form styling
 
 
-.sidenav.open {
+
+// 
+.input-Project-details {
+    text-align: center;
+}
+
+
+.sidenav.open{
     left: 0vw;
     transition: all 2s ease;
 }

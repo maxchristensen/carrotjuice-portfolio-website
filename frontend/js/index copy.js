@@ -56,7 +56,7 @@ $(document).ready(function () {
 
 
 
-    function getAllProjects() {  
+    function getAllProjects() {
 
         $.ajax({
             url: `http://${url}/allPortfolios`,
@@ -69,34 +69,31 @@ $(document).ready(function () {
                 for (let i = 0; i < productsFromMongo.length; i++) {
                     let project = productsFromMongo[i];
                     let createdBy = productsFromMongo[i].user_id;
-
-                    let projectNumber; // creating a project number based on the number in the database
+                    let projectNumber;
                     if (i < 9) {
-                        projectNumber = "0" + (i + 1); // adding 0 to the front of the project number if below 10
+                        projectNumber = "0" + (i + 1);
 
                     } else {
                         projectNumber = i + 1;
                     }
 
 
-                    //  Writing each item from the database to list in HTML using portfolio attributes
 
                     projectsContainer.innerHTML += `
 
-                        <div class="project-listing " data-id=${project._id}>
+                <div class="project-listing " data-id=${project._id}>
 
-                            <div class="name-container">
-                                <h6 class="project-info number">${projectNumber}.</h6>
-                                <h6 class="project-info title">${project.title}</h6>
-                        </div>
+                <div class="name-container">
+                    <h6 class="project-info number">${projectNumber}.</h6>
+                <h6 class="project-info title">${project.title}</h6>
+                </div>
                 
                 
-                            <h6 class="project-info author"> ${project.author}</h6>
+                <h6 class="project-info author"> ${project.author}</h6>
                
-                         </div>
+            </div>
                 `;
 
-                // runs function that gives each listing a click event to open the project
                     openProject();
 
                 }
@@ -110,12 +107,12 @@ $(document).ready(function () {
 
 
 
-    // opens more information about selected project
+
     function getSingleProject(id) {
 
         $.ajax({
 
-            url: `http://${url}/singlePortfolio/${id}`,  //gets single portfolio based on id passed from click event 
+            url: `http://${url}/singlePortfolio/${id}`,
             type: 'GET',
             dataType: 'json',
             success: async function (portfolio) {
@@ -143,7 +140,7 @@ $(document).ready(function () {
 
     }
 
-
+    
     function singleProjectHover(id) {
         $.ajax({
             url: `http://${url}/singlePortfolio/${id}`,
@@ -185,388 +182,71 @@ $(document).ready(function () {
 
     }
 
-  
-
-    function responsivePopulate(portfolio, selectedUser, loggedUser) {
-
-        if (loggedUser === portfolio.user_id) {
-            projectInfoContainer.innerHTML = `
-            <div class="responsive-project-container">
-            <div class="r-author-name">${portfolio.author}</div>
-            <div class="buttons-container" id="buttonsContainer">
-            
-                <button id="editProject" data-id=${portfolio._id} class="login-message round-button edit-button"><i class="fa-solid fa-pen"></i></button>
-            <button id="deleteProject" data-id=${portfolio._id} class="login-message round-button delete-button"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            <div class="r-project-name">${portfolio.title}</div>
-            <div class="r-project-image"><img src="${portfolio.imageURL}"></div>
-            <div class="r-project-description"><p>${portfolio.description}</p></div>
-            <div class="links-container" id='rlinksContainer'> </div>
-                
-            </div>
-            `
-
-            let rlinksContainer = document.getElementById('rlinksContainer');
-            // projectImage.style.backgroundImage = `url(${portfolio.imageURL})`
-
-            if (selectedUser.twitter !== '') {
-                rlinksContainer.innerHTML += `
-            <a href="${selectedUser.twitter}"><i class="fa-brands fa-twitter link"></i></a>
-            `
-
-            }
-            if (!selectedUser.instagram == '') {
-                rlinksContainer.innerHTML += `
-            <a href="${selectedUser.instagram}"><i class="fa-brands fa-instagram link"></i></a>
-            `
-            }
-            if (!selectedUser.linkedIn == '') {
-                rlinksContainer.innerHTML += `
-            <a href="${selectedUser.linkedIn}"><i class="fa-brands fa-linkedin link"></i></a>
-            `
-
-            }
-            if (!selectedUser.gitLink == '') {
-                rlinksContainer.innerHTML += `
-            <a href="${selectedUser.gitLink}"><i class="fa-brands fa-github link"></i></a>
-            `
-
-            }
-            if (!selectedUser.externalSite == '') {
-                rlinksContainer.innerHTML += `
-            <a href="${selectedUser.externalSite}"><i class="fa-brands fa-globe link"></i></a>
-            `
-            }
 
 
-
-
-
-        } else {
-            projectInfoContainer.innerHTML = `
-            <div class="responsive-project-container">
-            <div class="r-author-name">${portfolio.author}</div>
-            <div class="r-project-name">${portfolio.title}</div>
-            <div class="r-project-image"><img src="${portfolio.imageURL}"></div>
-            <div class="r-project-description"><p>${portfolio.description}.</p></div>
-            <div class="links-container" id='rlinksContainer'> 
-                
-            </div>
-            </div>
-            `
-
-            let rlinksContainer = document.getElementById('rlinksContainer');
-            // projectImage.style.backgroundImage = `url(${portfolio.imageURL})`
-
-            if (selectedUser.twitter !== '') {
-                rlinksContainer.innerHTML += `
-            <a href="${selectedUser.twitter}"><i class="fa-brands fa-twitter link"></i></a>
-            `
-
-            }
-            if (!selectedUser.instagram == '') {
-                rlinksContainer.innerHTML += `
-            <a href="${selectedUser.instagram}"><i class="fa-brands fa-instagram link"></i></a>
-            `
-            }
-            if (!selectedUser.linkedIn == '') {
-                rlinksContainer.innerHTML += `
-            <a href="${selectedUser.linkedIn}"><i class="fa-brands fa-linkedin link"></i></a>
-            `
-
-            }
-            if (!selectedUser.gitLink == '') {
-                rlinksContainer.innerHTML += `
-            <a href="${selectedUser.gitLink}"><i class="fa-brands fa-github link"></i></a>
-            `
-
-            }
-            if (!selectedUser.externalSite == '') {
-                rlinksContainer.innerHTML += `
-            <a href="${selectedUser.externalSite}"><i class="fa-brands fa-globe link"></i></a>
-            `
-            }
-
-
-
-
-        }
-
-    }
-
-
-    // populates content of single selected portfolio using the information of the selected user and the selected portfolio
     function populatingContent(portfolio, selectedUser) {
-        let width = $(window).width();  //gets screen width for responsiveness
         let projectInfoContainer = document.getElementById('projectInfoContainer')
-        let loggedUser = sessionStorage.getItem('userID'); //current logged in user from session storage (if someone is logged in)
-
-        // checks if screen width is below phone size
-        if (width <= 425) {
-            responsivePopulate(portfolio, selectedUser, loggedUser)  //populate code for mobile
-
-        } else {  // if screen width is above phone size
-
-            if (loggedUser === portfolio.user_id) { //checks if the logged in user matched the current portfolio being viewed to add edit and delete buttons
-
-
-                projectInfoContainer.innerHTML = `
-            
-                <div class="side1" id="side1">
-                            
-    
-                        </div>
-    
-                        <div class="side2" id="side2">
-    
-                        </div>
-                `
-
-                let side1 = document.getElementById('side1');
-                let side2 = document.getElementById('side2');
-                side1.innerHTML = `
-                <div class="buttons-container" id="buttonsContainer">
-            
-                <button id="editProject" data-id=${portfolio._id} class="login-message round-button edit-button"><i class="fa-solid fa-pen"></i></button>
-            <button id="deleteProject" data-id=${portfolio._id} class="login-message round-button delete-button"><i class="fa-solid fa-trash"></i></button>
-                </div>
-        <div class="project-title"><h4>${portfolio.title}</h4></div>
-        <div class="project-image" id="projectImage"><img src="${portfolio.imageURL}"> </div>
-       
-        
-           
-        </div>
-        `
-
-                side2.innerHTML = `
-       <div class="project-author student-name">${portfolio.author}</div>
-       <div class="project-description">
-           <p>${portfolio.description}</p>
-           
-       </div>
-       <div class="links-container" id="linksContainer">
-            
-            </div>
-            
-
-
-       `
-                let projectImage = document.getElementById('projectImage');
-                let linksContainer = document.getElementById('linksContainer');
-                
-                // checks if the selected user(user who the portfolio belongs to) has link and populates icon with link if they do
-
-                if (selectedUser.twitter !== '') {
-                    linksContainer.innerHTML += `
-                <a href="${selectedUser.twitter}"><i class="fa-brands fa-twitter link"></i></a>
-                `
-
-                }
-                if (!selectedUser.instagram == '') {
-                    linksContainer.innerHTML += `
-                <a href="${selectedUser.instagram}"><i class="fa-brands fa-instagram link"></i></a>
-                `
-                }
-                if (!selectedUser.linkedIn == '') {
-                    linksContainer.innerHTML += `
-                <a href="${selectedUser.linkedIn}"><i class="fa-brands fa-linkedin link"></i></a>
-                `
-
-                }
-                if (!selectedUser.gitLink == '') {
-                    linksContainer.innerHTML += `
-                <a href="${selectedUser.gitLink}"><i class="fa-brands fa-github link"></i></a>
-                `
-
-                }
-                if (!selectedUser.externalSite == '') {
-                    linksContainer.innerHTML += `
-                <a href="${selectedUser.externalSite}"><i class="fa-brands fa-globe link"></i></a>
-                `
-                }
-                editButtons(); //creates click events on edit buttons to open edit function
-                deleteButtons(); //created click events on delete buttons to delete item from database
-
-
-            } else { //same code as above but without edit and delete buttons
-                projectInfoContainer.innerHTML = `
-            
-                <div class="side1" id="side1">
-                            
-    
-                        </div>
-    
-                        <div class="side2" id="side2">
-    
-                        </div>
-                `
-
-                let side1 = document.getElementById('side1');
+        let side1 = document.getElementById('side1');
         let side2 = document.getElementById('side2');
 
-                side1.innerHTML = `
-        <div class="project-title"><h4>${portfolio.title}</h4></div>
-        <div class="project-image" id="projectImage"><img src="${portfolio.imageURL}"> </div>
-           
+
+        // console.log(currentSelectedUser);
+
+        side1.innerHTML = `
+    <div class="project-title"><h4>${portfolio.title}</h4></div>
+    <div class="project-image" id="projectImage">
+       
+    </div>
+    `
+
+        side2.innerHTML = `
+   <div class="project-author student-name">${portfolio.author}</div>
+   <div class="project-description">
+       <p>${portfolio.description}</p>
+       
+   </div>
+   <div class="links-container" id="linksContainer">
+
+        
         </div>
-        `
+   `
+        let projectImage = document.getElementById('projectImage');
+        let linksContainer = document.getElementById('linksContainer');
+        projectImage.style.backgroundImage = `url(${portfolio.imageURL})`
 
-                side2.innerHTML = `
-       <div class="project-author student-name">${portfolio.author}</div>
-       <div class="project-description">
-           <p>${portfolio.description}</p>
-           
-       </div>
-       <div class="links-container" id="linksContainer">
-            
-            </div>
-       `
-                let projectImage = document.getElementById('projectImage');
-                let linksContainer = document.getElementById('linksContainer');
-                
+        if (selectedUser.twitter !== '') {
+            linksContainer.innerHTML += `
+            <a href="${selectedUser.twitter}"><i class="fa-brands fa-twitter link"></i></a>
+            `
 
-                if (selectedUser.twitter !== '') {
-                    linksContainer.innerHTML += `
-                <a href="${selectedUser.twitter}"><i class="fa-brands fa-twitter link"></i></a>
-                `
+        }
+        if (!selectedUser.instagram == '') {
+            linksContainer.innerHTML += `
+            <a href="${selectedUser.instagram}"><i class="fa-brands fa-instagram link"></i></a>
+            `
+        }
+        if (!selectedUser.linkedIn == '') {
+            linksContainer.innerHTML += `
+            <a href="${selectedUser.linkedIn}"><i class="fa-brands fa-linkedin link"></i></a>
+            `
 
-                }
-                if (!selectedUser.instagram == '') {
-                    linksContainer.innerHTML += `
-                <a href="${selectedUser.instagram}"><i class="fa-brands fa-instagram link"></i></a>
-                `
-                }
-                if (!selectedUser.linkedIn == '') {
-                    linksContainer.innerHTML += `
-                <a href="${selectedUser.linkedIn}"><i class="fa-brands fa-linkedin link"></i></a>
-                `
+        }
+        if (!selectedUser.gitLink == '') {
+            linksContainer.innerHTML += `
+            <a href="${selectedUser.gitLink}"><i class="fa-brands fa-github link"></i></a>
+            `
 
-                }
-                if (!selectedUser.gitLink == '') {
-                    linksContainer.innerHTML += `
-                <a href="${selectedUser.gitLink}"><i class="fa-brands fa-github link"></i></a>
-                `
-
-                }
-                if (!selectedUser.externalSite == '') {
-                    linksContainer.innerHTML += `
-                <a href="${selectedUser.externalSite}"><i class="fa-brands fa-globe link"></i></a>
-                `
-                }
-            }
-
+        }
+        if (!selectedUser.externalSite == '') {
+            linksContainer.innerHTML += `
+            <a href="${selectedUser.externalSite}"><i class="fa-brands fa-globe link"></i></a>
+            `
         }
 
 
 
-
     }
 
-    function editButtons() {
-        let editbuttons = document.querySelectorAll('.edit-button');
-        let buttons = Array.from(editbuttons);
-        buttons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                console.log('edit button clicked');
-                let portfolioID = button.dataset.id;
-                console.log(portfolioID);
-                document.getElementById('sidenavTab').innerHTML = 'edit';
-                editProject(portfolioID)
-            })
-        })
-    }
-
-    function deleteButtons() {
-        let deletebuttons = document.querySelectorAll('.delete-button');
-        let buttons = Array.from(deletebuttons);
-        buttons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                let portfolioID = button.dataset.id;
-                $.ajax({
-                    url: `http://${url}/deletePortfolio/${portfolioID}`,
-                    type: 'DELETE',
-                    success: async function () {
-                        console.log('deleted');
-                        alert('Product Deleted');
-                        const user = await getSingleUser(sessionStorage.getItem('userID'))
-                    
-                        populateUserInfo(user);
-                        if(activeTab === 'tabAll'){
-                            getAllProjects()
-                        } else {
-                            populateUserBio(sessionStorage.getItem('userID'));
-                            getSingleStudentProjects(sessionStorage.getItem('userID'))
-                        }
-                    },
-                    error: function () {
-                        console.log('error: cannot delete due to call on api');
-                    } // error                
-                }); // ajax
-            })
-        })
-function editProject(portfolioID) {
-        console.log('reached edit project');
-        const sideNav = document.getElementById('sidenav');
-        const backgroundBlur = document.getElementById('backgroundBlur');
-
-        backgroundBlur.classList.remove('hidden');
-        sideNav.classList.remove('closed');
-        sideNav.classList.add('open');
-
-        const sideNavContent = document.getElementById('sidenavContent');
-
-        sideNavContent.innerHTML = `
-                                <div id="inputProjectDetails" class="input-Project-details">
-                                    <br>
-                                    <input class="input" type="text" id="projectName" placeholder="project name">
-                                    <input class="input" type="text" id="projectDesc" placeholder="project description">
-                                    <input class="input" type="text" id="projectURL" placeholder="link to project image">
-                                    <input class="input" type="text" id="projectSite" placeholder="link to prject site">
-                                    <br><br>
-                                    <button id="submitEditProject" class="login-button">EDIT PROJECT</button>
-                                </div>
-                                `
-        const submitEditProject = document.getElementById('submitEditProject');
-        submitEditProject.addEventListener('click', function () {
-            const newProjName = projectName.value;
-            const newProjDesc = projectDesc.value;
-            const newProjURL = projectURL.value;
-            const newProjSite = projectSite.value;
-            console.log(newProjName);
-            console.log(newProjDesc);
-            
-            console.log('you have editted a project with the name "' + newProjName + '", description "' + newProjDesc + '"');
-            // *** Start of ajax POST
-            $.ajax({
-                url: `http://${url}/updatePortfolio/${portfolioID}`,
-                type: 'PATCH',
-                dataType: 'json',
-                data: {
-                    title: newProjName,
-                    description: newProjDesc,
-                    imageUrl: newProjURL,
-                    siteUrl: newProjSite
-                },
-                success: async function (result) {
-                    console.log(result);
-                    const user = await getSingleUser(sessionStorage.getItem('userID'))
-                    
-                    populateUserInfo(user);
-                    if(activeTab === 'tabAll'){
-                        getAllProjects()
-                    } else {
-                        populateUserBio(sessionStorage.getItem('userID'));
-                        getSingleStudentProjects(sessionStorage.getItem('userID'))
-                    }
-                    return;
-                },
-                error: function () {
-                    console.log('Error - cannot call API to add a new project add product');
-                }
-            })
-
-        });
-    }
 
     function openProject() {
         let allListings = document.querySelectorAll('.project-listing');
@@ -593,29 +273,11 @@ function editProject(portfolioID) {
             // })
         })
     }
-    
-    
-async function populateUserBio(userID) {
 
-        const user = await getSingleUser(userID)
-
-        let projectInfoContainer = document.getElementById('projectInfoContainer')
-
-        projectInfoContainer.innerHTML = `
-                
-                <div class="side1" id="side1">
-                            
-    
-                        </div>
-    
-                        <div class="side2" id="side2">
-    
-                        </div>
-                `
-        console.log('got to project info');
+    async function populateUserBio(userID){
         let side2 = document.getElementById('side2');
-
-        side2.innerHTML = `
+                const user = await getSingleUser(userID)
+                side2.innerHTML = `
                     <div class="project-author student-name">${user.firstName} ${user.lastName}</div>
                         <div class="project-description">
                            <p> ${user.bio}</p>
@@ -627,40 +289,43 @@ async function populateUserBio(userID) {
                     </div>
                 `
 
-        let linksContainer = document.getElementById('linksContainer');
+                let linksContainer = document.getElementById('linksContainer');
 
-        if (user.twitter !== '') {
-            linksContainer.innerHTML += `
+                if (user.twitter !== '') {
+                    linksContainer.innerHTML += `
                     <a href="${user.twitter}"><i class="fa-brands fa-twitter link"></i></a>
                     `
-
-        }
-        if (!user.instagram == '') {
-            linksContainer.innerHTML += `
+        
+                }
+                if (!user.instagram == '') {
+                    linksContainer.innerHTML += `
                     <a href="${user.instagram}"><i class="fa-brands fa-instagram link"></i></a>
                     `
-        }
-        if (!user.linkedIn == '') {
-            linksContainer.innerHTML += `
+                }
+                if (!user.linkedIn == '') {
+                    linksContainer.innerHTML += `
                     <a href="${user.linkedIn}"><i class="fa-brands fa-linkedin link"></i></a>
                     `
-
-        }
-        if (!user.gitLink == '') {
-            linksContainer.innerHTML += `
+        
+                }
+                if (!user.gitLink == '') {
+                    linksContainer.innerHTML += `
                     <a href="${user.gitLink}"><i class="fa-brands fa-github link"></i></a>
                     `
-
-        }
-        if (!user.externalSite == '') {
-            linksContainer.innerHTML += `
+        
+                }
+                if (!user.externalSite == '') {
+                    linksContainer.innerHTML += `
                     <a href="${user.externalSite}"><i class="fa-brands fa-globe link"></i></a>
                     `
-        }
+                }
 
 
 
     }
+
+
+
 
 
 
@@ -762,38 +427,12 @@ async function populateUserBio(userID) {
 
 
         if (activeTab === 'tabAll') {
-            let projectInfoContainer = document.getElementById('projectInfoContainer')
-
-            projectInfoContainer.innerHTML = `
-                
-                <div class="side1" id="side1">
-                            
-    
-                        </div>
-    
-                        <div class="side2" id="side2">
-    
-                        </div>
-                `
             let side1 = document.getElementById('side1');
             let side2 = document.getElementById('side2');
             side1.innerHTML = '';
             side2.innerHTML = '';
             getAllProjects();
         } else {
-            let projectInfoContainer = document.getElementById('projectInfoContainer')
-
-            projectInfoContainer.innerHTML = `
-            
-            <div class="side1" id="side1">
-                        
-
-                    </div>
-
-                    <div class="side2" id="side2">
-
-                    </div>
-            `
             getSingleStudentProjects(userID);
             side1.innerHTML = '';
         }
@@ -827,38 +466,12 @@ async function populateUserBio(userID) {
 
 
         if (tabName === 'dropdownTabAll') {
-            let projectInfoContainer = document.getElementById('projectInfoContainer')
-
-            projectInfoContainer.innerHTML = `
-                
-                <div class="side1" id="side1">
-                            
-    
-                        </div>
-    
-                        <div class="side2" id="side2">
-    
-                        </div>
-                `
             let side1 = document.getElementById('side1');
             let side2 = document.getElementById('side2');
             side1.innerHTML = '';
             side2.innerHTML = '';
             getAllProjects();
         } else {
-            let projectInfoContainer = document.getElementById('projectInfoContainer')
-
-            projectInfoContainer.innerHTML = `
-            
-            <div class="side1" id="side1">
-                        
-
-                    </div>
-
-                    <div class="side2" id="side2">
-
-                    </div>
-            `
             side1.innerHTML = '';
             getSingleStudentProjects(userID);
         }
@@ -895,8 +508,6 @@ async function populateUserBio(userID) {
 
     }
 
-    // Adds click events to DROPDOWN TABS that gets there id(tabname) and passes to change tab function
-
     function dropdownClickable() {
 
         let allDropdownTabs = document.querySelectorAll('.dropdown-tab');
@@ -911,7 +522,7 @@ async function populateUserBio(userID) {
 
     }
 
-    // OPEN SIDE NAV CODE
+
 
     document.getElementById('sidenavTab').addEventListener('click', function () {
 
@@ -1028,11 +639,10 @@ async function populateUserBio(userID) {
                                     <input class="input" type="text" id="projectDesc" placeholder="project description">
                                     <input class="input" type="text" id="projectURL" placeholder="link to project image">
                                     <input class="input" type="text" id="projectSite" placeholder="link to project site">
-                                    <br><br><br><br>
+                                    <br><br>
                                     <button id="submitAddProject" class="login-button">ADD PROJECT NOW</button>
                                 </div>
                                 `
-
             // ** on click of the submit new project button, do an ajax call to add the project to the mongo DB
             const submitAddProject = document.getElementById('submitAddProject');
             submitAddProject.addEventListener('click', function () {
@@ -1063,7 +673,7 @@ async function populateUserBio(userID) {
                     },
                     success: function (result) {
                         console.log(result);
-                        alert('Project added by ' + firstName);
+                        alert("Project '" + newProjName + "' added by " + firstName);
                         populateUserInfo(currentUser);
                         return;
                     },
@@ -1078,10 +688,6 @@ async function populateUserBio(userID) {
         // End of *
     };
     // End of addNewProject(...)
-
-
-
-
 
 
 
@@ -1143,8 +749,6 @@ async function populateUserBio(userID) {
     });
 
 
-
-
     document.getElementById('tabDropdown').addEventListener('click', function () {
         let responsiveNav = document.getElementById('dropdownContainer');
         let dropdownTab = document.getElementById('tabDropdown')
@@ -1159,6 +763,8 @@ async function populateUserBio(userID) {
             dropdownTab.style.color = '$black'
         }
     })
+
+
 
 
 
