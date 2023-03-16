@@ -17,7 +17,15 @@ $patricia: #AB5F8F;
 $india: #3B293D;
 
 // SETTING FONTS
-h1, h2, h3, h4, h5, h6, p, input, .site-title{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+input,
+.site-title {
     font-family: 'Public Sans', sans-serif;
     font-family: 'Public Sans', sans-serif;
 }
@@ -26,26 +34,32 @@ h1 {
     font-size: 56px;
     font-weight: 900;
 }
+
 h2 {
     font-size: 48px;
     font-weight: 900;
 }
+
 h3 {
     font-size: 36px;
     font-weight: 700;
 }
+
 h4 {
     font-size: 28px;
     font-weight: 700;
 }
+
 h5 {
     font-size: 24px;
     font-weight: 400;
 }
+
 h6 {
     font-size: 16px;
     font-weight: 400;
 }
+
 p {
     font-size: 16px;
     font-weight: 300;
@@ -55,8 +69,8 @@ p {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-   
-     ::-webkit-scrollbar {
+
+    ::-webkit-scrollbar {
         display: none;
     }
 
@@ -68,7 +82,7 @@ p {
 
 
 
-.after-loading-page{
+.after-loading-page {
     display: flex;
     height: 100vh;
     width: 100vw;
@@ -94,32 +108,32 @@ p {
     background-image: url("https://i.stack.imgur.com/MnyxU.gif");
     background-repeat: no-repeat;
     background-position: center;
-  }
+}
 
 // -------- End of LOADING PAGE ----------
 
 
 // -------- LAYOUT ---------
-.title-container{
+.title-container {
     position: fixed;
     transform: rotate(-90deg);
-  
+
     bottom: 15%;
 }
 
 
-.sidenav{
+.sidenav {
     @include flex-row;
     @include center-items;
     z-index: 10;
     left: -35vw;
     position: absolute;
-    
+
     height: 100vh;
     border-right: 1px solid $borderBlack;
     background-color: $white;
     transition: all 0.5s ease;
-    
+
 }
 
 
@@ -127,7 +141,7 @@ p {
 
 // ----------- LOGIN form styling
 
-.login-form{
+.login-form {
     @include flex-column;
     @include center-items;
     // border: 2px solid $black;
@@ -152,10 +166,11 @@ input::placeholder {
     // padding-left: 5%;
     font-size: 1rem;
 }
+
 input:focus {
     color: $black;
     border-bottom: 2px solid $black;
-    outline:none;
+    outline: none;
 }
 
 #inputUserDetails {
@@ -190,62 +205,66 @@ input:focus {
     transition: all 0.3s ease;
 }
 
-.user-details-container{
+.user-details-container {
     position: relative;
     @include flex-column;
     align-items: center;
     top: -10vh;
-    
-   
+
+
     height: 80%;
-    
+
 }
-#addProject{
+
+#addProject {
     position: absolute;
     top: 50vh;
     // left: 60%;
 
 }
-.top-container{
+
+.top-container {
     @include flex-row;
     align-items: center;
     justify-content: space-between;
-    
+
     width: 100%;
     height: 20vh;
     margin-bottom: 5%;
     margin-top: 10%;
 
 }
-.user-image{
-    
-   background-size: cover;
+
+.user-image {
+
+    background-size: cover;
     width: 30%;
     height: 80%;
     margin: 3%;
 
-   
+
 
 }
-.user-name{
+
+.user-name {
     display: flex;
     justify-content: baseline;
     align-items: last baseline;
-    
+
     width: 60%;
     height: 80%;
     margin: 5%;
-    
+
 
 
 }
 
 
- 
+
 .social-media {
     display: flex;
- }
- 
+}
+
 .social-media-sites {
     display: flex;
     margin: auto;
@@ -260,6 +279,7 @@ input:focus {
 // ----------- End of LOGIN form styling
 
 
+
 // 
 .input-Project-details {
     text-align: center;
@@ -270,12 +290,13 @@ input:focus {
     left: 0vw;
     transition: all 2s ease;
 }
-.sidenav.closed{
+
+.sidenav.closed {
     left: -35vw;
     // transition: all 2s ease;
 }
 
-.tab-button{
+.tab-button {
     @include center-items;
     text-transform: uppercase;
     font-family: 'Public Sans', sans-serif;
@@ -301,11 +322,12 @@ input:focus {
 .tab-center {
     text-align: center;
 }
-.tab.active{
+
+.tab.active {
     border-bottom: 2px solid $white;
 }
 
-.main-container{
+.main-container {
     @include flex-column;
     position: relative;
     height: 98vh;
@@ -316,7 +338,7 @@ input:focus {
 
 }
 
-.tabs-container{
+.tabs-container {
     @include flex-row;
     position: relative;
     height: 7%;
@@ -325,23 +347,24 @@ input:focus {
     top: 0;
 }
 
-.responsive-tabs-container{
+.responsive-tabs-container {
     @include flex-row;
     width: 100%;
     height: 7%;
-   
+
 }
-.tab{
-    
+
+.tab {
+
     @include center-items;
-    
+
     border-radius: 10px 10px 0 0;
     position: relative;
     width: 12.5%;
     border: 1px solid $black;
-    
+
     transition: all 0.5s ease;
-    
+
     height: 90%;
     top: 10%;
 
@@ -354,10 +377,11 @@ input:focus {
     text-transform: uppercase;
     font-family: 'Public Sans', sans-serif;
 }
-.responsive-tab{
+
+.responsive-tab {
     position: relative;
     @include center-items;
-    
+
     border-radius: 10px 10px 0 0;
     position: relative;
     border: 1px solid $black;
@@ -367,7 +391,7 @@ input:focus {
 
 
     transition: all 0.5s ease;
-    
+
     // height: 90%;
     top: 10%;
 
@@ -376,34 +400,37 @@ input:focus {
     text-transform: uppercase;
     font-family: 'Public Sans', sans-serif;
 }
-.responsive-tab.left{
-   border-bottom: 2px solid $white;
+
+.responsive-tab.left {
+    border-bottom: 2px solid $white;
     width: 60%;
 }
 
-.responsive-tab.right{
-   font-size: 26px;
+.responsive-tab.right {
+    font-size: 26px;
     width: 40%;
-    
-   
+
+
 }
-.dropdown-container{
-    
+
+.dropdown-container {
+
     position: absolute;
     @include flex-column;
     height: fit-content;
     top: 7%;
     right: 0;
-    width:  40%;
+    width: 40%;
     border-radius: 10px 10px 0 0;
 }
-.dropdown-tab{
+
+.dropdown-tab {
     z-index: 10;
     @include center-items;
     position: relative;
     width: 100%;
     height: 8vh;
-    
+
     border: 1px solid black;
     cursor: pointer;
 
@@ -412,20 +439,21 @@ input:focus {
     font-family: 'Public Sans', sans-serif;
     background-color: #F7F7F2;
 }
-.dropdown-tab:hover{
+
+.dropdown-tab:hover {
     background-color: #121113;
     color: #F7F7F2;
 }
 
 
-.tab:hover{
+.tab:hover {
     cursor: pointer;
 }
 
 
 
 
-.content-container{
+.content-container {
     @include flex-column;
     border-left: 1px solid $borderBlack;
     border-right: 1px solid $borderBlack;
@@ -436,114 +464,135 @@ input:focus {
 
 // ------- PROJECT VIEW CONTAINER/ TOP HALF OF SCREEN -----------
 
-.project-info-container{
-    @include flex-row;
+.project-info-container {
+
     position: relative;
     height: 60%;
 }
-//  LEFT SIDE STYLING
-.side1{
-    @include flex-column;
+
+.side1 {
     position: relative;
-    width: 50%;
-    // border: 2px solid black;
 }
 
-
-
-.project-title{
+.project-title {
     position: relative;
     text-transform: uppercase;
- 
-    top: 10%;
-    left: 20%;
-}
-
-.project-image{
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: absolute;
-    bottom: 5%;
-    left:5%;
-    width: 70%;
-    height: 75%;
-    align-items: end;
-    // border: 2px solid black;
-    
-
-}
-
-
-// RIGHT SIDE STYLING
-.side2{
-    @include flex-column;
-    position: relative;
-    width: 50%;
-    align-items: end;
-
-}
-
-.project-author{
     font-family: 'Public Sans', sans-serif;
     font-weight: 700;
-    font-size: 2rem;
-    // text-transform: uppercase:
-    position: relative;
-    top: 10%;
-    right: 5%;
+}
+
+.project-image {
+    display: flex;
+    flex-direction: row-reverse;
+    position: absolute;
+    align-items: center;
+
+    img {
+        width: 100%;
+    }
 
 }
-.project-description{
+
+.side2 {
     position: relative;
-    top: 15%;
-    right: 5%;
-    width: 80%;
+    align-items: end;
+}
+
+.project-author {
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 700;
+    position: relative;
+}
+
+.project-description {
+    position: relative;
     text-align: right;
-
 }
-.links-container{
+
+.links-container {
     position: absolute;
     display: flex;
     flex-direction: row-reverse;
     align-items: flex-end;
     justify-content: space-between;
     text-align: right;
-
-
-    bottom: 5%;
-    width: 80%;
-    right: 5%;
-    height: 15%;
-    font-size: 45px;
-
 }
 
-.link{
+
+.link {
     padding-right: 5%;
     padding-left: 5%;
     color: $black;
 }
+
+.responsive-project-container{
+    @include flex-column;
+    height: 100%;
+}
+
+.r-author-name{
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 700;
+    position: relative;
+    font-size: 2rem;
+        top: 7%;
+        right: 5%;
+        text-align: right;
+}
+
+.r-project-name{
+    font-family: 'Public Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    position: relative;
+    font-size: 1.2rem;
+        margin-top: 10%;
+        margin-bottom: 3%;
+        left: 5%;
+        padding-left: 5%;
+        text-align: left;
+        width: fit-content;
+}
+
+.r-project-image{
+    display: flex;
+    justify-content: center;
+   
+    width: 100%;
+    img{
+        width: 90%;
+    }
+}
+
+.r-project-description{
+    text-align: right;
+    margin: 5%;
+    padding-left: 5%;
+}
+
+
 
 
 
 
 // --------- PROJECT LIST CONTAINER/BOTTOM HALF OF THE SCREEN -----------
 
-.projects-container{
+.projects-container {
     @include flex-column;
     position: relative;
     border-top: 1px solid $borderBlack;
-   
+
     height: 40%;
     overflow: scroll;
 }
-.name-container{
+
+.name-container {
     @include flex-row;
     position: relative;
     width: 40%;
 }
 
-.project-listing{
+.project-listing {
     @include flex-row;
     position: relative;
     // text-transform: uppercase;
@@ -551,31 +600,33 @@ input:focus {
     // border-bottom: 2px solid black;
     width: 100%;
     height: 12%;
-   align-items: center;
-   justify-content: space-between;
-   cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
 }
-.project-listing.author{
+
+.project-listing.author {
     text-align: right;
 
 }
 
-.project-info{
+.project-info {
     margin: 2%;
 }
 
-.project-info.title:hover{
+.project-info.title:hover {
     text-decoration: underline;
-    
+
 }
+
 
 // .student-name {
 //     font-family: 'Playfair Display', serif;
-    
+
 //     font-weight: 900;
 // }
 
-.background-blur{
+.background-blur {
     position: absolute;
     top: 0;
     left: 0;
@@ -583,28 +634,28 @@ input:focus {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.52);
- 
+
     backdrop-filter: blur(6.6px);
     -webkit-backdrop-filter: blur(6.6px);
     /* From https://css.glass */
     background: rgba(0, 0, 0, 0.52);
- 
-    
+
+
     backdrop-filter: blur(6.6px);
     -webkit-backdrop-filter: blur(6.6px);
     transition: all 1s ease;
 
-    
+
 }
 
-.hidden{
+.hidden {
     visibility: hidden;
     transition: all 1s ease;
 }
 
-.hiddenMenu{
+.hiddenMenu {
     visibility: hidden;
-   
+
 }
 
 a {
@@ -632,109 +683,466 @@ a {
 
 
 }
+
 // STUDENT TAB COLOURS
-.all-border {border-bottom: 3px solid $all;}
-.marian-border {border-bottom: 2px solid $marian;}
-.max-border {border-bottom: 2px solid $max;}
-.christine-border {border-bottom: 2px solid $christine;}
-.david-border {border-bottom: 2px solid $david;}
-.sam-border {border-bottom: 2px solid $sam;}
-.india-border {border-bottom: 2px solid $india;}
-.patricia-border {border-bottom: 2px solid $patricia;}
+.all-border {
+    border-bottom: 3px solid $all;
+}
+
+.marian-border {
+    border-bottom: 2px solid $marian;
+}
+
+.max-border {
+    border-bottom: 2px solid $max;
+}
+
+.christine-border {
+    border-bottom: 2px solid $christine;
+}
+
+.david-border {
+    border-bottom: 2px solid $david;
+}
+
+.sam-border {
+    border-bottom: 2px solid $sam;
+}
+
+.india-border {
+    border-bottom: 2px solid $india;
+}
+
+.patricia-border {
+    border-bottom: 2px solid $patricia;
+}
 
 // STUDENT BACKGROUND COLOURS
-.all-background {background-color: $all; border-bottom: 2px solid $all;}
-.marian-background {background-color: $marian; color: $white; border-bottom: 2px solid $marian;}
-.max-background {background-color: $max; color: $white; border-bottom: 2px solid $max;}
-.christine-background {background-color: $christine; border-bottom: 2px solid $christine;}
-.david-background {background-color: $david; color: $white; border-bottom: 2px solid $david;}
-.sam-background {background-color: $sam; color: $white; border-bottom: 2px solid $sam;}
-.india-background {background-color: $india; color: $white; border-bottom: 2px solid $india;}
-.patricia-background {background-color: $patricia; color: $white; border-bottom: 2px solid $patricia;}
+.all-background {
+    background-color: $all;
+    border-bottom: 2px solid $all;
+}
+
+.marian-background {
+    background-color: $marian;
+    color: $white;
+    border-bottom: 2px solid $marian;
+}
+
+.max-background {
+    background-color: $max;
+    color: $white;
+    border-bottom: 2px solid $max;
+}
+
+.christine-background {
+    background-color: $christine;
+    border-bottom: 2px solid $christine;
+}
+
+.david-background {
+    background-color: $david;
+    color: $white;
+    border-bottom: 2px solid $david;
+}
+
+.sam-background {
+    background-color: $sam;
+    color: $white;
+    border-bottom: 2px solid $sam;
+}
+
+.india-background {
+    background-color: $india;
+    color: $white;
+    border-bottom: 2px solid $india;
+}
+
+.patricia-background {
+    background-color: $patricia;
+    color: $white;
+    border-bottom: 2px solid $patricia;
+}
 
 /* ------ RESPONSIVENESS ------  */
+
+
 /* PHONE */
 @media screen and (min-width: 320px) {
-    .responsive-tabs-container{
+    .responsive-tabs-container {
         display: flex;
     }
-    .tabs-container{
+
+    .tabs-container {
         display: none;
     }
-    .project-listing{
+
+    .project-listing {
         height: fit-content;
     }
-    .tab-button{
+
+    .tab-button {
         width: 45%;
         height: 5%;
         left: 73vw;
     }
-    .sidenav{
+
+    .sidenav {
         width: 90vw;
-      
+
     }
-    .sidenav.closed{
+
+    .sidenav.closed {
         left: -90vw;
         // transition: all 2s ease;
     }
-    input{
+
+    input {
         width: 70vw
     }
 
-    .title-container{
+    .title-container {
         left: -8.5vw;
     }
 
-    .site-title{
+    .site-title {
         font-size: 40px;
         font-weight: 900;
-      
+
     }
+
+
+
+    .project-info-container {
+        @include flex-row;
+        height: 90%;
+        overflow: scroll;
+
+    }
+
+    .side1 {
+        @include flex-column;
+        position: absolute;
+        height: 70%;
+        top: 32%;
+        // height: fit-content;
+        width: 100%;
+        
+        // border: 2px solid black;
+    }
+
+
+
+    .project-title {
+        margin-top: 5%;
+        margin-left: 5%;
+
+
+    }
+
+    .project-image {
+        position: relative;
+        display: flex;
+        flex-direction: column-reverse;
+       justify-content: flex-end;
+        margin-top: 5%;
+       
+        // height: 70%;
+        // width: 90%;
+       
+
+    }
+
+
+
+    // RIGHT SIDE STYLING
+    .side2 {
+        @include flex-column;
+        height: 30%;
+        
+        width: 100%;
+        top: 5%;
+        padding-right: 2%;
+        padding-left: 2%;
+       
+    }
+
+    .project-author {
+
+        font-size: 2rem;
+
+
+       
+    }
+
+    .project-description {
+        top: 2%;
+        
+        p{
+            font-size: 13px;
+        }
+
+    }
+
     
+
+    .links-container {
+        position: relative;
+        width: 90%;
+        // margin: 10%;
+        margin-bottom: 5%;
+        margin-right: 4%;
+        margin-left: 4%;
+        margin-top: 5%;
+     
+      font-size: 30px;
+    }
+    .buttons-container {
+        @include flex-row;
+        justify-content: space-between;
+        position: absolute;
+      
+       padding: 2%;
+        width: 20%;
+        top: 6%;
+        left: 5%;
+       
+        height: 15%;
+        font-size: 45px;
+
+    }
+    .round-button{
+        font-size: 1rem;
+        background-color: $black;
+        color: $white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+
 
 }
 
 /* TABLET */
 @media screen and (min-width: 768px) {
-    .responsive-tabs-container{
+    .responsive-tabs-container {
         display: none;
     }
-    .tabs-container{
+
+    .tabs-container {
         display: flex;
     }
-    .tab-button{
+
+    .tab-button {
         width: 39%;
         height: 4%;
         left: 29vw;
     }
-    .sidenav{
+
+    .sidenav {
         width: 35vw;
     }
-    .project-listing{
+
+    .project-listing {
         height: 12%;
     }
-    .sidenav.closed{
+
+   
+
+    .sidenav.closed {
         left: -35vw;
         // transition: all 2s ease;
     }
-    input{
+
+    input {
         width: 28vw;
     }
-    .title-container{
+
+    .title-container {
         left: -6vw;
     }
 
-    .tab{
+    .tab {
         font-size: .6rem;
     }
+
+
+
+
+
+    .project-info-container {
+        @include flex-row;
+        height: 60%;
+
+    }
+
+    .side1 {
+        @include flex-column;
+        position: relative;
+        top: 0%;
+        height: 100%;
+        width: 60%;
+        // border: 2px solid black;
+    }
+
+
+
+    .project-title {
+
+        margin: 0;
+
+        top: 10%;
+        left: 20%;
+        width: 80%;
+    }
+
+    .project-image {
+        position: absolute;
+       
+        // width: 70%;
+        height: 74%;
+        width: 70%;
+        bottom: 5%;
+        left: 5%;
+
+        img{
+            width: 100%;
+        }
+
+
+    }
+
+
+
+    // RIGHT SIDE STYLING
+    .side2 {
+        @include flex-column;
+        width: 40%;
+        height: 100%;
+        top: 0;
+        padding-right: 0;
+        padding-left: 0;
+
+    }
+
+    .project-author {
+
+        font-size: 2rem;
+        top: 10%;
+        right: 5%;
+
+    }
+
+    .project-description {
+
+        top: 15%;
+        right: 5%;
+        width: 80%;
+        
+
+    }
+
    
+
+    .links-container {
+        position: absolute;
+        bottom: 5%;
+        width: 80%;
+        right: 5%;
+        height: 15%;
+        font-size: 45px;
+
+    }
+    .buttons-container {
+        @include flex-row;
+        justify-content: space-between;
+        position: absolute;
+      
+       padding: 2%;
+        width: 9vw;
+        top: 7.5%;
+        left: 5%;
+       
+        height: 15%;
+        font-size: 45px;
+
+    }
+    .round-button{
+        font-size: 1rem;
+        background-color: $black;
+        color: $white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+    
+    // .edit-button {
+    //     height: 4vh;
+    //     margin-top: -10px;
+    //     background-color: $black;
+    //     color: $white;
+    //     border: none;
+    //     width: 40%;
+    //     padding: 2%;
+    //     font-size: 0.7rem;
+    //     font-family: 'Public Sans', sans-serif;
+    //     text-transform: uppercase;
+    //     transition: all 0.3s ease;
+    // }
+    
+    // .edit-button:hover {
+    //     margin-top: -10px;
+    //     background-color: $white;
+    //     color: $black;
+    //     border: 2px solid $black;
+    //     width: 40%;
+    //     padding: 2%;
+    //     font-size: 0.7rem;
+    //     font-family: 'Public Sans', sans-serif;
+    //     text-transform: uppercase;
+    //     font-weight: 700;
+    //     cursor: pointer;
+    //     transition: all 0.3s ease;
+    // }
+   
+    // .delete-button{
+    //     height: 4vh;
+    //     margin-top: -10px;
+    //     background-color: $black;
+    //     color: $white;
+    //     border: none;
+    //     width: 40%;
+    //     padding: 2%;
+    //     font-size: 0.7rem;
+    //     font-family: 'Public Sans', sans-serif;
+    //     text-transform: uppercase;
+    //     transition: all 0.3s ease;
+
+    // }
+
 
 }
 
 /* LAPTOP */
 @media screen and (min-width: 1024px) {
-    .tab{
+    .tab {
         font-size: .8rem;
+    }
+
+    .project-title {
+        font-size: 20px;
+    }
+
+    .project-image{
+        width: 55%;
+        height: 70%;
+        
+    }
+
+    .project-description{
+        p{
+            font-size: 15px;
+        }
     }
 
 }
