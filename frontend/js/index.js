@@ -141,7 +141,7 @@ $(document).ready(function () {
 
         });
 
-    }
+    };
 
 
     function singleProjectHover(id) {
@@ -175,12 +175,12 @@ $(document).ready(function () {
                 type: 'GET',
                 dataType: 'json',
 
-            })
-            console.log(user);
+            });
+            
             return user;
 
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
 
     }
@@ -455,26 +455,26 @@ $(document).ready(function () {
                 }
             }
 
-        }
+        };
 
 
 
 
-    }
+    };
 
     function editButtons() {
         let editbuttons = document.querySelectorAll('.edit-button');
         let buttons = Array.from(editbuttons);
         buttons.forEach(function (button) {
             button.addEventListener("click", function () {
-                console.log('edit button clicked');
+                
                 let portfolioID = button.dataset.id;
-                console.log(portfolioID);
+                
                 document.getElementById('sidenavTab').innerHTML = 'edit';
                 editProject(portfolioID)
             })
         })
-    }
+    };
 
     function deleteButtons() {
         let deletebuttons = document.querySelectorAll('.delete-button');
@@ -486,7 +486,7 @@ $(document).ready(function () {
                     url: `http://${url}/deletePortfolio/${portfolioID}`,
                     type: 'DELETE',
                     success: async function () {
-                        console.log('deleted');
+                        
                         alert('Product Deleted');
                         const user = await getSingleUser(sessionStorage.getItem('userID'))
 
@@ -504,10 +504,10 @@ $(document).ready(function () {
                 }); // ajax
             })
         })
-    }
+    };
 
     function editProject(portfolioID) {
-        console.log('reached edit project');
+        
         const sideNav = document.getElementById('sidenav');
         const backgroundBlur = document.getElementById('backgroundBlur');
 
@@ -534,10 +534,9 @@ $(document).ready(function () {
             const newProjDesc = projectDesc.value;
             const newProjURL = projectURL.value;
             const newProjSite = projectSite.value;
-            console.log(newProjName);
-            console.log(newProjDesc);
+           
 
-            console.log('you have editted a project with the name "' + newProjName + '", description "' + newProjDesc + '"');
+          
             // *** Start of ajax POST
             $.ajax({
                 url: `http://${url}/updatePortfolio/${portfolioID}`,
@@ -550,7 +549,7 @@ $(document).ready(function () {
                     siteUrl: newProjSite
                 },
                 success: async function (result) {
-                    console.log(result);
+                
                     const user = await getSingleUser(sessionStorage.getItem('userID'))
 
                     populateUserInfo(user);
@@ -568,7 +567,7 @@ $(document).ready(function () {
             })
 
         });
-    }
+    };
 
     function openProject() {
         let allListings = document.querySelectorAll('.project-listing');
@@ -578,7 +577,7 @@ $(document).ready(function () {
 
         listings.forEach(function (listing) {
             listing.addEventListener('click', function () {
-                console.log('clicked');
+               
                 let projectID = listing.dataset.id;
                 getSingleProject(projectID)
 
@@ -614,7 +613,7 @@ $(document).ready(function () {
     
                         </div>
                 `
-        console.log('got to project info');
+      
         let side2 = document.getElementById('side2');
 
         side2.innerHTML = `
@@ -800,7 +799,7 @@ $(document).ready(function () {
             side1.innerHTML = '';
         }
 
-    }
+    };
 
 
 
@@ -887,7 +886,7 @@ $(document).ready(function () {
         let tabs = Array.from(allTabs);
         tabs.forEach(function (tab) {
             tab.addEventListener('click', event => {
-                console.log(tab);
+               
                 let tabName = event.target.id;
 
                 changeTab(tabName);
@@ -895,7 +894,7 @@ $(document).ready(function () {
 
         });
 
-    }
+    };
 
     // Adds click events to DROPDOWN TABS that gets there id(tabname) and passes to change tab function
 
@@ -917,7 +916,7 @@ $(document).ready(function () {
 
     document.getElementById('sidenavTab').addEventListener('click', function () {
 
-        console.log('sidebar clicked');
+       
         const sideNav = document.getElementById('sidenav');
         const backgroundBlur = document.getElementById('backgroundBlur');
 
@@ -937,7 +936,7 @@ $(document).ready(function () {
     // ------------ VISUALS -----------------
 
     function populateUserInfo(user) {
-        console.log(user);
+     
 
         let firstName = user.firstName;
         let lastName = user.lastName;
@@ -955,7 +954,7 @@ $(document).ready(function () {
             userImage = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
         }
 
-        console.log(userImage);
+      
         let sideNav = document.getElementById('sidenavContent');
 
 
@@ -1014,7 +1013,7 @@ $(document).ready(function () {
 
         addNewProject(user, firstName);
 
-    }
+    };
 
 
 
@@ -1045,10 +1044,7 @@ $(document).ready(function () {
                 const newProjCreateDate = new Date;
                 const newProjCreator = sessionStorage.getItem('userID');
                 const newProjAuthor = `${sessionStorage.getItem('firstName')} ${sessionStorage.getItem('lastName')}`;;
-                console.log(newProjName);
-                console.log(newProjDesc);
-                console.log(newProjCreator);
-                console.log('you have added a new project with the name "' + newProjName + '", description "' + newProjDesc + '"');
+              
                 // *** Start of ajax POST
                 $.ajax({
                     url: `http://${url}/addPortfolio`,
@@ -1064,7 +1060,7 @@ $(document).ready(function () {
                         author: newProjAuthor
                     },
                     success: function (result) {
-                        console.log(result);
+                      
                         alert('Project added by ' + firstName);
                         populateUserInfo(currentUser);
                         return;
