@@ -538,11 +538,13 @@ input:focus {
     text-transform: uppercase;
     font-weight: 500;
     position: relative;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
         margin-top: 10%;
         margin-bottom: 3%;
         left: 5%;
+        padding-left: 5%;
         text-align: left;
+        width: fit-content;
 }
 
 .r-project-image{
@@ -557,7 +559,8 @@ input:focus {
 
 .r-project-description{
     text-align: right;
-    margin: 5%
+    margin: 5%;
+    padding-left: 5%;
 }
 
 
@@ -607,6 +610,15 @@ input:focus {
 .project-info.title:hover {
     text-decoration: underline;
 
+}
+
+.round-button{
+    font-size: 1rem;
+    background-color: $black;
+    color: $white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
 }
 
 // .student-name {
@@ -877,8 +889,12 @@ a {
 
     .links-container {
         position: relative;
-        width: 60%;
-        margin-top: 4%;
+        width: 90%;
+        // margin: 10%;
+        margin-bottom: 5%;
+        margin-right: 4%;
+        margin-left: 4%;
+        margin-top: 5%;
      
       font-size: 30px;
     }
@@ -969,7 +985,7 @@ a {
         left: 5%;
 
         img{
-            height: 100%;
+            width: 100%;
         }
 
 
@@ -1016,6 +1032,63 @@ a {
         font-size: 45px;
 
     }
+    .buttons-container {
+        @include flex-row;
+        justify-content: space-between;
+        position: absolute;
+      
+       padding: 2%;
+        width: 9vw;
+        top: 7.5%;
+        left: 5%;
+       
+        height: 15%;
+        font-size: 45px;
+
+    }
+    // .edit-button {
+    //     height: 4vh;
+    //     margin-top: -10px;
+    //     background-color: $black;
+    //     color: $white;
+    //     border: none;
+    //     width: 40%;
+    //     padding: 2%;
+    //     font-size: 0.7rem;
+    //     font-family: 'Public Sans', sans-serif;
+    //     text-transform: uppercase;
+    //     transition: all 0.3s ease;
+    // }
+    
+    // .edit-button:hover {
+    //     margin-top: -10px;
+    //     background-color: $white;
+    //     color: $black;
+    //     border: 2px solid $black;
+    //     width: 40%;
+    //     padding: 2%;
+    //     font-size: 0.7rem;
+    //     font-family: 'Public Sans', sans-serif;
+    //     text-transform: uppercase;
+    //     font-weight: 700;
+    //     cursor: pointer;
+    //     transition: all 0.3s ease;
+    // }
+   
+    // .delete-button{
+    //     height: 4vh;
+    //     margin-top: -10px;
+    //     background-color: $black;
+    //     color: $white;
+    //     border: none;
+    //     width: 40%;
+    //     padding: 2%;
+    //     font-size: 0.7rem;
+    //     font-family: 'Public Sans', sans-serif;
+    //     text-transform: uppercase;
+    //     transition: all 0.3s ease;
+
+    // }
 
 
 }
