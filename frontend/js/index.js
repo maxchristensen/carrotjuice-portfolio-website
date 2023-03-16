@@ -240,6 +240,8 @@ $(document).ready(function () {
             <a href="${selectedUser.externalSite}"><i class="fa-solid fa-globe"></i></a>
             `
             }
+            editButtons(); //creates click events on edit buttons to open edit function
+                deleteButtons();
 
 
 
@@ -489,6 +491,7 @@ $(document).ready(function () {
         let buttons = Array.from(deletebuttons);
         buttons.forEach(function (button) {
             button.addEventListener("click", function () {
+                console.log('delete button clicked');
                 let portfolioID = button.dataset.id;
                 $.ajax({
                     url: `http://${url}/deletePortfolio/${portfolioID}`,
@@ -1190,11 +1193,11 @@ $(document).ready(function () {
 
         if(type === 'error'){
             popup.style.backgroundColor = '#ff8181'
-            popupContainer.classList.remove('hiddenMenu');
+            popupContainer.classList.remove('closedPopup');
         popupMessage.innerHTML = `${message}`
         } else{
             popup.style.backgroundColor = '#F7F7F2'
-            popupContainer.classList.remove('hiddenMenu');
+            popupContainer.classList.remove('closedPopup');
         popupMessage.innerHTML = `${message}`
         }
         
@@ -1251,7 +1254,7 @@ $(document).ready(function () {
     })
 
     document.getElementById('popupClose').addEventListener('click', function() {
-        document.getElementById('popupContainer').classList.add('hiddenMenu');
+        document.getElementById('popupContainer').classList.add('closedPopup');
     })
 
 
