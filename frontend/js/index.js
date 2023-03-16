@@ -191,10 +191,15 @@ $(document).ready(function () {
             projectInfoContainer.innerHTML = `
             <div class="responsive-project-container">
             <div class="r-author-name">${portfolio.author}</div>
+            <div class="buttons-container" id="buttonsContainer">
+            
+                <button id="editProject" data-id=${portfolio._id} class="login-message round-button edit-button"><i class="fa-solid fa-pen"></i></button>
+            <button id="deleteProject" data-id=${portfolio._id} class="login-message round-button delete-button"><i class="fa-solid fa-trash"></i></button>
+                </div>
             <div class="r-project-name">${portfolio.title}</div>
             <div class="r-project-image"><img src="${portfolio.imageURL}"></div>
             <div class="r-project-description"><p>${portfolio.description}</p></div>
-            <div class="links-container" id='rlinksContainer> </div>
+            <div class="links-container" id='rlinksContainer'> </div>
                 
             </div>
             `
@@ -478,9 +483,18 @@ $(document).ready(function () {
                 $.ajax({
                     url: `http://${url}/deletePortfolio/${portfolioID}`,
                     type: 'DELETE',
-                    success: function () {
+                    success: async function () {
                         console.log('deleted');
                         alert('Product Deleted');
+                        const user = await getSingleUser(sessionStorage.getItem('userID'))
+                    
+                        populateUserInfo(user);
+                        if(activeTab === 'tabAll'){
+                            getAllProjects()
+                        } else {
+                            populateUserBio(sessionStorage.getItem('userID'));
+                            getSingleStudentProjects(sessionStorage.getItem('userID'))
+                        }
                     },
                     error: function () {
                         console.log('error: cannot delete due to call on api');

@@ -612,14 +612,6 @@ input:focus {
 
 }
 
-.round-button{
-    font-size: 1rem;
-    background-color: $black;
-    color: $white;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-}
 
 // .student-name {
 //     font-family: 'Playfair Display', serif;
@@ -898,6 +890,28 @@ a {
      
       font-size: 30px;
     }
+    .buttons-container {
+        @include flex-row;
+        justify-content: space-between;
+        position: absolute;
+      
+       padding: 2%;
+        width: 20%;
+        top: 6%;
+        left: 5%;
+       
+        height: 15%;
+        font-size: 45px;
+
+    }
+    .round-button{
+        font-size: 1rem;
+        background-color: $black;
+        color: $white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
 
 
 }
@@ -980,7 +994,7 @@ a {
        
         // width: 70%;
         height: 74%;
-        
+        width: 70%;
         bottom: 5%;
         left: 5%;
 
@@ -1046,6 +1060,15 @@ a {
         font-size: 45px;
 
     }
+    .round-button{
+        font-size: 1rem;
+        background-color: $black;
+        color: $white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+    
     // .edit-button {
     //     height: 4vh;
     //     margin-top: -10px;
@@ -1104,7 +1127,7 @@ a {
     }
 
     .project-image{
-        width: 70%;
+        width: 55%;
         height: 70%;
         
     }
