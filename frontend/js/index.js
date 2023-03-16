@@ -56,7 +56,7 @@ $(document).ready(function () {
 
 
 
-    function getAllProjects() {  
+    function getAllProjects() {
 
         $.ajax({
             url: `http://${url}/allPortfolios`,
@@ -96,7 +96,7 @@ $(document).ready(function () {
                          </div>
                 `;
 
-                // runs function that gives each listing a click event to open the project
+                    // runs function that gives each listing a click event to open the project
                     openProject();
 
                 }
@@ -115,7 +115,7 @@ $(document).ready(function () {
 
         $.ajax({
 
-            url: `http://${url}/singlePortfolio/${id}`,  //gets single portfolio based on id passed from click event 
+            url: `http://${url}/singlePortfolio/${id}`, //gets single portfolio based on id passed from click event 
             type: 'GET',
             dataType: 'json',
             success: async function (portfolio) {
@@ -185,7 +185,7 @@ $(document).ready(function () {
 
     }
 
-  
+
 
     function responsivePopulate(portfolio, selectedUser, loggedUser) {
 
@@ -297,15 +297,15 @@ $(document).ready(function () {
 
     // populates content of single selected portfolio using the information of the selected user and the selected portfolio
     function populatingContent(portfolio, selectedUser) {
-        let width = $(window).width();  //gets screen width for responsiveness
+        let width = $(window).width(); //gets screen width for responsiveness
         let projectInfoContainer = document.getElementById('projectInfoContainer')
         let loggedUser = sessionStorage.getItem('userID'); //current logged in user from session storage (if someone is logged in)
 
         // checks if screen width is below phone size
         if (width <= 425) {
-            responsivePopulate(portfolio, selectedUser, loggedUser)  //populate code for mobile
+            responsivePopulate(portfolio, selectedUser, loggedUser) //populate code for mobile
 
-        } else {  // if screen width is above phone size
+        } else { // if screen width is above phone size
 
             if (loggedUser === portfolio.user_id) { //checks if the logged in user matched the current portfolio being viewed to add edit and delete buttons
 
@@ -353,7 +353,7 @@ $(document).ready(function () {
        `
                 let projectImage = document.getElementById('projectImage');
                 let linksContainer = document.getElementById('linksContainer');
-                
+
                 // checks if the selected user(user who the portfolio belongs to) has link and populates icon with link if they do
 
                 if (selectedUser.twitter !== '') {
@@ -402,7 +402,7 @@ $(document).ready(function () {
                 `
 
                 let side1 = document.getElementById('side1');
-        let side2 = document.getElementById('side2');
+                let side2 = document.getElementById('side2');
 
                 side1.innerHTML = `
         <div class="project-title"><h4>${portfolio.title}</h4></div>
@@ -423,7 +423,7 @@ $(document).ready(function () {
        `
                 let projectImage = document.getElementById('projectImage');
                 let linksContainer = document.getElementById('linksContainer');
-                
+
 
                 if (selectedUser.twitter !== '') {
                     linksContainer.innerHTML += `
@@ -489,9 +489,9 @@ $(document).ready(function () {
                         console.log('deleted');
                         alert('Product Deleted');
                         const user = await getSingleUser(sessionStorage.getItem('userID'))
-                    
+
                         populateUserInfo(user);
-                        if(activeTab === 'tabAll'){
+                        if (activeTab === 'tabAll') {
                             getAllProjects()
                         } else {
                             populateUserBio(sessionStorage.getItem('userID'));
@@ -504,7 +504,9 @@ $(document).ready(function () {
                 }); // ajax
             })
         })
-function editProject(portfolioID) {
+    }
+
+    function editProject(portfolioID) {
         console.log('reached edit project');
         const sideNav = document.getElementById('sidenav');
         const backgroundBlur = document.getElementById('backgroundBlur');
@@ -534,7 +536,7 @@ function editProject(portfolioID) {
             const newProjSite = projectSite.value;
             console.log(newProjName);
             console.log(newProjDesc);
-            
+
             console.log('you have editted a project with the name "' + newProjName + '", description "' + newProjDesc + '"');
             // *** Start of ajax POST
             $.ajax({
@@ -550,9 +552,9 @@ function editProject(portfolioID) {
                 success: async function (result) {
                     console.log(result);
                     const user = await getSingleUser(sessionStorage.getItem('userID'))
-                    
+
                     populateUserInfo(user);
-                    if(activeTab === 'tabAll'){
+                    if (activeTab === 'tabAll') {
                         getAllProjects()
                     } else {
                         populateUserBio(sessionStorage.getItem('userID'));
@@ -592,10 +594,10 @@ function editProject(portfolioID) {
             //    `
             // })
         })
-    }
-    
-    
-async function populateUserBio(userID) {
+    };
+
+
+    async function populateUserBio(userID) {
 
         const user = await getSingleUser(userID)
 
@@ -660,7 +662,7 @@ async function populateUserBio(userID) {
 
 
 
-    }
+    };
 
 
 
@@ -720,7 +722,7 @@ async function populateUserBio(userID) {
                 alert('unable to get single students portfolio');
             }
         });
-    }
+    };
 
 
 
@@ -872,7 +874,7 @@ async function populateUserBio(userID) {
         dropdownTab.style.color = '$black';
 
 
-    }
+    };
 
 
 
@@ -909,7 +911,7 @@ async function populateUserBio(userID) {
 
         });
 
-    }
+    };
 
     // OPEN SIDE NAV CODE
 
